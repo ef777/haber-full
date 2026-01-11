@@ -3,6 +3,19 @@ import { prisma } from '@/lib/prisma';
 
 export const dynamic = 'force-dynamic';
 
+const escapeXml = (unsafe: string) => {
+  return unsafe.replace(/[<>&'"]/g, (c) => {
+    switch (c) {
+      case '<': return '&lt;';
+      case '>': return '&gt;';
+      case '&': return '&amp;';
+      case '\'': return '&apos;';
+      case '"': return '&quot;';
+      default: return c;
+    }
+  });
+};
+
 export async function GET() {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
   
@@ -28,7 +41,7 @@ export async function GET() {
         xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 ${haberler.map(haber => `  <url>
-    <loc>${siteUrl}/haber/${haber.slug}</loc>
+    <loc>${siteUrl}/haber/${escapeXml(haber.slug)}</loc>
     <news:news>
       <news:publication>
         <news:name>Haber Sitesi</news:name>
@@ -36,10 +49,10 @@ ${haberler.map(haber => `  <url>
       </news:publication>
       <news:publication_date>${haber.yayinTarihi.toISOString()}</news:publication_date>
       <news:title><![CDATA[${haber.baslik}]]></news:title>
-      ${haber.kategori ? `<news:keywords>${haber.kategori.ad}${haber.etiketler.length > 0 ? ', ' + haber.etiketler.map(e => e.etiket.ad).join(', ') : ''}</news:keywords>` : ''}
+      ${haber.kategori ? `<news:keywords>${escapeXml(haber.kategori.ad)}${haber.etiketler.length > 0 ? ', ' + haber.etiketler.map(e => escapeXml(e.etiket.ad)).join(', ') : ''}</news:keywords>` : ''}
     </news:news>
     ${haber.resim ? `<image:image>
-      <image:loc>${haber.resim}</image:loc>
+      <image:loc>${escapeXml(haber.resim)}</image:loc>
       <image:title><![CDATA[${haber.resimAlt || haber.baslik}]]></image:title>
     </image:image>` : ''}
   </url>`).join('\n')}

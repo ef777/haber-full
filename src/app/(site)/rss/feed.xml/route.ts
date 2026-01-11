@@ -3,6 +3,19 @@ import { prisma } from '@/lib/prisma';
 
 export const dynamic = 'force-dynamic';
 
+const escapeXml = (unsafe: string) => {
+  return unsafe.replace(/[<>&'"]/g, (c) => {
+    switch (c) {
+      case '<': return '&lt;';
+      case '>': return '&gt;';
+      case '&': return '&amp;';
+      case '\'': return '&apos;';
+      case '"': return '&quot;';
+      default: return c;
+    }
+  });
+};
+
 export async function GET() {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
   const siteName = 'Haber Sitesi';
@@ -39,16 +52,16 @@ export async function GET() {
     </image>
 ${haberler.map(haber => `    <item>
       <title><![CDATA[${haber.baslik}]]></title>
-      <link>${siteUrl}/haber/${haber.slug}</link>
-      <guid isPermaLink="true">${siteUrl}/haber/${haber.slug}</guid>
+      <link>${siteUrl}/haber/${escapeXml(haber.slug)}</link>
+      <guid isPermaLink="true">${siteUrl}/haber/${escapeXml(haber.slug)}</guid>
       <pubDate>${haber.yayinTarihi.toUTCString()}</pubDate>
       <description><![CDATA[${haber.spot || haber.baslik}]]></description>
-      ${haber.kategori ? `<category>${haber.kategori.ad}</category>` : ''}
-      ${haber.yazar ? `<dc:creator>${haber.yazar.ad}</dc:creator>` : ''}
-      ${haber.resim ? `<media:content url="${haber.resim}" medium="image">
-        <media:title>${haber.resimAlt || haber.baslik}</media:title>
+      ${haber.kategori ? `<category>${escapeXml(haber.kategori.ad)}</category>` : ''}
+      ${haber.yazar ? `<dc:creator>${escapeXml(haber.yazar.ad)}</dc:creator>` : ''}
+      ${haber.resim ? `<media:content url="${escapeXml(haber.resim)}" medium="image">
+        <media:title><![CDATA[${haber.resimAlt || haber.baslik}]]></media:title>
       </media:content>
-      <enclosure url="${haber.resim}" type="image/jpeg"/>` : ''}
+      <enclosure url="${escapeXml(haber.resim)}" type="image/jpeg"/>` : ''}
     </item>`).join('\n')}
   </channel>
 </rss>`;
