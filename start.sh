@@ -6,7 +6,7 @@ npx prisma db push --accept-data-loss
 
 echo " Checking if seed is needed..."
 # Check if Admin table is empty
-ADMIN_COUNT=$(npx prisma db execute --stdin <<< "SELECT COUNT(*) FROM \"Admin\"" 2>/dev/null | grep -o '[0-9]*' | head -1 || echo "0")
+ADMIN_COUNT=$(echo 'SELECT COUNT(*) FROM "Admin"' | npx prisma db execute --stdin 2>/dev/null | grep -o '[0-9]*' | head -1 || echo "0")
 
 if [ "$ADMIN_COUNT" = "0" ] || [ -z "$ADMIN_COUNT" ]; then
   echo " Seeding database..."
