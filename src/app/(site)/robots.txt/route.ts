@@ -8,12 +8,6 @@ Allow: /
 Disallow: /admin/
 Disallow: /api/admin/
 
-User-agent: Googlebot
-Allow: /
-
-User-agent: Googlebot-News
-Allow: /
-
 Sitemap: ${siteUrl}/sitemap.xml
 Sitemap: ${siteUrl}/news-sitemap.xml`;
 

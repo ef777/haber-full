@@ -559,6 +559,30 @@ export default async function HomePage() {
             </div>
           </aside>
         </div>
+
+        {/* Hakkımızda / Site Tanıtım Metni (SEO Content) */}
+        <section className="mt-16 border-t border-[#262626] pt-10 pb-6 text-gray-400">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-2xl font-bold text-white mb-6">Haber Portali Hakkında</h2>
+            <div className="space-y-4 text-base leading-relaxed">
+              <p>
+                Haber Portali, Türkiye ve dünya gündemini en hızlı, doğru ve tarafsız şekilde okuyucularına ulaştırmayı hedefleyen yeni nesil dijital haber platformudur.
+                Geleneksel gazetecilik değerlerini modern teknolojinin imkanlarıyla birleştirerek, okurlarımıza temiz ve kullanıcı dostu bir haber deneyimi sunuyoruz.
+              </p>
+              <p>
+                Ekonomi, Spor, Teknoloji, Sağlık, Kültür Sanat ve Yaşam kategorilerinde uzman editör kadromuzla 7/24 kesintisiz haber akışı sağlıyoruz.
+                Piyasaların anlık durumundan spor müsabakalarının sonuçlarına, teknolojik inovasyonlardan kültür sanat etkinliklerine kadar hayatın her alanına dokunan içeriklerimizle yanınızdayız.
+              </p>
+              <p>
+                Amacımız, dijital dünyadaki bilgi kirliliğinin önüne geçerek okurlarımıza saf, teyit edilmiş ve doğrulanmış haberi sunmaktır.
+                Sitemizde yer alan tüm içerikler, basın meslek ilkelerine, evrensel gazetecilik değerlerine ve kişisel haklara saygılı bir yayın politikası çerçevesinde hazırlanmaktadır.
+              </p>
+              <p className="font-medium text-gray-300">
+                Bizi takip ederek gündemin nabzını tutabilir, son dakika gelişmelerinden anında haberdar olabilirsiniz.
+              </p>
+            </div>
+          </div>
+        </section>
       </main>
     </>
   );
