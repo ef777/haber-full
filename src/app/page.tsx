@@ -26,7 +26,7 @@ type Haber = {
   yayinTarihi: Date;
   goruntulenme: number;
   kategori: Kategori | null;
-  yazar: Yazar | null;
+  yazar?: Yazar | null;
 };
 
 type KategoriWithHaberler = Kategori & {
