@@ -68,23 +68,23 @@ export default function AdminDashboardPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+      <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-red-600"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-[#0a0a0a] text-gray-300">
       {/* Header */}
-      <header className="bg-white shadow">
+      <header className="bg-[#161616] border-b border-[#262626]">
         <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-          <h1 className="text-xl font-bold text-gray-900">Admin Panel</h1>
+          <h1 className="text-xl font-bold text-white">Admin Panel</h1>
           <div className="flex items-center gap-4">
-            <span className="text-gray-600">Merhaba, {user?.name}</span>
+            <span className="text-gray-400">Merhaba, {user?.name}</span>
             <button
               onClick={handleLogout}
-              className="text-red-600 hover:text-red-800"
+              className="text-red-500 hover:text-red-400 transition-colors"
             >
               Çıkış Yap
             </button>
@@ -95,17 +95,17 @@ export default function AdminDashboardPage() {
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <div className="bg-white rounded-lg shadow p-6">
-            <div className="text-4xl font-bold text-red-600">{stats.haberler}</div>
-            <div className="text-gray-600">Toplam Haber</div>
+          <div className="bg-[#161616] border border-[#262626] rounded-lg p-6">
+            <div className="text-4xl font-bold text-red-500">{stats.haberler}</div>
+            <div className="text-gray-400">Toplam Haber</div>
           </div>
-          <div className="bg-white rounded-lg shadow p-6">
-            <div className="text-4xl font-bold text-blue-600">{stats.kategoriler}</div>
-            <div className="text-gray-600">Kategori</div>
+          <div className="bg-[#161616] border border-[#262626] rounded-lg p-6">
+            <div className="text-4xl font-bold text-blue-500">{stats.kategoriler}</div>
+            <div className="text-gray-400">Kategori</div>
           </div>
-          <div className="bg-white rounded-lg shadow p-6">
-            <div className="text-4xl font-bold text-green-600">{stats.yazarlar}</div>
-            <div className="text-gray-600">Yazar</div>
+          <div className="bg-[#161616] border border-[#262626] rounded-lg p-6">
+            <div className="text-4xl font-bold text-green-500">{stats.yazarlar}</div>
+            <div className="text-gray-400">Yazar</div>
           </div>
         </div>
 
@@ -113,48 +113,48 @@ export default function AdminDashboardPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <Link
             href="/admin/haberler"
-            className="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow"
+            className="bg-[#161616] border border-[#262626] rounded-lg p-6 hover:bg-[#1c1c1c] hover:border-red-600/50 transition-all group"
           >
-            <div className="text-xl font-bold mb-2">📰 Haberler</div>
-            <p className="text-gray-600">Haberleri yönet, yeni haber ekle</p>
+            <div className="text-xl font-bold mb-2 text-white group-hover:text-red-500 transition-colors">📰 Haberler</div>
+            <p className="text-gray-400">Haberleri yönet, yeni haber ekle</p>
           </Link>
           <Link
             href="/admin/haberler/yeni"
-            className="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow"
+            className="bg-[#161616] border border-[#262626] rounded-lg p-6 hover:bg-[#1c1c1c] hover:border-red-600/50 transition-all group"
           >
-            <div className="text-xl font-bold mb-2">✏️ Yeni Haber</div>
-            <p className="text-gray-600">Yeni haber oluştur</p>
+            <div className="text-xl font-bold mb-2 text-white group-hover:text-red-500 transition-colors">✏️ Yeni Haber</div>
+            <p className="text-gray-400">Yeni haber oluştur</p>
           </Link>
           <Link
             href="/admin/kategoriler"
-            className="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow"
+            className="bg-[#161616] border border-[#262626] rounded-lg p-6 hover:bg-[#1c1c1c] hover:border-red-600/50 transition-all group"
           >
-            <div className="text-xl font-bold mb-2">📁 Kategoriler</div>
-            <p className="text-gray-600">Kategorileri yönet</p>
+            <div className="text-xl font-bold mb-2 text-white group-hover:text-red-500 transition-colors">📁 Kategoriler</div>
+            <p className="text-gray-400">Kategorileri yönet</p>
           </Link>
           <Link
             href="/admin/yazarlar"
-            className="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow"
+            className="bg-[#161616] border border-[#262626] rounded-lg p-6 hover:bg-[#1c1c1c] hover:border-red-600/50 transition-all group"
           >
-            <div className="text-xl font-bold mb-2">👤 Yazarlar</div>
-            <p className="text-gray-600">Yazarları yönet</p>
+            <div className="text-xl font-bold mb-2 text-white group-hover:text-red-500 transition-colors">👤 Yazarlar</div>
+            <p className="text-gray-400">Yazarları yönet</p>
           </Link>
         </div>
 
         {/* Site Links */}
-        <div className="mt-8 bg-white rounded-lg shadow p-6">
-          <h2 className="text-lg font-bold mb-4">Site Bağlantıları</h2>
+        <div className="mt-8 bg-[#161616] border border-[#262626] rounded-lg p-6">
+          <h2 className="text-lg font-bold mb-4 text-white">Site Bağlantıları</h2>
           <div className="flex flex-wrap gap-4">
-            <Link href="/" target="_blank" className="text-blue-600 hover:underline">
+            <Link href="/" target="_blank" className="text-blue-500 hover:text-blue-400 hover:underline">
               🏠 Ana Sayfa
             </Link>
-            <Link href="/sitemap.xml" target="_blank" className="text-blue-600 hover:underline">
+            <Link href="/sitemap.xml" target="_blank" className="text-blue-500 hover:text-blue-400 hover:underline">
               🗺️ Sitemap
             </Link>
-            <Link href="/news-sitemap.xml" target="_blank" className="text-blue-600 hover:underline">
+            <Link href="/news-sitemap.xml" target="_blank" className="text-blue-500 hover:text-blue-400 hover:underline">
               📰 News Sitemap
             </Link>
-            <Link href="/rss/feed.xml" target="_blank" className="text-blue-600 hover:underline">
+            <Link href="/rss/feed.xml" target="_blank" className="text-blue-500 hover:text-blue-400 hover:underline">
               📡 RSS Feed
             </Link>
           </div>

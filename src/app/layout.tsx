@@ -1,9 +1,6 @@
 import './globals.css';
 import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
-import { prisma } from '@/lib/prisma';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -100,22 +97,11 @@ export const metadata: Metadata = {
   category: 'news',
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  let kategoriler: { id: number; ad: string; slug: string; aktif: boolean; sira: number; resim: string | null; aciklama: string | null; createdAt: Date; updatedAt: Date; }[] = [];
-
-  try {
-    kategoriler = await prisma.kategori.findMany({
-      where: { aktif: true },
-      orderBy: { sira: 'asc' },
-    });
-  } catch {
-    console.log('Kategoriler yuklenemedi, bos array kullaniliyor');
-  }
-
   return (
     <html lang="tr">
       <head>
@@ -125,12 +111,8 @@ export default async function RootLayout({
         <meta name="google-news-keywords" content="haber, son dakika, gundem, turkiye, dunya, ekonomi, spor" />
         <meta name="news_keywords" content="haber, son dakika, gundem, turkiye, dunya, ekonomi, spor" />
       </head>
-      <body className={`${inter.className} min-h-screen flex flex-col`}>
-        <Header kategoriler={kategoriler} />
-        <main className="flex-1">
-          {children}
-        </main>
-        <Footer kategoriler={kategoriler} />
+      <body className={`${inter.className} min-h-screen bg-[#0a0a0a] text-white`}>
+        {children}
       </body>
     </html>
   );

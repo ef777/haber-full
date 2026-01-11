@@ -133,25 +133,25 @@ export default function YeniHaberPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <header className="bg-white shadow">
+    <div className="min-h-screen bg-[#0a0a0a] text-gray-300">
+      <header className="bg-[#161616] border-b border-[#262626]">
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center gap-4">
-          <Link href="/admin/haberler" className="text-gray-600 hover:text-gray-900">
+          <Link href="/admin/haberler" className="text-gray-400 hover:text-white transition-colors">
             ← Geri
           </Link>
-          <h1 className="text-xl font-bold text-gray-900">Yeni Haber</h1>
+          <h1 className="text-xl font-bold text-white">Yeni Haber</h1>
         </div>
       </header>
 
       <form onSubmit={handleSubmit} className="max-w-4xl mx-auto px-4 py-8">
         {error && (
-          <div className="bg-red-50 text-red-600 p-4 rounded-lg mb-6">{error}</div>
+          <div className="bg-red-900/30 border border-red-900 text-red-400 p-4 rounded-lg mb-6">{error}</div>
         )}
 
-        <div className="bg-white rounded-lg shadow p-6 space-y-6">
+        <div className="bg-[#161616] border border-[#262626] rounded-lg p-6 space-y-6">
           {/* Başlık */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-400 mb-1">
               Başlık *
             </label>
             <input
@@ -159,28 +159,28 @@ export default function YeniHaberPage() {
               required
               value={formData.baslik}
               onChange={(e) => setFormData({ ...formData, baslik: e.target.value })}
-              className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500"
+              className="w-full bg-[#1a1a1a] border border-[#333] rounded-lg px-3 py-2 text-white outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600 transition-colors"
               placeholder="Haber başlığı"
             />
           </div>
 
           {/* Spot */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-400 mb-1">
               Spot (Özet)
             </label>
             <textarea
               rows={2}
               value={formData.spot}
               onChange={(e) => setFormData({ ...formData, spot: e.target.value })}
-              className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500"
+              className="w-full bg-[#1a1a1a] border border-[#333] rounded-lg px-3 py-2 text-white outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600 transition-colors"
               placeholder="Kısa özet"
             />
           </div>
 
           {/* İçerik */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-400 mb-1">
               İçerik *
             </label>
             <textarea
@@ -188,7 +188,7 @@ export default function YeniHaberPage() {
               required
               value={formData.icerik}
               onChange={(e) => setFormData({ ...formData, icerik: e.target.value })}
-              className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500 font-mono text-sm"
+              className="w-full bg-[#1a1a1a] border border-[#333] rounded-lg px-3 py-2 text-white font-mono text-sm outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600 transition-colors"
               placeholder="Haber içeriği (HTML destekler)"
             />
           </div>
@@ -196,26 +196,26 @@ export default function YeniHaberPage() {
           {/* Resim */}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-400 mb-1">
                 Resim URL
               </label>
               <input
                 type="url"
                 value={formData.resimUrl}
                 onChange={(e) => setFormData({ ...formData, resimUrl: e.target.value })}
-                className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                className="w-full bg-[#1a1a1a] border border-[#333] rounded-lg px-3 py-2 text-white outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600 transition-colors"
                 placeholder="https://..."
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-400 mb-1">
                 Resim Alt Text
               </label>
               <input
                 type="text"
                 value={formData.resimAlt}
                 onChange={(e) => setFormData({ ...formData, resimAlt: e.target.value })}
-                className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                className="w-full bg-[#1a1a1a] border border-[#333] rounded-lg px-3 py-2 text-white outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600 transition-colors"
                 placeholder="Resim açıklaması"
               />
             </div>
@@ -224,13 +224,13 @@ export default function YeniHaberPage() {
           {/* Kategori ve Yazar */}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-400 mb-1">
                 Kategori
               </label>
               <select
                 value={formData.kategoriId}
                 onChange={(e) => setFormData({ ...formData, kategoriId: e.target.value })}
-                className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                className="w-full bg-[#1a1a1a] border border-[#333] rounded-lg px-3 py-2 text-white outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600 transition-colors"
               >
                 <option value="">Seçiniz</option>
                 {kategoriler.map((k) => (
@@ -239,13 +239,13 @@ export default function YeniHaberPage() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-400 mb-1">
                 Yazar
               </label>
               <select
                 value={formData.yazarId}
                 onChange={(e) => setFormData({ ...formData, yazarId: e.target.value })}
-                className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                className="w-full bg-[#1a1a1a] border border-[#333] rounded-lg px-3 py-2 text-white outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600 transition-colors"
               >
                 <option value="">Seçiniz</option>
                 {yazarlar.map((y) => (
@@ -257,7 +257,7 @@ export default function YeniHaberPage() {
 
           {/* Etiketler */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-400 mb-1">
               Etiketler
             </label>
             <div className="flex flex-wrap gap-2 mb-2">
@@ -266,10 +266,10 @@ export default function YeniHaberPage() {
                   key={e.id}
                   type="button"
                   onClick={() => toggleEtiket(e.id)}
-                  className={`px-3 py-1 rounded-full text-sm ${
+                  className={`px-3 py-1 rounded-full text-sm transition-colors ${
                     formData.etiketler.includes(e.id)
                       ? 'bg-red-600 text-white'
-                      : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                      : 'bg-[#262626] text-gray-400 hover:bg-[#333]'
                   }`}
                 >
                   {e.isim}
@@ -281,13 +281,13 @@ export default function YeniHaberPage() {
                 type="text"
                 value={yeniEtiket}
                 onChange={(e) => setYeniEtiket(e.target.value)}
-                className="flex-1 border rounded-lg px-3 py-2"
+                className="flex-1 bg-[#1a1a1a] border border-[#333] rounded-lg px-3 py-2 text-white outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600 transition-colors"
                 placeholder="Yeni etiket ekle"
               />
               <button
                 type="button"
                 onClick={handleAddEtiket}
-                className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700"
+                className="px-4 py-2 bg-[#333] text-gray-300 rounded-lg hover:bg-[#404040] transition-colors"
               >
                 Ekle
               </button>
@@ -297,13 +297,13 @@ export default function YeniHaberPage() {
           {/* Durum ve Özellikler */}
           <div className="grid grid-cols-3 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-400 mb-1">
                 Durum
               </label>
               <select
                 value={formData.durum}
                 onChange={(e) => setFormData({ ...formData, durum: e.target.value })}
-                className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                className="w-full bg-[#1a1a1a] border border-[#333] rounded-lg px-3 py-2 text-white outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600 transition-colors"
               >
                 <option value="taslak">Taslak</option>
                 <option value="yayinda">Yayında</option>
@@ -316,9 +316,9 @@ export default function YeniHaberPage() {
                   type="checkbox"
                   checked={formData.manset}
                   onChange={(e) => setFormData({ ...formData, manset: e.target.checked })}
-                  className="w-4 h-4 text-red-600"
+                  className="w-4 h-4 text-red-600 bg-[#1a1a1a] border-[#333] rounded focus:ring-red-600"
                 />
-                <span className="text-sm text-gray-700">★ Manşet</span>
+                <span className="text-sm text-gray-300">★ Manşet</span>
               </label>
             </div>
             <div className="flex items-center">
@@ -327,9 +327,9 @@ export default function YeniHaberPage() {
                   type="checkbox"
                   checked={formData.sondakika}
                   onChange={(e) => setFormData({ ...formData, sondakika: e.target.checked })}
-                  className="w-4 h-4 text-red-600"
+                  className="w-4 h-4 text-red-600 bg-[#1a1a1a] border-[#333] rounded focus:ring-red-600"
                 />
-                <span className="text-sm text-gray-700">⚡ Son Dakika</span>
+                <span className="text-sm text-gray-300">⚡ Son Dakika</span>
               </label>
             </div>
           </div>
@@ -337,68 +337,68 @@ export default function YeniHaberPage() {
           {/* Kaynak */}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-400 mb-1">
                 Kaynak
               </label>
               <input
                 type="text"
                 value={formData.kaynak}
                 onChange={(e) => setFormData({ ...formData, kaynak: e.target.value })}
-                className="w-full border rounded-lg px-3 py-2"
+                className="w-full bg-[#1a1a1a] border border-[#333] rounded-lg px-3 py-2 text-white outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600 transition-colors"
                 placeholder="Haber kaynağı"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-400 mb-1">
                 Kaynak URL
               </label>
               <input
                 type="url"
                 value={formData.kaynakUrl}
                 onChange={(e) => setFormData({ ...formData, kaynakUrl: e.target.value })}
-                className="w-full border rounded-lg px-3 py-2"
+                className="w-full bg-[#1a1a1a] border border-[#333] rounded-lg px-3 py-2 text-white outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600 transition-colors"
                 placeholder="https://..."
               />
             </div>
           </div>
 
           {/* SEO */}
-          <div className="border-t pt-6">
-            <h3 className="text-lg font-medium text-gray-900 mb-4">SEO Ayarları</h3>
+          <div className="border-t border-[#262626] pt-6">
+            <h3 className="text-lg font-medium text-white mb-4">SEO Ayarları</h3>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-gray-400 mb-1">
                   SEO Başlık (Title Tag)
                 </label>
                 <input
                   type="text"
                   value={formData.seoBaslik}
                   onChange={(e) => setFormData({ ...formData, seoBaslik: e.target.value })}
-                  className="w-full border rounded-lg px-3 py-2"
+                  className="w-full bg-[#1a1a1a] border border-[#333] rounded-lg px-3 py-2 text-white outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600 transition-colors"
                   placeholder="Boş bırakılırsa başlık kullanılır"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-gray-400 mb-1">
                   SEO Açıklama (Meta Description)
                 </label>
                 <textarea
                   rows={2}
                   value={formData.seoAciklama}
                   onChange={(e) => setFormData({ ...formData, seoAciklama: e.target.value })}
-                  className="w-full border rounded-lg px-3 py-2"
+                  className="w-full bg-[#1a1a1a] border border-[#333] rounded-lg px-3 py-2 text-white outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600 transition-colors"
                   placeholder="Boş bırakılırsa spot kullanılır (max 160 karakter)"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-gray-400 mb-1">
                   Anahtar Kelimeler
                 </label>
                 <input
                   type="text"
                   value={formData.seoAnahtarKelimeler}
                   onChange={(e) => setFormData({ ...formData, seoAnahtarKelimeler: e.target.value })}
-                  className="w-full border rounded-lg px-3 py-2"
+                  className="w-full bg-[#1a1a1a] border border-[#333] rounded-lg px-3 py-2 text-white outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600 transition-colors"
                   placeholder="kelime1, kelime2, kelime3"
                 />
               </div>
@@ -410,14 +410,14 @@ export default function YeniHaberPage() {
         <div className="flex justify-end gap-4 mt-6">
           <Link
             href="/admin/haberler"
-            className="px-6 py-2 border rounded-lg hover:bg-gray-50"
+            className="px-6 py-2 border border-[#333] text-gray-300 rounded-lg hover:bg-[#1a1a1a] transition-colors"
           >
             İptal
           </Link>
           <button
             type="submit"
             disabled={loading}
-            className="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 disabled:opacity-50"
+            className="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 disabled:opacity-50 transition-colors"
           >
             {loading ? 'Kaydediliyor...' : 'Kaydet'}
           </button>
