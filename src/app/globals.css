@@ -2,15 +2,88 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Design tokens */
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-rgb: 255, 255, 255;
+  --color-primary: #b91c1c; /* red-700 */
+  --color-primary-600: #dc2626; /* red-600 */
+  --color-accent: #111827; /* gray-900 */
+  --color-muted: #6b7280; /* gray-500 */
+  --bg: #f8fafc; /* gray-50 */
+  --card-bg: #ffffff;
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  --container-width: 1100px;
+}
+
+html, body {
+  height: 100%;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: rgb(var(--background-rgb));
+  font-family: var(--font-sans);
+  color: var(--color-accent);
+  background-color: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+
+.container {
+  max-width: var(--container-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* Header */
+.site-header {
+  background: var(--card-bg);
+  border-bottom: 1px solid #e6e6e6;
+}
+.site-brand {
+  font-weight: 700;
+  color: var(--color-primary-600);
+  font-size: 1.25rem;
+}
+.site-nav a {
+  color: var(--color-muted);
+}
+.site-nav a:hover {
+  color: var(--color-accent);
+}
+
+/* Footer */
+.site-footer {
+  background: #0f172a;
+  color: #e6edf3;
+}
+
+/* Cards */
+.card {
+  background: var(--card-bg);
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+}
+.card .card-media {
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  overflow: hidden;
+}
+.card .card-body { padding: 1rem; }
+
+/* Headline styles */
+.headline {
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: var(--color-accent);
+}
+.meta { color: var(--color-muted); font-size: 0.9rem; }
+
+/* Responsive helpers */
+@media (min-width: 768px) {
+  .headline { font-size: 1.5rem; }
+}
+
 
 /* Marquee animation for breaking news */
 @keyframes marquee {
