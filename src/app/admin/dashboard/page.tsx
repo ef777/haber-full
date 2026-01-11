@@ -12,7 +12,7 @@ interface Stats {
 
 export default function AdminDashboardPage() {
   const [stats, setStats] = useState<Stats>({ haberler: 0, kategoriler: 0, yazarlar: 0 });
-  const [user, setUser] = useState<{ isim: string } | null>(null);
+  const [user, setUser] = useState<{ name: string } | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
@@ -81,7 +81,7 @@ export default function AdminDashboardPage() {
         <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
           <h1 className="text-xl font-bold text-gray-900">Admin Panel</h1>
           <div className="flex items-center gap-4">
-            <span className="text-gray-600">Merhaba, {user?.isim}</span>
+            <span className="text-gray-600">Merhaba, {user?.name}</span>
             <button
               onClick={handleLogout}
               className="text-red-600 hover:text-red-800"

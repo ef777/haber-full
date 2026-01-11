@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir:*)",
+      "Bash(powershell -Command \"Get-ChildItem -Path ''src'' -Recurse | Where-Object {$_Extension -eq ''.tsx'' -or $_Extension -eq ''.ts''} | Select-Object FullName\")"
+    ]
+  }
+}
