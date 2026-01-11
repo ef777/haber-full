@@ -66,35 +66,6 @@ export default async function KategoriPage({ params }: PageProps) {
 
   return (
     <>
-      {/* Header */}
-      <header className="bg-white shadow-sm sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="flex items-center justify-between py-4 border-b">
-            <Link href="/" className="text-2xl font-bold text-red-600">
-              Haber Sitesi
-            </Link>
-          </div>
-          <nav className="flex gap-1 overflow-x-auto py-2">
-            <Link href="/" className="px-4 py-2 text-gray-700 hover:text-red-600 whitespace-nowrap">
-              Ana Sayfa
-            </Link>
-            {kategoriler.map((kat) => (
-              <Link
-                key={kat.id}
-                href={`/kategori/${kat.slug}`}
-                className={`px-4 py-2 whitespace-nowrap ${
-                  kat.id === kategori.id
-                    ? 'text-red-600 font-medium'
-                    : 'text-gray-700 hover:text-red-600'
-                }`}
-              >
-                {kat.ad}
-              </Link>
-            ))}
-          </nav>
-        </div>
-      </header>
-
       <main className="max-w-7xl mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold mb-2">{kategori.ad}</h1>
         {kategori.aciklama && (
