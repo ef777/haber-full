@@ -1,16 +1,9 @@
 import { NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
 
-// POST /api/admin/logout
 export async function POST() {
-  const response = NextResponse.json({ success: true });
+  const cookieStore = await cookies();
+  cookieStore.delete('auth-token');
   
-  response.cookies.set('admin_token', '', {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'lax',
-    maxAge: 0,
-    path: '/',
-  });
-
-  return response;
+  return NextResponse.json({ success: true });
 }

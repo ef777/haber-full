@@ -1,134 +1,132 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter, useParams } from 'next/navigation';
-import Link from 'next/link';
 
 interface Kategori {
   id: number;
-  isim: string;
+  ad: string;
 }
 
 interface Yazar {
   id: number;
-  isim: string;
+  ad: string;
 }
 
 interface Etiket {
   id: number;
-  isim: string;
+  ad: string;
 }
 
 interface Haber {
   id: number;
   baslik: string;
+  slug: string;
   spot: string;
   icerik: string;
-  resimUrl: string;
+  resim: string;
   resimAlt: string;
-  kategoriId: number | null;
-  yazarId: number | null;
+  video: string;
+  kategoriId: number;
+  yazarId: number;
   durum: string;
-  manset: boolean;
-  sondakika: boolean;
+  manpiset: boolean;
+  pisonDakika: boolean;
   seoBaslik: string;
   seoAciklama: string;
-  seoAnahtarKelimeler: string;
-  kaynak: string;
-  kaynakUrl: string;
+  seoKeywords: string;
+  canonicalUrl: string;
   etiketler: { etiket: Etiket }[];
 }
 
-export default function DuzenleHaberPage() {
+export default function HaberDuzenle() {
+  const router = useRouter();
   const params = useParams();
-  const haberId = params.id as string;
-  
-  const [formData, setFormData] = useState({
-    baslik: '',
-    spot: '',
-    icerik: '',
-    resimUrl: '',
-    resimAlt: '',
-    kategoriId: '',
-    yazarId: '',
-    etiketler: [] as number[],
-    durum: 'taslak',
-    manset: false,
-    sondakika: false,
-    seoBaslik: '',
-    seoAciklama: '',
-    seoAnahtarKelimeler: '',
-    kaynak: '',
-    kaynakUrl: '',
-  });
-  const [kategoriler, setKategoriler] = useState<Kategori[]>([]);
-  const [yazarlar, setYazarlar] = useState<Yazar[]>([]);
-  const [etiketler, setEtiketler] = useState<Etiket[]>([]);
-  const [yeniEtiket, setYeniEtiket] = useState('');
+  const id = params.id as string;
+
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
-  const router = useRouter();
+  const [kategoriler, setKategoriler] = useState<Kategori[]>([]);
+  const [yazarlar, setYazarlar] = useState<Yazar[]>([]);
+  const [mevcutEtiketler, setMevcutEtiketler] = useState<Etiket[]>([]);
+  const [secilenEtiketler, setSecilenEtiketler] = useState<number[]>([]);
+  const [yeniEtiket, setYeniEtiket] = useState('');
 
-  useEffect(() => {
-    loadData();
-  }, []);
+  const [form, setForm] = useState({
+    baslik: '',
+    spot: '',
+    icerik: '',
+    resim: '',
+    resimAlt: '',
+    video: '',
+    kategoriId: '',
+    yazarId: '',
+    durum: 'taslak',
+    manpiset: false,
+    pisonDakika: false,
+    seoBaslik: '',
+    seoAciklama: '',
+    seoKeywords: '',
+    canonicalUrl: '',
+  });
 
-  const loadData = async () => {
+  const fetchData = useCallback(async () => {
     try {
-      const [katRes, yazRes, etRes, haberRes] = await Promise.all([
+      const [katRes, yazarRes, etiketRes, haberRes] = await Promise.all([
         fetch('/api/admin/kategoriler'),
         fetch('/api/admin/yazarlar'),
         fetch('/api/admin/etiketler'),
-        fetch(`/api/admin/haberler/${haberId}`),
+        fetch(`/api/admin/haberler/${id}`),
       ]);
-      
-      if (katRes.status === 401 || haberRes.status === 401) {
-        router.push('/admin');
-        return;
+
+      if (!haberRes.ok) {
+        throw new Error('Haber bulunamadı');
       }
 
-      if (haberRes.status === 404) {
-        router.push('/admin/haberler');
-        return;
-      }
-
-      const [katData, yazData, etData, haberData] = await Promise.all([
+      const [katData, yazarData, etiketData, haberData] = await Promise.all([
         katRes.json(),
-        yazRes.json(),
-        etRes.json(),
+        yazarRes.json(),
+        etiketRes.json(),
         haberRes.json(),
       ]);
 
       setKategoriler(katData);
-      setYazarlar(yazData);
-      setEtiketler(etData);
+      setYazarlar(yazarData);
+      setMevcutEtiketler(etiketData);
 
-      const haber = haberData as Haber;
-      setFormData({
+      const haber: Haber = haberData;
+      setForm({
         baslik: haber.baslik || '',
         spot: haber.spot || '',
         icerik: haber.icerik || '',
-        resimUrl: haber.resimUrl || '',
+        resim: haber.resim || '',
         resimAlt: haber.resimAlt || '',
+        video: haber.video || '',
         kategoriId: haber.kategoriId?.toString() || '',
         yazarId: haber.yazarId?.toString() || '',
-        etiketler: haber.etiketler?.map(e => e.etiket.id) || [],
         durum: haber.durum || 'taslak',
-        manset: haber.manset || false,
-        sondakika: haber.sondakika || false,
+        manpiset: haber.manpiset || false,
+        pisonDakika: haber.pisonDakika || false,
         seoBaslik: haber.seoBaslik || '',
         seoAciklama: haber.seoAciklama || '',
-        seoAnahtarKelimeler: haber.seoAnahtarKelimeler || '',
-        kaynak: haber.kaynak || '',
-        kaynakUrl: haber.kaynakUrl || '',
+        seoKeywords: haber.seoKeywords || '',
+        canonicalUrl: haber.canonicalUrl || '',
       });
-    } catch {
-      console.error('Error loading data');
+
+      setSecilenEtiketler(
+        haber.etiketler?.map((e) => e.etiket.id) || []
+      );
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Bir hata oluştu');
     } finally {
       setLoading(false);
     }
-  };
+  }, [id]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -136,351 +134,359 @@ export default function DuzenleHaberPage() {
     setError('');
 
     try {
-      const res = await fetch(`/api/admin/haberler/${haberId}`, {
+      const res = await fetch(`/api/admin/haberler/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          ...formData,
-          kategoriId: formData.kategoriId ? Number(formData.kategoriId) : null,
-          yazarId: formData.yazarId ? Number(formData.yazarId) : null,
+          ...form,
+          kategoriId: form.kategoriId ? parseInt(form.kategoriId) : null,
+          yazarId: form.yazarId ? parseInt(form.yazarId) : null,
+          etiketIds: secilenEtiketler,
         }),
       });
 
       if (!res.ok) {
         const data = await res.json();
-        throw new Error(data.error || 'Haber guncellenemedi');
+        throw new Error(data.error || 'Haber güncellenemedi');
       }
 
       router.push('/admin/haberler');
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Bir hata olustu');
+      setError(err instanceof Error ? err.message : 'Bir hata oluştu');
     } finally {
       setSaving(false);
     }
   };
 
-  const handleAddEtiket = async () => {
+  const handleEtiketEkle = async () => {
     if (!yeniEtiket.trim()) return;
-    
+
     try {
       const res = await fetch('/api/admin/etiketler', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ isim: yeniEtiket }),
+        body: JSON.stringify({ ad: yeniEtiket.trim() }),
       });
-      const data = await res.json();
-      setEtiketler([...etiketler, data]);
-      setFormData({ ...formData, etiketler: [...formData.etiketler, data.id] });
-      setYeniEtiket('');
+
+      if (res.ok) {
+        const data = await res.json();
+        setMevcutEtiketler([...mevcutEtiketler, data]);
+        setSecilenEtiketler([...secilenEtiketler, data.id]);
+        setYeniEtiket('');
+      }
     } catch {
-      console.error('Error adding etiket');
+      // Ignore
     }
   };
 
   const toggleEtiket = (id: number) => {
-    if (formData.etiketler.includes(id)) {
-      setFormData({ ...formData, etiketler: formData.etiketler.filter(e => e !== id) });
+    if (secilenEtiketler.includes(id)) {
+      setSecilenEtiketler(secilenEtiketler.filter((e) => e !== id));
     } else {
-      setFormData({ ...formData, etiketler: [...formData.etiketler, id] });
+      setSecilenEtiketler([...secilenEtiketler, id]);
     }
   };
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-red-600"></div>
+      <div className="flex items-center justify-center h-64">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <header className="bg-white shadow">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center gap-4">
-          <Link href="/admin/haberler" className="text-gray-600 hover:text-gray-900">
-            ← Geri
-          </Link>
-          <h1 className="text-xl font-bold text-gray-900">Haberi Duzenle</h1>
+    <div>
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-2xl font-bold">Haber Düzenle</h1>
+        <button
+          onClick={() => router.back()}
+          className="text-gray-600 hover:text-gray-800"
+        >
+          ← Geri
+        </button>
+      </div>
+
+      {error && (
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+          {error}
         </div>
-      </header>
+      )}
 
-      <form onSubmit={handleSubmit} className="max-w-4xl mx-auto px-4 py-8">
-        {error && (
-          <div className="bg-red-50 text-red-600 p-4 rounded-lg mb-6">{error}</div>
-        )}
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="bg-white rounded-lg shadow p-6 space-y-4">
+          <h2 className="text-lg font-semibold border-b pb-2">Temel Bilgiler</h2>
 
-        <div className="bg-white rounded-lg shadow p-6 space-y-6">
-          {/* Baslik */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Baslik *
+              Başlık *
             </label>
             <input
               type="text"
+              value={form.baslik}
+              onChange={(e) => setForm({ ...form, baslik: e.target.value })}
+              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
-              value={formData.baslik}
-              onChange={(e) => setFormData({ ...formData, baslik: e.target.value })}
-              className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500"
-              placeholder="Haber basligi"
             />
           </div>
 
-          {/* Spot */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Spot (Ozet)
+              Spot (Özet)
             </label>
             <textarea
+              value={form.spot}
+              onChange={(e) => setForm({ ...form, spot: e.target.value })}
+              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               rows={2}
-              value={formData.spot}
-              onChange={(e) => setFormData({ ...formData, spot: e.target.value })}
-              className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500"
-              placeholder="Kisa ozet"
             />
           </div>
 
-          {/* Icerik */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Icerik *
+              İçerik *
             </label>
             <textarea
-              rows={12}
+              value={form.icerik}
+              onChange={(e) => setForm({ ...form, icerik: e.target.value })}
+              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              rows={10}
               required
-              value={formData.icerik}
-              onChange={(e) => setFormData({ ...formData, icerik: e.target.value })}
-              className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500 font-mono text-sm"
-              placeholder="Haber icerigi (HTML destekler)"
             />
           </div>
 
-          {/* Resim */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Resim URL
-              </label>
-              <input
-                type="url"
-                value={formData.resimUrl}
-                onChange={(e) => setFormData({ ...formData, resimUrl: e.target.value })}
-                className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500"
-                placeholder="https://..."
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Resim Alt Text
-              </label>
-              <input
-                type="text"
-                value={formData.resimAlt}
-                onChange={(e) => setFormData({ ...formData, resimAlt: e.target.value })}
-                className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500"
-                placeholder="Resim aciklamasi"
-              />
-            </div>
-          </div>
-
-          {/* Kategori ve Yazar */}
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Kategori
+                Kategori *
               </label>
               <select
-                value={formData.kategoriId}
-                onChange={(e) => setFormData({ ...formData, kategoriId: e.target.value })}
-                className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                value={form.kategoriId}
+                onChange={(e) => setForm({ ...form, kategoriId: e.target.value })}
+                className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
               >
-                <option value="">Seciniz</option>
+                <option value="">Seçiniz</option>
                 {kategoriler.map((k) => (
-                  <option key={k.id} value={k.id}>{k.isim}</option>
+                  <option key={k.id} value={k.id}>
+                    {k.ad}
+                  </option>
                 ))}
               </select>
             </div>
+
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Yazar
               </label>
               <select
-                value={formData.yazarId}
-                onChange={(e) => setFormData({ ...formData, yazarId: e.target.value })}
-                className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                value={form.yazarId}
+                onChange={(e) => setForm({ ...form, yazarId: e.target.value })}
+                className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
-                <option value="">Seciniz</option>
+                <option value="">Seçiniz</option>
                 {yazarlar.map((y) => (
-                  <option key={y.id} value={y.id}>{y.isim}</option>
+                  <option key={y.id} value={y.id}>
+                    {y.ad}
+                  </option>
                 ))}
               </select>
             </div>
           </div>
+        </div>
 
-          {/* Etiketler */}
+        <div className="bg-white rounded-lg shadow p-6 space-y-4">
+          <h2 className="text-lg font-semibold border-b pb-2">Medya</h2>
+
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Etiketler
+              Resim URL
             </label>
-            <div className="flex flex-wrap gap-2 mb-2">
-              {etiketler.map((e) => (
-                <button
-                  key={e.id}
-                  type="button"
-                  onClick={() => toggleEtiket(e.id)}
-                  className={`px-3 py-1 rounded-full text-sm ${
-                    formData.etiketler.includes(e.id)
-                      ? 'bg-red-600 text-white'
-                      : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                  }`}
-                >
-                  {e.isim}
-                </button>
-              ))}
-            </div>
-            <div className="flex gap-2">
-              <input
-                type="text"
-                value={yeniEtiket}
-                onChange={(e) => setYeniEtiket(e.target.value)}
-                className="flex-1 border rounded-lg px-3 py-2"
-                placeholder="Yeni etiket ekle"
-              />
-              <button
-                type="button"
-                onClick={handleAddEtiket}
-                className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700"
-              >
-                Ekle
-              </button>
-            </div>
+            <input
+              type="url"
+              value={form.resim}
+              onChange={(e) => setForm({ ...form, resim: e.target.value })}
+              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="https://..."
+            />
           </div>
 
-          {/* Durum ve Ozellikler */}
-          <div className="grid grid-cols-3 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Durum
-              </label>
-              <select
-                value={formData.durum}
-                onChange={(e) => setFormData({ ...formData, durum: e.target.value })}
-                className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500"
-              >
-                <option value="taslak">Taslak</option>
-                <option value="yayinda">Yayinda</option>
-                <option value="arsiv">Arsiv</option>
-              </select>
-            </div>
-            <div className="flex items-center">
-              <label className="flex items-center gap-2 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={formData.manset}
-                  onChange={(e) => setFormData({ ...formData, manset: e.target.checked })}
-                  className="w-4 h-4 text-red-600"
-                />
-                <span className="text-sm text-gray-700">★ Manset</span>
-              </label>
-            </div>
-            <div className="flex items-center">
-              <label className="flex items-center gap-2 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={formData.sondakika}
-                  onChange={(e) => setFormData({ ...formData, sondakika: e.target.checked })}
-                  className="w-4 h-4 text-red-600"
-                />
-                <span className="text-sm text-gray-700">⚡ Son Dakika</span>
-              </label>
-            </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Resim Alt Metni
+            </label>
+            <input
+              type="text"
+              value={form.resimAlt}
+              onChange={(e) => setForm({ ...form, resimAlt: e.target.value })}
+              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
           </div>
 
-          {/* Kaynak */}
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Kaynak
-              </label>
-              <input
-                type="text"
-                value={formData.kaynak}
-                onChange={(e) => setFormData({ ...formData, kaynak: e.target.value })}
-                className="w-full border rounded-lg px-3 py-2"
-                placeholder="Haber kaynagi"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Kaynak URL
-              </label>
-              <input
-                type="url"
-                value={formData.kaynakUrl}
-                onChange={(e) => setFormData({ ...formData, kaynakUrl: e.target.value })}
-                className="w-full border rounded-lg px-3 py-2"
-                placeholder="https://..."
-              />
-            </div>
-          </div>
-
-          {/* SEO */}
-          <div className="border-t pt-6">
-            <h3 className="text-lg font-medium text-gray-900 mb-4">SEO Ayarlari</h3>
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  SEO Baslik (Title Tag)
-                </label>
-                <input
-                  type="text"
-                  value={formData.seoBaslik}
-                  onChange={(e) => setFormData({ ...formData, seoBaslik: e.target.value })}
-                  className="w-full border rounded-lg px-3 py-2"
-                  placeholder="Bos birakilirsa baslik kullanilir"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  SEO Aciklama (Meta Description)
-                </label>
-                <textarea
-                  rows={2}
-                  value={formData.seoAciklama}
-                  onChange={(e) => setFormData({ ...formData, seoAciklama: e.target.value })}
-                  className="w-full border rounded-lg px-3 py-2"
-                  placeholder="Bos birakilirsa spot kullanilir (max 160 karakter)"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Anahtar Kelimeler
-                </label>
-                <input
-                  type="text"
-                  value={formData.seoAnahtarKelimeler}
-                  onChange={(e) => setFormData({ ...formData, seoAnahtarKelimeler: e.target.value })}
-                  className="w-full border rounded-lg px-3 py-2"
-                  placeholder="kelime1, kelime2, kelime3"
-                />
-              </div>
-            </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Video URL (YouTube vb.)
+            </label>
+            <input
+              type="url"
+              value={form.video}
+              onChange={(e) => setForm({ ...form, video: e.target.value })}
+              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="https://..."
+            />
           </div>
         </div>
 
-        {/* Submit */}
-        <div className="flex justify-end gap-4 mt-6">
-          <Link
-            href="/admin/haberler"
-            className="px-6 py-2 border rounded-lg hover:bg-gray-50"
-          >
-            Iptal
-          </Link>
+        <div className="bg-white rounded-lg shadow p-6 space-y-4">
+          <h2 className="text-lg font-semibold border-b pb-2">Etiketler</h2>
+
+          <div className="flex flex-wrap gap-2">
+            {mevcutEtiketler.map((e) => (
+              <button
+                key={e.id}
+                type="button"
+                onClick={() => toggleEtiket(e.id)}
+                className={`px-3 py-1 rounded-full text-sm ${
+                  secilenEtiketler.includes(e.id)
+                    ? 'bg-blue-600 text-white'
+                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                }`}
+              >
+                {e.ad}
+              </button>
+            ))}
+          </div>
+
+          <div className="flex gap-2">
+            <input
+              type="text"
+              value={yeniEtiket}
+              onChange={(e) => setYeniEtiket(e.target.value)}
+              placeholder="Yeni etiket ekle..."
+              className="flex-1 px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), handleEtiketEkle())}
+            />
+            <button
+              type="button"
+              onClick={handleEtiketEkle}
+              className="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700"
+            >
+              Ekle
+            </button>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-lg shadow p-6 space-y-4">
+          <h2 className="text-lg font-semibold border-b pb-2">Yayın Ayarları</h2>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Durum
+            </label>
+            <select
+              value={form.durum}
+              onChange={(e) => setForm({ ...form, durum: e.target.value })}
+              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="taslak">Taslak</option>
+              <option value="yayinda">Yayında</option>
+              <option value="arsiv">Arşiv</option>
+            </select>
+          </div>
+
+          <div className="flex gap-6">
+            <label className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                checked={form.manpiset}
+                onChange={(e) => setForm({ ...form, manpiset: e.target.checked })}
+                className="w-4 h-4 text-blue-600"
+              />
+              <span className="text-sm text-gray-700">Manşet Haber</span>
+            </label>
+
+            <label className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                checked={form.pisonDakika}
+                onChange={(e) => setForm({ ...form, pisonDakika: e.target.checked })}
+                className="w-4 h-4 text-red-600"
+              />
+              <span className="text-sm text-gray-700">Son Dakika</span>
+            </label>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-lg shadow p-6 space-y-4">
+          <h2 className="text-lg font-semibold border-b pb-2">SEO Ayarları</h2>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              SEO Başlık
+            </label>
+            <input
+              type="text"
+              value={form.seoBaslik}
+              onChange={(e) => setForm({ ...form, seoBaslik: e.target.value })}
+              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Boş bırakılırsa başlık kullanılır"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              SEO Açıklama
+            </label>
+            <textarea
+              value={form.seoAciklama}
+              onChange={(e) => setForm({ ...form, seoAciklama: e.target.value })}
+              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              rows={2}
+              placeholder="Boş bırakılırsa spot kullanılır"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Anahtar Kelimeler
+            </label>
+            <input
+              type="text"
+              value={form.seoKeywords}
+              onChange={(e) => setForm({ ...form, seoKeywords: e.target.value })}
+              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="kelime1, kelime2, kelime3"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Canonical URL
+            </label>
+            <input
+              type="url"
+              value={form.canonicalUrl}
+              onChange={(e) => setForm({ ...form, canonicalUrl: e.target.value })}
+              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="https://..."
+            />
+          </div>
+        </div>
+
+        <div className="flex gap-4">
           <button
             type="submit"
             disabled={saving}
-            className="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 disabled:opacity-50"
+            className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50"
           >
-            {saving ? 'Kaydediliyor...' : 'Guncelle'}
+            {saving ? 'Kaydediliyor...' : 'Güncelle'}
+          </button>
+          <button
+            type="button"
+            onClick={() => router.back()}
+            className="px-6 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300"
+          >
+            İptal
           </button>
         </div>
       </form>

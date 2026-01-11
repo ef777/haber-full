@@ -21,7 +21,7 @@ export async function GET(
   });
 
   if (!yazar) {
-    return NextResponse.json({ error: 'Yazar bulunamadi' }, { status: 404 });
+    return NextResponse.json({ error: 'Yazar bulunamadı' }, { status: 404 });
   }
 
   return NextResponse.json(yazar);
@@ -39,17 +39,20 @@ export async function PUT(
 
   const { id } = await params;
   const body = await request.json();
-  const { isim, email, bio, resimUrl, aktif } = body;
+  const { ad, email, biyografi, avatar, twitter, linkedin, website, aktif } = body;
 
   const updateData: Record<string, unknown> = {};
 
-  if (isim !== undefined) {
-    updateData.isim = isim;
-    updateData.slug = slugify(isim, { lower: true, strict: true });
+  if (ad !== undefined) {
+    updateData.ad = ad;
+    updateData.slug = slugify(ad, { lower: true, strict: true });
   }
   if (email !== undefined) updateData.email = email;
-  if (bio !== undefined) updateData.bio = bio;
-  if (resimUrl !== undefined) updateData.resimUrl = resimUrl;
+  if (biyografi !== undefined) updateData.biyografi = biyografi;
+  if (avatar !== undefined) updateData.avatar = avatar;
+  if (twitter !== undefined) updateData.twitter = twitter;
+  if (linkedin !== undefined) updateData.linkedin = linkedin;
+  if (website !== undefined) updateData.website = website;
   if (aktif !== undefined) updateData.aktif = aktif;
 
   const yazar = await prisma.yazar.update({

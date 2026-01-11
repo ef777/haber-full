@@ -51,7 +51,7 @@ export default function AdminHaberlerPage() {
   };
 
   const handleDelete = async (id: number) => {
-    if (!confirm('Bu haberi silmek istediginize emin misiniz?')) return;
+    if (!confirm('Bu haberi silmek istediğinize emin misiniz?')) return;
     
     await fetch(`/api/admin/haberler/${id}`, { method: 'DELETE' });
     loadHaberler();
@@ -60,11 +60,11 @@ export default function AdminHaberlerPage() {
   const getDurumBadge = (d: string) => {
     switch (d) {
       case 'yayinda':
-        return <span className="px-2 py-1 bg-green-100 text-green-800 rounded text-xs">Yayinda</span>;
+        return <span className="px-2 py-1 bg-green-100 text-green-800 rounded text-xs">Yayında</span>;
       case 'taslak':
         return <span className="px-2 py-1 bg-yellow-100 text-yellow-800 rounded text-xs">Taslak</span>;
       case 'arsiv':
-        return <span className="px-2 py-1 bg-gray-100 text-gray-800 rounded text-xs">Arsiv</span>;
+        return <span className="px-2 py-1 bg-gray-100 text-gray-800 rounded text-xs">Arşiv</span>;
       default:
         return null;
     }
@@ -98,10 +98,10 @@ export default function AdminHaberlerPage() {
               onChange={(e) => { setDurum(e.target.value); setPage(1); }}
               className="border rounded-lg px-3 py-2"
             >
-              <option value="">Tum Durumlar</option>
-              <option value="yayinda">Yayinda</option>
+              <option value="">Tüm Durumlar</option>
+              <option value="yayinda">Yayında</option>
               <option value="taslak">Taslak</option>
-              <option value="arsiv">Arsiv</option>
+              <option value="arsiv">Arşiv</option>
             </select>
           </div>
         </div>
@@ -116,12 +116,12 @@ export default function AdminHaberlerPage() {
             <table className="w-full">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Baslik</th>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Başlık</th>
                   <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Kategori</th>
                   <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Yazar</th>
                   <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Durum</th>
                   <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Tarih</th>
-                  <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase">Islemler</th>
+                  <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase">İşlemler</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
@@ -129,7 +129,7 @@ export default function AdminHaberlerPage() {
                   <tr key={haber.id} className="hover:bg-gray-50">
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-2">
-                        {haber.manset && <span className="text-yellow-500" title="Manset">★</span>}
+                        {haber.manset && <span className="text-yellow-500" title="Manşet">★</span>}
                         {haber.sondakika && <span className="text-red-500" title="Son Dakika">⚡</span>}
                         <span className="font-medium">{haber.baslik}</span>
                       </div>
@@ -147,13 +147,13 @@ export default function AdminHaberlerPage() {
                           target="_blank"
                           className="text-blue-600 hover:text-blue-800 text-sm"
                         >
-                          Goruntule
+                          Görüntüle
                         </Link>
                         <Link
                           href={`/admin/haberler/${haber.id}`}
                           className="text-gray-600 hover:text-gray-800 text-sm"
                         >
-                          Duzenle
+                          Düzenle
                         </Link>
                         <button
                           onClick={() => handleDelete(haber.id)}
@@ -178,7 +178,7 @@ export default function AdminHaberlerPage() {
               disabled={page === 1}
               className="px-4 py-2 border rounded-lg disabled:opacity-50"
             >
-              Onceki
+              Önceki
             </button>
             <span className="px-4 py-2">
               {page} / {totalPages}

@@ -89,7 +89,7 @@ export default function AdminYazarlarPage() {
   };
 
   const handleDelete = async (id: number) => {
-    if (!confirm('Bu yazari silmek istediginize emin misiniz?')) return;
+    if (!confirm('Bu yazarı silmek istediğinize emin misiniz?')) return;
     
     await fetch(`/api/admin/yazarlar/${id}`, { method: 'DELETE' });
     loadYazarlar();
@@ -120,12 +120,12 @@ export default function AdminYazarlarPage() {
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
             <div className="bg-white rounded-lg p-6 w-full max-w-md">
               <h2 className="text-lg font-bold mb-4">
-                {editingId ? 'Yazar Duzenle' : 'Yeni Yazar'}
+                {editingId ? 'Yazar Düzenle' : 'Yeni Yazar'}
               </h2>
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Isim Soyisim *
+                    İsim Soyisim *
                   </label>
                   <input
                     type="text"
@@ -133,7 +133,7 @@ export default function AdminYazarlarPage() {
                     value={formData.isim}
                     onChange={(e) => setFormData({ ...formData, isim: e.target.value })}
                     className="w-full border rounded-lg px-3 py-2"
-                    placeholder="Orn: Ahmet Yilmaz"
+                    placeholder="Örn: Ahmet Yılmaz"
                   />
                 </div>
                 <div>
@@ -157,7 +157,7 @@ export default function AdminYazarlarPage() {
                     value={formData.bio}
                     onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
                     className="w-full border rounded-lg px-3 py-2"
-                    placeholder="Yazar hakkinda kisa bilgi"
+                    placeholder="Yazar hakkında kısa bilgi"
                   />
                 </div>
                 <div>
@@ -189,7 +189,7 @@ export default function AdminYazarlarPage() {
                     onClick={() => setShowForm(false)}
                     className="px-4 py-2 border rounded-lg"
                   >
-                    Iptal
+                    İptal
                   </button>
                   <button
                     type="submit"
@@ -215,9 +215,9 @@ export default function AdminYazarlarPage() {
                 <tr>
                   <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Yazar</th>
                   <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">E-posta</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Haber Sayisi</th>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Haber Sayısı</th>
                   <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Durum</th>
-                  <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase">Islemler</th>
+                  <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase">İşlemler</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
@@ -247,13 +247,13 @@ export default function AdminYazarlarPage() {
                           target="_blank"
                           className="text-blue-600 hover:text-blue-800 text-sm"
                         >
-                          Goruntule
+                          Görüntüle
                         </Link>
                         <button
                           onClick={() => handleEdit(y)}
                           className="text-gray-600 hover:text-gray-800 text-sm"
                         >
-                          Duzenle
+                          Düzenle
                         </button>
                         <button
                           onClick={() => handleDelete(y.id)}

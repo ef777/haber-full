@@ -75,7 +75,7 @@ export default function AdminKategorilerPage() {
   };
 
   const handleDelete = async (id: number) => {
-    if (!confirm('Bu kategoriyi silmek istediginize emin misiniz?')) return;
+    if (!confirm('Bu kategoriyi silmek istediğinize emin misiniz?')) return;
     
     await fetch(`/api/admin/kategoriler/${id}`, { method: 'DELETE' });
     loadKategoriler();
@@ -106,12 +106,12 @@ export default function AdminKategorilerPage() {
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
             <div className="bg-white rounded-lg p-6 w-full max-w-md">
               <h2 className="text-lg font-bold mb-4">
-                {editingId ? 'Kategori Duzenle' : 'Yeni Kategori'}
+                {editingId ? 'Kategori Düzenle' : 'Yeni Kategori'}
               </h2>
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Kategori Adi *
+                    Kategori Adı *
                   </label>
                   <input
                     type="text"
@@ -119,12 +119,12 @@ export default function AdminKategorilerPage() {
                     value={formData.isim}
                     onChange={(e) => setFormData({ ...formData, isim: e.target.value })}
                     className="w-full border rounded-lg px-3 py-2"
-                    placeholder="Orn: Gundem, Spor, Ekonomi"
+                    placeholder="Örn: Gündem, Spor, Ekonomi"
                   />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Sira
+                    Sıra
                   </label>
                   <input
                     type="number"
@@ -150,7 +150,7 @@ export default function AdminKategorilerPage() {
                     onClick={() => setShowForm(false)}
                     className="px-4 py-2 border rounded-lg"
                   >
-                    Iptal
+                    İptal
                   </button>
                   <button
                     type="submit"
@@ -174,12 +174,12 @@ export default function AdminKategorilerPage() {
             <table className="w-full">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Isim</th>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">İsim</th>
                   <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Slug</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Haber Sayisi</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Sira</th>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Haber Sayısı</th>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Sıra</th>
                   <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Durum</th>
-                  <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase">Islemler</th>
+                  <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase">İşlemler</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
@@ -203,13 +203,13 @@ export default function AdminKategorilerPage() {
                           target="_blank"
                           className="text-blue-600 hover:text-blue-800 text-sm"
                         >
-                          Goruntule
+                          Görüntüle
                         </Link>
                         <button
                           onClick={() => handleEdit(k)}
                           className="text-gray-600 hover:text-gray-800 text-sm"
                         >
-                          Duzenle
+                          Düzenle
                         </button>
                         <button
                           onClick={() => handleDelete(k.id)}

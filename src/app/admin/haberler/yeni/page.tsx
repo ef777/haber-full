@@ -95,12 +95,12 @@ export default function YeniHaberPage() {
 
       if (!res.ok) {
         const data = await res.json();
-        throw new Error(data.error || 'Haber olusturulamadi');
+        throw new Error(data.error || 'Haber oluşturulamadı');
       }
 
       router.push('/admin/haberler');
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Bir hata olustu');
+      setError(err instanceof Error ? err.message : 'Bir hata oluştu');
     } finally {
       setLoading(false);
     }
@@ -149,10 +149,10 @@ export default function YeniHaberPage() {
         )}
 
         <div className="bg-white rounded-lg shadow p-6 space-y-6">
-          {/* Baslik */}
+          {/* Başlık */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Baslik *
+              Başlık *
             </label>
             <input
               type="text"
@@ -160,28 +160,28 @@ export default function YeniHaberPage() {
               value={formData.baslik}
               onChange={(e) => setFormData({ ...formData, baslik: e.target.value })}
               className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500"
-              placeholder="Haber basligi"
+              placeholder="Haber başlığı"
             />
           </div>
 
           {/* Spot */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Spot (Ozet)
+              Spot (Özet)
             </label>
             <textarea
               rows={2}
               value={formData.spot}
               onChange={(e) => setFormData({ ...formData, spot: e.target.value })}
               className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500"
-              placeholder="Kisa ozet"
+              placeholder="Kısa özet"
             />
           </div>
 
-          {/* Icerik */}
+          {/* İçerik */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Icerik *
+              İçerik *
             </label>
             <textarea
               rows={12}
@@ -189,7 +189,7 @@ export default function YeniHaberPage() {
               value={formData.icerik}
               onChange={(e) => setFormData({ ...formData, icerik: e.target.value })}
               className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500 font-mono text-sm"
-              placeholder="Haber icerigi (HTML destekler)"
+              placeholder="Haber içeriği (HTML destekler)"
             />
           </div>
 
@@ -216,7 +216,7 @@ export default function YeniHaberPage() {
                 value={formData.resimAlt}
                 onChange={(e) => setFormData({ ...formData, resimAlt: e.target.value })}
                 className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500"
-                placeholder="Resim aciklamasi"
+                placeholder="Resim açıklaması"
               />
             </div>
           </div>
@@ -232,7 +232,7 @@ export default function YeniHaberPage() {
                 onChange={(e) => setFormData({ ...formData, kategoriId: e.target.value })}
                 className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500"
               >
-                <option value="">Seciniz</option>
+                <option value="">Seçiniz</option>
                 {kategoriler.map((k) => (
                   <option key={k.id} value={k.id}>{k.isim}</option>
                 ))}
@@ -247,7 +247,7 @@ export default function YeniHaberPage() {
                 onChange={(e) => setFormData({ ...formData, yazarId: e.target.value })}
                 className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500"
               >
-                <option value="">Seciniz</option>
+                <option value="">Seçiniz</option>
                 {yazarlar.map((y) => (
                   <option key={y.id} value={y.id}>{y.isim}</option>
                 ))}
@@ -294,7 +294,7 @@ export default function YeniHaberPage() {
             </div>
           </div>
 
-          {/* Durum ve Ozellikler */}
+          {/* Durum ve Özellikler */}
           <div className="grid grid-cols-3 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -306,8 +306,8 @@ export default function YeniHaberPage() {
                 className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500"
               >
                 <option value="taslak">Taslak</option>
-                <option value="yayinda">Yayinda</option>
-                <option value="arsiv">Arsiv</option>
+                <option value="yayinda">Yayında</option>
+                <option value="arsiv">Arşiv</option>
               </select>
             </div>
             <div className="flex items-center">
@@ -318,7 +318,7 @@ export default function YeniHaberPage() {
                   onChange={(e) => setFormData({ ...formData, manset: e.target.checked })}
                   className="w-4 h-4 text-red-600"
                 />
-                <span className="text-sm text-gray-700">★ Manset</span>
+                <span className="text-sm text-gray-700">★ Manşet</span>
               </label>
             </div>
             <div className="flex items-center">
@@ -345,7 +345,7 @@ export default function YeniHaberPage() {
                 value={formData.kaynak}
                 onChange={(e) => setFormData({ ...formData, kaynak: e.target.value })}
                 className="w-full border rounded-lg px-3 py-2"
-                placeholder="Haber kaynagi"
+                placeholder="Haber kaynağı"
               />
             </div>
             <div>
@@ -364,30 +364,30 @@ export default function YeniHaberPage() {
 
           {/* SEO */}
           <div className="border-t pt-6">
-            <h3 className="text-lg font-medium text-gray-900 mb-4">SEO Ayarlari</h3>
+            <h3 className="text-lg font-medium text-gray-900 mb-4">SEO Ayarları</h3>
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  SEO Baslik (Title Tag)
+                  SEO Başlık (Title Tag)
                 </label>
                 <input
                   type="text"
                   value={formData.seoBaslik}
                   onChange={(e) => setFormData({ ...formData, seoBaslik: e.target.value })}
                   className="w-full border rounded-lg px-3 py-2"
-                  placeholder="Bos birakilirsa baslik kullanilir"
+                  placeholder="Boş bırakılırsa başlık kullanılır"
                 />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  SEO Aciklama (Meta Description)
+                  SEO Açıklama (Meta Description)
                 </label>
                 <textarea
                   rows={2}
                   value={formData.seoAciklama}
                   onChange={(e) => setFormData({ ...formData, seoAciklama: e.target.value })}
                   className="w-full border rounded-lg px-3 py-2"
-                  placeholder="Bos birakilirsa spot kullanilir (max 160 karakter)"
+                  placeholder="Boş bırakılırsa spot kullanılır (max 160 karakter)"
                 />
               </div>
               <div>
@@ -412,7 +412,7 @@ export default function YeniHaberPage() {
             href="/admin/haberler"
             className="px-6 py-2 border rounded-lg hover:bg-gray-50"
           >
-            Iptal
+            İptal
           </Link>
           <button
             type="submit"

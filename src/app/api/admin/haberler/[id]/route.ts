@@ -1,27 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getAuthUser } from '@/lib/auth';
-import slugify from 'slugify';
 
-async function checkAuth() {
-  const user = await getAuthUser();
-  if (!user) {
-    return NextResponse.json({ error: 'Yetkisiz erisim' }, { status: 401 });
-  }
-  return null;
-}
-
-// GET /api/admin/haberler/[id]
+// GET single haber
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const authError = await checkAuth();
-  if (authError) return authError;
+  const user = await getAuthUser();
+  if (!user) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
 
   const { id } = await params;
+
   const haber = await prisma.haber.findUnique({
-    where: { id: parseInt(id) },
+    where: { id: Number(id) },
     include: {
       kategori: true,
       yazar: true,
@@ -30,94 +24,107 @@ export async function GET(
   });
 
   if (!haber) {
-    return NextResponse.json({ error: 'Haber bulunamadi' }, { status: 404 });
+    return NextResponse.json({ error: 'Haber bulunamadı' }, { status: 404 });
   }
 
   return NextResponse.json(haber);
 }
 
-// PUT /api/admin/haberler/[id]
+// PUT update haber
 export async function PUT(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const authError = await checkAuth();
-  if (authError) return authError;
+  const user = await getAuthUser();
+  if (!user) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
 
   const { id } = await params;
   const body = await request.json();
-  const { baslik, spot, icerik, kapakResmi, kategoriId, yazarId, etiketIds, durum, manset, mansetSira, sondakika, newsKeywords, seoTitle, seoDescription } = body;
 
-  const existing = await prisma.haber.findUnique({ where: { id: parseInt(id) } });
-  if (!existing) {
-    return NextResponse.json({ error: 'Haber bulunamadi' }, { status: 404 });
-  }
+  const {
+    baslik,
+    spot,
+    icerik,
+    resim,
+    resimAlt,
+    video,
+    kategoriId,
+    yazarId,
+    etiketler,
+    durum,
+    manset,
+    sonDakika,
+    seoBaslik,
+    seoAciklama,
+    seoKeywords,
+    kaynak,
+    kaynakUrl,
+  } = body;
 
-  // Eger baslik degistiyse slug'i guncelle
-  let newSlug = existing.slug;
-  if (baslik && baslik !== existing.baslik) {
-    newSlug = slugify(baslik, { lower: true, strict: true, locale: 'tr' });
-    const slugExists = await prisma.haber.findFirst({
-      where: { slug: newSlug, id: { not: parseInt(id) } },
+  // Etiketleri güncelle
+  if (etiketler !== undefined) {
+    // Önce mevcut etiketleri sil
+    await prisma.haberEtiket.deleteMany({
+      where: { haberId: Number(id) },
     });
-    if (slugExists) {
-      newSlug = `${newSlug}-${Date.now()}`;
-    }
-  }
 
-  // Etiketleri guncelle
-  if (etiketIds !== undefined) {
-    await prisma.haberEtiket.deleteMany({ where: { haberId: parseInt(id) } });
-    if (etiketIds.length > 0) {
+    // Yeni etiketleri ekle
+    if (etiketler.length > 0) {
       await prisma.haberEtiket.createMany({
-        data: etiketIds.map((etiketId: number) => ({
-          haberId: parseInt(id),
-          etiketId: parseInt(String(etiketId)),
+        data: etiketler.map((etiketId: number) => ({
+          haberId: Number(id),
+          etiketId,
         })),
       });
     }
   }
 
   const haber = await prisma.haber.update({
-    where: { id: parseInt(id) },
+    where: { id: Number(id) },
     data: {
       baslik,
-      slug: newSlug,
       spot,
       icerik,
-      kapakResmi,
-      kategoriId: kategoriId ? parseInt(kategoriId) : null,
-      yazarId: yazarId ? parseInt(yazarId) : null,
+      resim,
+      resimAlt,
+      video,
+      kategoriId,
+      yazarId,
       durum,
       manset,
-      mansetSira,
-      sondakika,
-      newsKeywords,
-      seoTitle,
-      seoDescription,
-      yayinTarihi: durum === 'yayinda' && existing.durum !== 'yayinda' ? new Date() : undefined,
+      sonDakika,
+      seoBaslik,
+      seoAciklama,
+      seoKeywords,
+      kaynak,
+      kaynakUrl,
     },
     include: {
       kategori: true,
       yazar: true,
-      etiketler: { include: { etiket: true } },
     },
   });
 
   return NextResponse.json(haber);
 }
 
-// DELETE /api/admin/haberler/[id]
+// DELETE haber
 export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const authError = await checkAuth();
-  if (authError) return authError;
+  const user = await getAuthUser();
+  if (!user) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
 
   const { id } = await params;
 
-  await prisma.haber.delete({ where: { id: parseInt(id) } });
+  await prisma.haber.delete({
+    where: { id: Number(id) },
+  });
 
   return NextResponse.json({ success: true });
 }

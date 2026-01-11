@@ -1,28 +1,42 @@
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://example.com';
+import { NextResponse } from 'next/server';
 
 export async function GET() {
-  const robotsTxt = `# Haber Sitesi Robots.txt
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+  
+  const robotsTxt = `# Robots.txt for ${siteUrl}
 User-agent: *
 Allow: /
 
 # Sitemaps
-Sitemap: ${SITE_URL}/sitemap.xml
-Sitemap: ${SITE_URL}/news-sitemap.xml
+Sitemap: ${siteUrl}/sitemap.xml
+Sitemap: ${siteUrl}/news-sitemap.xml
 
-# Googlebot News
+# Disallow admin paths
+Disallow: /admin/
+Disallow: /api/admin/
+
+# Allow specific bots full access
+User-agent: Googlebot
+Allow: /
+
 User-agent: Googlebot-News
 Allow: /
 
-# Disallow admin
+User-agent: Bingbot
+Allow: /
+
+User-agent: msnbot
+Allow: /
+
+# Crawl delay for others
 User-agent: *
-Disallow: /admin/
-Disallow: /api/admin/
+Crawl-delay: 1
 `;
 
-  return new Response(robotsTxt, {
+  return new NextResponse(robotsTxt, {
     headers: {
       'Content-Type': 'text/plain',
-      'Cache-Control': 'public, max-age=86400',
+      'Cache-Control': 'public, max-age=86400, s-maxage=86400',
     },
   });
 }

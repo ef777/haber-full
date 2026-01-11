@@ -1,8 +1,8 @@
-import type { Metadata } from "next";
+import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Admin Panel - Haber Sitesi",
-  robots: "noindex, nofollow",
+  title: 'Admin Panel',
+  robots: { index: false, follow: false },
 };
 
 export default function AdminLayout({
@@ -10,9 +10,5 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <div className="min-h-screen bg-gray-100">
-      {children}
-    </div>
-  );
+  return <>{children}</>;
 }

@@ -21,7 +21,7 @@ export async function GET(
   });
 
   if (!kategori) {
-    return NextResponse.json({ error: 'Kategori bulunamadi' }, { status: 404 });
+    return NextResponse.json({ error: 'Kategori bulunamadı' }, { status: 404 });
   }
 
   return NextResponse.json(kategori);
@@ -39,14 +39,16 @@ export async function PUT(
 
   const { id } = await params;
   const body = await request.json();
-  const { isim, aktif, sira } = body;
+  const { ad, aciklama, resim, aktif, sira } = body;
 
   const updateData: Record<string, unknown> = {};
 
-  if (isim !== undefined) {
-    updateData.isim = isim;
-    updateData.slug = slugify(isim, { lower: true, strict: true });
+  if (ad !== undefined) {
+    updateData.ad = ad;
+    updateData.slug = slugify(ad, { lower: true, strict: true });
   }
+  if (aciklama !== undefined) updateData.aciklama = aciklama;
+  if (resim !== undefined) updateData.resim = resim;
   if (aktif !== undefined) updateData.aktif = aktif;
   if (sira !== undefined) updateData.sira = sira;
 

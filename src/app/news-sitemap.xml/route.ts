@@ -1,22 +1,12 @@
+import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://example.com';
-
-function escapeXml(str: string | null | undefined): string {
-  if (!str) return '';
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&apos;');
-}
+export const dynamic = 'force-dynamic';
 
 export async function GET() {
-  const siteAyarlari = await prisma.siteAyarlari.findFirst();
-  const siteName = siteAyarlari?.siteAdi || 'Haber Sitesi';
-
-  // Son 48 saatteki haberler (Google News gerekliligi)
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+  
+  // Son 48 saatteki haberler (Google News gereksinimi)
   const twoDaysAgo = new Date();
   twoDaysAgo.setHours(twoDaysAgo.getHours() - 48);
 
@@ -25,46 +15,37 @@ export async function GET() {
       durum: 'yayinda',
       yayinTarihi: { gte: twoDaysAgo },
     },
-    include: {
-      kategori: true,
-    },
     orderBy: { yayinTarihi: 'desc' },
     take: 1000,
+    include: {
+      kategori: { select: { ad: true } },
+      etiketler: { include: { etiket: { select: { ad: true } } } },
+    },
   });
 
-  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-${haberler
-  .map((haber) => {
-    const pubDate = new Date(haber.yayinTarihi).toISOString();
-    const imageTag = haber.kapakResmi
-      ? `
-    <image:image>
-      <image:loc>${escapeXml(haber.kapakResmi)}</image:loc>
-      <image:title>${escapeXml(haber.baslik)}</image:title>
-    </image:image>`
-      : '';
-
-    return `  <url>
-    <loc>${SITE_URL}/haber/${haber.slug}</loc>
-    <lastmod>${pubDate}</lastmod>
+${haberler.map(haber => `  <url>
+    <loc>${siteUrl}/haber/${haber.slug}</loc>
     <news:news>
       <news:publication>
-        <news:name>${escapeXml(siteName)}</news:name>
+        <news:name>Haber Sitesi</news:name>
         <news:language>tr</news:language>
       </news:publication>
-      <news:publication_date>${pubDate}</news:publication_date>
-      <news:title>${escapeXml(haber.baslik)}</news:title>
-      ${haber.newsKeywords ? `<news:keywords>${escapeXml(haber.newsKeywords)}</news:keywords>` : ''}
-    </news:news>${imageTag}
-  </url>`;
-  })
-  .join('\n')}
+      <news:publication_date>${haber.yayinTarihi.toISOString()}</news:publication_date>
+      <news:title><![CDATA[${haber.baslik}]]></news:title>
+      ${haber.kategori ? `<news:keywords>${haber.kategori.ad}${haber.etiketler.length > 0 ? ', ' + haber.etiketler.map(e => e.etiket.ad).join(', ') : ''}</news:keywords>` : ''}
+    </news:news>
+    ${haber.resim ? `<image:image>
+      <image:loc>${haber.resim}</image:loc>
+      <image:title><![CDATA[${haber.resimAlt || haber.baslik}]]></image:title>
+    </image:image>` : ''}
+  </url>`).join('\n')}
 </urlset>`;
 
-  return new Response(sitemap, {
+  return new NextResponse(xml, {
     headers: {
       'Content-Type': 'application/xml',
       'Cache-Control': 'public, max-age=300, s-maxage=300',
