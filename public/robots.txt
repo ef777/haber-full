@@ -1,0 +1,26 @@
+# Haber Portali - robots.txt
+# https://www.robotstxt.org/robotstxt.html
+
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://lystrasoftware.xyz/sitemap.xml
+Sitemap: https://lystrasoftware.xyz/news-sitemap.xml
+
+# Admin panelini indexleme
+Disallow: /admin/
+Disallow: /api/
+
+# Arama sonuclari sayfasi
+Disallow: /arama?*
+
+# Googlebot News icin ozel izinler
+User-agent: Googlebot-News
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+# Crawl delay (opsiyonel - bazi botlar icin)
+User-agent: *
+Crawl-delay: 1

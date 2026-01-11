@@ -35,13 +35,26 @@ type KategoriWithHaberler = Kategori & {
 
 export const dynamic = 'force-dynamic';
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'Haber Portali';
+
 export const metadata: Metadata = {
-  title: 'Haber Portali - Son Dakika Haberler, Guncel Haberler',
-  description: 'En son haberler, son dakika gelismeleri, gundem, spor, ekonomi ve daha fazlasi. Turkiye ve dunya haberlerini aninda okuyun.',
+  title: `${siteName} - Turkiye'nin Guncel Haber Kaynagi`,
+  description: 'Son dakika haberleri, ekonomi, spor, teknoloji ve dunya gundemini takip edin. En hizli ve guvenilir haber sitesi.',
+  alternates: {
+    canonical: siteUrl,
+  },
   openGraph: {
-    title: 'Haber Portali - Son Dakika Haberler',
-    description: 'Turkiyenin en guncel haber portali',
+    title: `${siteName} - Guncel Haberler`,
+    description: 'Turkiye ve dunya gundeminden son dakika haberleri',
     type: 'website',
+    url: siteUrl,
+    images: [{ url: `${siteUrl}/og-image.png`, width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: `${siteName} - Guncel Haberler`,
+    description: 'Turkiye ve dunya gundeminden son dakika haberleri',
   },
 };
 

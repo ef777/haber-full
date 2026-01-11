@@ -799,6 +799,54 @@ body {
   color: var(--accent-primary-hover);
 }
 
+/* ==================================================================
+   LEGACY WHITE-BG OVERRIDES - Map old `bg-white` usages to dark theme
+   This helps quickly fix admin and content areas that still used
+   Tailwind's `bg-white` without requiring edits in many files.
+   ================================================================== */
+
+/* Replace white backgrounds with the card background and ensure
+   text and form controls remain readable in dark theme. */
+.bg-white {
+  background-color: var(--bg-card) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border-primary) !important;
+}
+
+.bg-white h1,
+.bg-white h2,
+.bg-white h3,
+.bg-white h4,
+.bg-white p,
+.bg-white a,
+.bg-white label,
+.bg-white span,
+.bg-white small {
+  color: var(--text-primary) !important;
+}
+
+.bg-white input,
+.bg-white textarea,
+.bg-white select,
+.bg-white button {
+  background: var(--bg-elevated) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-primary) !important;
+}
+
+.bg-white .shadow,
+.bg-white.shadow,
+.bg-white.shadow-md,
+.bg-white.shadow-lg {
+  box-shadow: none !important;
+}
+
+/* Slight lift for interactive cards that previously used shadow */
+.bg-white:hover {
+  background: var(--bg-card-hover) !important;
+  border-color: var(--border-secondary) !important;
+}
+
 .news-content table {
   width: 100%;
   border-collapse: collapse;
