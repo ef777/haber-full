@@ -154,7 +154,7 @@ export default async function AramaPage({ searchParams }: Props) {
                           {haber.spot}
                         </p>
                       )}
-                      {haber.yazar && (
+                        {haber.yazar && (
                         <Link
                           href={`/yazar/${haber.yazar.slug}`}
                           className="text-xs text-gray-500 mt-2 inline-block hover:text-red-600"

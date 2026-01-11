@@ -1,4 +1,6 @@
-// Prisma Schema for Haber Sitesi
+// This is your Prisma schema file
+// Learn more at: https://pris.ly/d/prisma-schema
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,13 +10,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Admin kullanicilari
+// Admin kullanıcılar
 model Admin {
   id        Int      @id @default(autoincrement())
   email     String   @unique
-  password  String
-  name      String
-  role      String   @default("editor")
+  sifre     String
+  ad        String
+  aktif     Boolean  @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -22,12 +24,12 @@ model Admin {
 // Kategoriler
 model Kategori {
   id        Int      @id @default(autoincrement())
-  isim      String
+  ad        String
   slug      String   @unique
-  renk      String   @default("#dc2626")
   aciklama  String?
-  sira      Int      @default(0)
+  resim     String?
   aktif     Boolean  @default(true)
+  sira      Int      @default(0)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   haberler  Haber[]
@@ -36,12 +38,14 @@ model Kategori {
 // Yazarlar
 model Yazar {
   id        Int      @id @default(autoincrement())
-  isim      String
+  ad        String
   slug      String   @unique
   email     String?
   biyografi String?
-  foto      String?
+  avatar    String?
   twitter   String?
+  linkedin  String?
+  website   String?
   aktif     Boolean  @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -50,41 +54,48 @@ model Yazar {
 
 // Etiketler
 model Etiket {
-  id        Int      @id @default(autoincrement())
-  isim      String
-  slug      String   @unique
-  createdAt DateTime @default(now())
+  id        Int          @id @default(autoincrement())
+  ad        String
+  slug      String       @unique
+  createdAt DateTime     @default(now())
   haberler  HaberEtiket[]
 }
 
 // Haberler
 model Haber {
-  id              Int           @id @default(autoincrement())
-  baslik          String
-  slug            String        @unique
-  spot            String?
-  icerik          String?       @db.Text
-  kapakResmi      String?
-  kategoriId      Int?
-  kategori        Kategori?     @relation(fields: [kategoriId], references: [id])
-  yazarId         Int?
-  yazar           Yazar?        @relation(fields: [yazarId], references: [id])
-  etiketler       HaberEtiket[]
-  durum           String        @default("taslak")
-  manset          Boolean       @default(false)
-  mansetSira      Int?
-  sondakika       Boolean       @default(false)
-  okunmaSayisi    Int           @default(0)
-  newsKeywords    String?
-  seoTitle        String?
-  seoDescription  String?
-  yayinTarihi     DateTime      @default(now())
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @updatedAt
-  yorumlar        Yorum[]
+  id            Int           @id @default(autoincrement())
+  baslik        String
+  slug          String        @unique
+  spot          String?
+  icerik        String        @db.Text
+  resim         String?
+  resimAlt      String?
+  video         String?
+  durum         String        @default("taslak")
+  manset        Boolean       @default(false)
+  sonDakika     Boolean       @default(false)
+  goruntulenme  Int           @default(0)
+  yayinTarihi   DateTime      @default(now())
+  seoBaslik     String?
+  seoAciklama   String?
+  seoKeywords   String?
+  kaynak        String?
+  kaynakUrl     String?
+  canonicalUrl  String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  
+  kategoriId    Int?
+  kategori      Kategori?     @relation(fields: [kategoriId], references: [id])
+  
+  yazarId       Int?
+  yazar         Yazar?        @relation(fields: [yazarId], references: [id])
+  
+  etiketler     HaberEtiket[]
+  yorumlar      Yorum[]
 }
 
-// Haber-Etiket iliski tablosu
+// Haber-Etiket ilişki tablosu
 model HaberEtiket {
   haberId   Int
   etiketId  Int
@@ -96,31 +107,31 @@ model HaberEtiket {
 
 // Yorumlar
 model Yorum {
-  id           Int      @id @default(autoincrement())
-  icerik       String
-  haberId      Int
-  haber        Haber    @relation(fields: [haberId], references: [id], onDelete: Cascade)
-  yazarAdi     String
-  yazarEmail   String?
-  durum        String   @default("beklemede")
-  begeniSayisi Int      @default(0)
-  createdAt    DateTime @default(now())
+  id          Int      @id @default(autoincrement())
+  ad          String
+  email       String
+  icerik      String   @db.Text
+  onaylandi   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  
+  haberId     Int
+  haber       Haber    @relation(fields: [haberId], references: [id], onDelete: Cascade)
 }
 
-// Site Ayarlari (tek kayit)
+// Site ayarları
 model SiteAyarlari {
-  id           Int      @id @default(1)
-  siteAdi      String   @default("Haber Sitesi")
-  siteAciklama String?
-  logo         String?
-  favicon      String?
-  email        String?
-  telefon      String?
-  adres        String?
-  facebook     String?
-  twitter      String?
-  instagram    String?
-  youtube      String?
-  footerText   String?
-  updatedAt    DateTime @updatedAt
+  id              Int      @id @default(autoincrement())
+  siteAdi         String   @default("Haber Sitesi")
+  siteUrl         String   @default("http://localhost:3000")
+  siteAciklama    String?
+  logoUrl         String?
+  faviconUrl      String?
+  footerText      String?
+  sosyalFacebook  String?
+  sosyalTwitter   String?
+  sosyalInstagram String?
+  sosyalYoutube   String?
+  analyticsId     String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 }

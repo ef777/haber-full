@@ -39,13 +39,11 @@ export async function GET(request: NextRequest) {
     prisma.haber.findMany({
       where,
       include: {
-        kategori: { select: { id: true, isim: true, slug: true, renk: true } },
-        yazar: { select: { id: true, isim: true, slug: true, foto: true } },
+        kategori: { select: { id: true, ad: true, slug: true } },
+        yazar: { select: { id: true, ad: true, slug: true, avatar: true } },
         etiketler: { include: { etiket: true } },
       },
-      orderBy: manset === 'true' 
-        ? { mansetSira: 'asc' }
-        : { yayinTarihi: 'desc' },
+      orderBy: { yayinTarihi: 'desc' },
       skip: (page - 1) * limit,
       take: limit,
     }),

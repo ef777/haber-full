@@ -36,7 +36,8 @@ export async function POST(request: NextRequest) {
     const token = createToken({
       id: admin.id,
       email: admin.email,
-      ad: admin.ad,
+      name: admin.ad,
+      role: 'editor',
     });
 
     const cookieStore = await cookies();

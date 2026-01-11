@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { prisma } from '@/lib/prisma';
-
 export const dynamic = 'force-dynamic';
+
+import { prisma } from '@/lib/prisma';
 
 interface PageProps {
   params: Promise<{ slug: string }>;

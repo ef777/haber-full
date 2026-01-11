@@ -24,7 +24,7 @@ export async function GET(
   // Okunma sayisini artir
   await prisma.haber.update({
     where: { id: haber.id },
-    data: { okunmaSayisi: { increment: 1 } },
+    data: { goruntulenme: { increment: 1 } },
   });
 
   return NextResponse.json(haber);

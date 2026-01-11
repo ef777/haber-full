@@ -112,8 +112,8 @@ export async function POST(request: NextRequest) {
         seoBaslik: seoBaslik || null,
         seoAciklama: seoAciklama || null,
         seoKeywords: seoKeywords || null,
-        kaynak: kaynak || null,
-        kaynakUrl: kaynakUrl || null,
+        kaynak: body.kaynak || null,
+        kaynakUrl: body.kaynakUrl || null,
         yayinTarihi: durum === 'yayinda' ? new Date() : new Date(),
       },
     });

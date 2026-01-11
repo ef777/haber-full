@@ -7,6 +7,8 @@ import Footer from '@/components/Footer';
 
 const inter = Inter({ subsets: ['latin'] });
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: {
     default: 'Haber Sitesi - Son Dakika Haberler',
