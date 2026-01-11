@@ -1,25 +1,28 @@
 import { prisma } from '@/lib/prisma';
 
+export const dynamic = 'force-dynamic';
+
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://example.com';
 
 export async function GET() {
-  const [haberler, kategoriler, yazarlar] = await Promise.all([
-    prisma.haber.findMany({
-      where: { durum: 'yayinda' },
-      select: { slug: true, updatedAt: true },
-      orderBy: { yayinTarihi: 'desc' },
-    }),
-    prisma.kategori.findMany({
-      where: { aktif: true },
-      select: { slug: true, updatedAt: true },
-    }),
-    prisma.yazar.findMany({
-      where: { aktif: true },
-      select: { slug: true, updatedAt: true },
-    }),
-  ]);
+  try {
+    const [haberler, kategoriler, yazarlar] = await Promise.all([
+      prisma.haber.findMany({
+        where: { durum: 'yayinda' },
+        select: { slug: true, updatedAt: true },
+        orderBy: { yayinTarihi: 'desc' },
+      }),
+      prisma.kategori.findMany({
+        where: { aktif: true },
+        select: { slug: true, updatedAt: true },
+      }),
+      prisma.yazar.findMany({
+        where: { aktif: true },
+        select: { slug: true, updatedAt: true },
+      }),
+    ]);
 
-  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+    const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>${SITE_URL}</loc>
@@ -58,10 +61,26 @@ ${yazarlar
   .join('\n')}
 </urlset>`;
 
-  return new Response(sitemap, {
-    headers: {
-      'Content-Type': 'application/xml',
-      'Cache-Control': 'public, max-age=3600, s-maxage=3600',
-    },
-  });
+    return new Response(sitemap, {
+      headers: {
+        'Content-Type': 'application/xml',
+        'Cache-Control': 'public, max-age=3600, s-maxage=3600',
+      },
+    });
+  } catch (error) {
+    console.error('Sitemap generation error:', error);
+    const emptySitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>${SITE_URL}</loc>
+    <changefreq>always</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>`;
+    return new Response(emptySitemap, {
+      headers: {
+        'Content-Type': 'application/xml',
+      },
+    });
+  }
 }
