@@ -97,17 +97,21 @@ export default async function HaberPage({ params }: PageProps) {
 
   const ilgiliHaberler = await getIlgiliHaberler(haber.kategoriId, haber.id);
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
-  const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'Haber Sitesi';
+  const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'Haber Portali';
 
-  // Schema.org NewsArticle
+  // Schema.org NewsArticle - Google News Uyumlu
   const articleSchema = {
     '@context': 'https://schema.org',
     '@type': 'NewsArticle',
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${siteUrl}/haber/${haber.slug}`,
+    },
     headline: haber.baslik,
     description: haber.spot || haber.baslik,
     image: haber.resim ? [haber.resim] : [],
-    datePublished: haber.yayinTarihi.toISOString(),
-    dateModified: haber.updatedAt.toISOString(),
+    datePublished: haber.yayinTarihi.toISOString(), // ISO 8601 formatı
+    dateModified: haber.updatedAt.toISOString(),    // Güncelleme tarihi şart
     author: haber.yazar ? {
       '@type': 'Person',
       name: haber.yazar.ad,
@@ -122,11 +126,9 @@ export default async function HaberPage({ params }: PageProps) {
       logo: {
         '@type': 'ImageObject',
         url: `${siteUrl}/logo.png`,
+        width: 600,
+        height: 60,
       },
-    },
-    mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': `${siteUrl}/haber/${haber.slug}`,
     },
     articleSection: haber.kategori?.ad,
     keywords: haber.etiketler.map(e => e.etiket.ad).join(', '),
@@ -174,20 +176,20 @@ export default async function HaberPage({ params }: PageProps) {
         <nav className="mb-6 text-sm">
           <ol className="flex items-center gap-2 text-gray-500">
             <li>
-              <Link href="/" className="hover:text-red-600">Ana Sayfa</Link>
+              <Link href="/" className="hover:text-red-500">Ana Sayfa</Link>
             </li>
-            <li>/</li>
+            <li className="text-gray-600">/</li>
             {haber.kategori && (
               <>
                 <li>
-                  <Link href={`/kategori/${haber.kategori.slug}`} className="hover:text-red-600">
+                  <Link href={`/kategori/${haber.kategori.slug}`} className="hover:text-red-500">
                     {haber.kategori.ad}
                   </Link>
                 </li>
-                <li>/</li>
+                <li className="text-gray-600">/</li>
               </>
             )}
-            <li className="text-gray-900 truncate max-w-xs">{haber.baslik}</li>
+            <li className="text-gray-300 truncate max-w-xs">{haber.baslik}</li>
           </ol>
         </nav>
 
@@ -197,90 +199,108 @@ export default async function HaberPage({ params }: PageProps) {
             <header className="mb-6">
               <div className="flex gap-2 mb-4">
                 {haber.sonDakika && (
-                  <span className="bg-red-600 text-white px-3 py-1 rounded text-sm font-medium animate-pulse">
-                    SON DAKIKA
+                  <span className="bg-red-600 text-white px-3 py-1 rounded text-sm font-bold animate-pulse shadow-red-900/50 shadow-lg">
+                    SON DAKİKA
                   </span>
                 )}
                 {haber.kategori && (
                   <Link
                     href={`/kategori/${haber.kategori.slug}`}
-                    className="bg-gray-100 text-gray-700 px-3 py-1 rounded text-sm hover:bg-gray-200"
+                    className="bg-[#262626] text-gray-300 border border-[#333] px-3 py-1 rounded text-sm hover:bg-[#333] hover:text-white transition-colors"
                   >
                     {haber.kategori.ad}
                   </Link>
                 )}
               </div>
               
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-black text-white mb-6 leading-tight">
                 {haber.baslik}
               </h1>
               
               {haber.spot && (
-                <p className="text-xl text-gray-600 mb-4 leading-relaxed">
+                <p className="text-xl md:text-2xl text-gray-400 mb-6 leading-relaxed font-light">
                   {haber.spot}
                 </p>
               )}
 
-              <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 border-t border-b py-4">
-                {haber.yazar && (
-                  <Link href={`/yazar/${haber.yazar.slug}`} className="flex items-center gap-2 hover:text-red-600">
-                    {haber.yazar.avatar ? (
-                      <Image
-                        src={haber.yazar.avatar}
-                        alt={haber.yazar.ad}
-                        width={32}
-                        height={32}
-                        className="rounded-full"
-                      />
-                    ) : (
-                      <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-sm">
-                        {haber.yazar.ad.charAt(0)}
-                      </div>
+              <div className="flex flex-wrap items-center justify-between gap-4 text-sm text-gray-500 border-t border-b border-[#262626] py-4">
+                <div className="flex items-center gap-4">
+                    {haber.yazar && (
+                    <Link href={`/yazar/${haber.yazar.slug}`} className="flex items-center gap-2 hover:text-red-500 group transition-colors">
+                        {haber.yazar.avatar ? (
+                        <Image
+                            src={haber.yazar.avatar}
+                            alt={haber.yazar.ad}
+                            width={40}
+                            height={40}
+                            className="rounded-full ring-2 ring-[#262626] group-hover:ring-red-500 transition-all"
+                        />
+                        ) : (
+                        <div className="w-10 h-10 bg-[#262626] rounded-full flex items-center justify-center text-sm font-bold text-gray-300 group-hover:bg-red-600 group-hover:text-white transition-colors">
+                            {haber.yazar.ad.charAt(0)}
+                        </div>
+                        )}
+                        <div className="flex flex-col">
+                            <span className="font-bold text-gray-300 group-hover:text-red-500 transition-colors">{haber.yazar.ad}</span>
+                            <span className="text-xs">Editör</span>
+                        </div>
+                    </Link>
                     )}
-                    <span>{haber.yazar.ad}</span>
-                  </Link>
-                )}
-                <time dateTime={haber.yayinTarihi.toISOString()}>
-                  {new Date(haber.yayinTarihi).toLocaleDateString('tr-TR', {
-                    day: 'numeric',
-                    month: 'long',
-                    year: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                  })}
-                </time>
-                <span>{haber.goruntulenme} görüntülenme</span>
+                </div>
+                <div className="flex flex-col text-right">
+                    <time dateTime={haber.yayinTarihi.toISOString()} className="text-gray-400 font-medium">
+                    {new Date(haber.yayinTarihi).toLocaleDateString('tr-TR', {
+                        day: 'numeric',
+                        month: 'long',
+                        year: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                    })}
+                    </time>
+                    <span className="text-xs text-gray-600">Güncelleme: {new Date(haber.updatedAt).toLocaleDateString('tr-TR')}</span>
+                </div>
               </div>
             </header>
 
             {haber.resim && (
-              <figure className="mb-6">
+              <figure className="mb-8 relative aspect-video rounded-xl overflow-hidden shadow-2xl">
                 <Image
                   src={haber.resim}
                   alt={haber.resimAlt || haber.baslik}
-                  width={800}
-                  height={450}
-                  className="w-full rounded-lg"
+                  fill
+                  className="object-cover"
                   priority
                 />
                 {haber.resimAlt && (
-                  <figcaption className="text-sm text-gray-500 mt-2">
-                    {haber.resimAlt}
-                  </figcaption>
+                  <div className="absolute bottom-0 left-0 right-0 bg-black/60 backdrop-blur-sm p-2">
+                    <figcaption className="text-sm text-gray-300 text-center">
+                        {haber.resimAlt}
+                    </figcaption>
+                  </div>
                 )}
               </figure>
             )}
 
             <div
-              className="prose prose-lg max-w-none mb-8"
+              className="prose prose-lg prose-invert max-w-none mb-12"
               dangerouslySetInnerHTML={{ __html: haber.icerik }}
             />
+            
+            {/* Haberin Devami / Read Next Simulation */}
+            {ilgiliHaberler.length > 0 && (
+                <div className="my-8 p-6 bg-[#111] border-l-4 border-red-600 rounded-r-lg">
+                    <p className="text-gray-400 text-sm font-bold uppercase mb-2">SIRADAKİ HABER</p>
+                    <Link href={`/haber/${ilgiliHaberler[0].slug}`} className="text-xl font-bold text-white hover:text-red-500 transition-colors block">
+                        {ilgiliHaberler[0].baslik} &rarr;
+                    </Link>
+                </div>
+            )}
 
             {haber.video && (
-              <div className="mb-8 aspect-video">
+              <div className="mb-8 aspect-video rounded-lg overflow-hidden border border-[#262626]">
                 <iframe
                   src={haber.video.replace('watch?v=', 'embed/')}
-                  className="w-full h-full rounded-lg"
+                  className="w-full h-full"
                   allowFullScreen
                   title={haber.baslik}
                 />
@@ -289,12 +309,12 @@ export default async function HaberPage({ params }: PageProps) {
 
             {haber.etiketler.length > 0 && (
               <div className="mb-8">
-                <span className="text-sm font-semibold text-gray-500 mb-2 block">Etiketler:</span>
+                <span className="text-sm font-semibold text-gray-500 mb-2 block uppercase tracking-wider">Etiketler:</span>
                 <div className="flex flex-wrap gap-2">
                   {haber.etiketler.map(({ etiket }) => (
                     <span
                       key={etiket.id}
-                      className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm"
+                      className="bg-[#1a1a1a] text-gray-400 border border-[#333] px-3 py-1 rounded-full text-sm hover:text-white hover:border-red-600 transition-all cursor-pointer"
                     >
                       #{etiket.ad}
                     </span>
@@ -303,14 +323,14 @@ export default async function HaberPage({ params }: PageProps) {
               </div>
             )}
 
-            <div className="mb-8">
-              <span className="text-sm font-semibold text-gray-500 mb-2 block">Paylaş:</span>
+            <div className="mb-8 p-6 bg-[#111] rounded-lg border border-[#262626]">
+              <span className="text-sm font-bold text-white mb-4 block uppercase tracking-wider">Haberi Paylaş:</span>
               <div className="flex gap-2">
                 <a
                   href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(`${siteUrl}/haber/${haber.slug}`)}&text=${encodeURIComponent(haber.baslik)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-black text-white px-4 py-2 rounded hover:bg-gray-800"
+                  className="bg-black text-white px-6 py-3 rounded-lg hover:bg-[#1DA1F2] transition-colors flex-1 text-center font-medium border border-[#333]"
                 >
                   X
                 </a>
@@ -318,7 +338,7 @@ export default async function HaberPage({ params }: PageProps) {
                   href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`${siteUrl}/haber/${haber.slug}`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+                  className="bg-[#1877F2] text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors flex-1 text-center font-medium"
                 >
                   Facebook
                 </a>
@@ -326,7 +346,7 @@ export default async function HaberPage({ params }: PageProps) {
                   href={`https://wa.me/?text=${encodeURIComponent(`${haber.baslik} ${siteUrl}/haber/${haber.slug}`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+                  className="bg-[#25D366] text-white px-6 py-3 rounded-lg hover:bg-green-600 transition-colors flex-1 text-center font-medium"
                 >
                   WhatsApp
                 </a>
@@ -334,11 +354,11 @@ export default async function HaberPage({ params }: PageProps) {
             </div>
 
             {ilgiliHaberler.length > 0 && (
-              <section className="border-t pt-8">
-                <h2 className="text-2xl font-bold mb-6">İlgili Haberler</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <section className="border-t border-[#262626] pt-8">
+                <h2 className="text-2xl font-bold text-white mb-6 border-l-4 border-red-600 pl-4">İlgili Haberler</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {ilgiliHaberler.map((ilgili) => (
-                    <Link key={ilgili.id} href={`/haber/${ilgili.slug}`} className="flex gap-4 group">
+                    <Link key={ilgili.id} href={`/haber/${ilgili.slug}`} className="flex gap-4 group bg-[#111] p-3 rounded-lg border border-[#262626] hover:border-red-600/50 transition-all">
                       {ilgili.resim ? (
                         <Image
                           src={ilgili.resim}
@@ -348,15 +368,15 @@ export default async function HaberPage({ params }: PageProps) {
                           className="w-28 h-20 object-cover rounded"
                         />
                       ) : (
-                        <div className="w-28 h-20 bg-gray-200 rounded flex items-center justify-center">
-                          <span className="text-gray-400 text-xs">Resim yok</span>
+                        <div className="w-28 h-20 bg-[#262626] rounded flex items-center justify-center">
+                          <span className="text-gray-500 text-xs">Resim yok</span>
                         </div>
                       )}
                       <div className="flex-1">
-                        <h3 className="font-semibold text-gray-900 group-hover:text-red-600 line-clamp-2">
+                        <h3 className="font-semibold text-gray-200 group-hover:text-red-500 line-clamp-2 transition-colors">
                           {ilgili.baslik}
                         </h3>
-                        <span className="text-sm text-gray-500">
+                        <span className="text-xs text-gray-500 mt-2 block">
                           {new Date(ilgili.yayinTarihi).toLocaleDateString('tr-TR')}
                         </span>
                       </div>
@@ -369,8 +389,10 @@ export default async function HaberPage({ params }: PageProps) {
 
           {/* Sidebar */}
           <aside className="lg:col-span-1">
-            <div className="sticky top-24 bg-white rounded-lg shadow-md p-4">
-              <h3 className="text-lg font-bold text-gray-900 mb-4">Son Haberler</h3>
+            <div className="sticky top-24 bg-[#111] border border-[#262626] rounded-lg shadow-xl p-6">
+              <h3 className="text-lg font-bold text-white mb-6 border-b border-[#262626] pb-3 uppercase tracking-wider">
+                <span className="border-b-2 border-red-600 pb-3">Son Haberler</span>
+              </h3>
               <SonHaberlerWidget />
             </div>
           </aside>
@@ -388,15 +410,17 @@ async function SonHaberlerWidget() {
   });
 
   return (
-    <ul className="space-y-4">
+    <ul className="space-y-6">
       {sonHaberler.map((haber) => (
-        <li key={haber.id}>
-          <Link href={`/haber/${haber.slug}`} className="text-gray-700 hover:text-red-600 text-sm line-clamp-2">
-            {haber.baslik}
+        <li key={haber.id} className="group">
+          <Link href={`/haber/${haber.slug}`} className="block">
+            <span className="text-gray-300 group-hover:text-red-500 text-sm font-medium line-clamp-2 transition-colors leading-snug">
+              {haber.baslik}
+            </span>
+            <span className="text-xs text-gray-600 block mt-2">
+              {new Date(haber.yayinTarihi).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' })}
+            </span>
           </Link>
-          <span className="text-xs text-gray-400 block mt-1">
-            {new Date(haber.yayinTarihi).toLocaleDateString('tr-TR')}
-          </span>
         </li>
       ))}
     </ul>

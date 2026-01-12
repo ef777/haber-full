@@ -18,14 +18,14 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: `${siteName} - Turkiye'nin Guncel Haber Kaynagi`,
+    default: `${siteName} - Guncel Haberler`,
     template: `%s | ${siteName}`,
   },
-  description: 'Son dakika haberleri, gundem, ekonomi, spor, teknoloji ve dunya haberlerini aninda okuyun. Turkiye\'nin en hizli ve guvenilir haber portali.',
+  description: 'Turkiye ve dunyadan son dakika haberleri, en guncel ekonomi verileri, spor sonuclari, teknoloji gelismeleri ve yasam haberleri. En dogru, hizli ve tarafsiz haber kaynagi Haber Portali ile gundemi takip edin.',
   keywords: [
     'haber', 'son dakika', 'gundem', 'turkiye haberleri', 'dunya haberleri',
     'ekonomi', 'spor', 'teknoloji', 'saglik', 'yasam', 'kultur sanat',
-    'breaking news', 'guncel haberler', 'haber sitesi'
+    'breaking news', 'guncel haberler', 'haber sitesi', 'gazete'
   ],
   authors: [{ name: siteName }],
   creator: siteName,
@@ -64,8 +64,8 @@ export const metadata: Metadata = {
     locale: 'tr_TR',
     url: siteUrl,
     siteName: siteName,
-    title: `${siteName} - Turkiye'nin Guncel Haber Kaynagi`,
-    description: 'Son dakika haberleri, gundem, ekonomi, spor ve daha fazlasi. Turkiye\'nin en hizli haber portali.',
+    title: `${siteName} - Guncel Haberler`,
+    description: 'Turkiye ve dunyadan son dakika haberleri, ekonomi, spor ve teknoloji gelismeleri. En hizli ve guvenilir haber kaynagi.',
     images: [
       {
         url: `${siteUrl}/og-image.png`,
@@ -79,18 +79,16 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@haberportali',
     creator: '@haberportali',
-    title: `${siteName} - Turkiye'nin Guncel Haber Kaynagi`,
-    description: 'Son dakika haberleri, gundem, ekonomi, spor ve daha fazlasi.',
+    title: `${siteName} - Guncel Haberler`,
+    description: 'Turkiye ve dunyadan son dakika haberleri, ekonomi, spor ve teknoloji gelismeleri.',
     images: [`${siteUrl}/og-image.png`],
   },
   icons: {
     icon: [
-      { url: '/favicon.ico' },
-      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
-      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon.svg', type: 'image/svg+xml' },
     ],
     apple: [
-      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+      { url: '/favicon.svg', type: 'image/svg+xml' },
     ],
   },
   manifest: '/site.webmanifest',

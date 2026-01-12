@@ -45,110 +45,101 @@ export default function Footer({ kategoriler }: { kategoriler?: Kategori[] }) {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="site-footer">
+    <footer className="bg-[#111] border-t border-[#262626] mt-16 pt-16 pb-8">
       {/* Ana Footer */}
-      <div className="footer-main">
-        <div className="container">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
-            {/* Kolon 1: Marka */}
-            <div>
-              <div className="footer-brand flex items-center gap-2">
-                <span className="text-red-500">HABER</span>
-                <span>PORTALI</span>
+      <div className="container">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-12">
+          {/* Kolon 1: Marka */}
+          <div>
+            <Link href="/" className="flex items-center gap-2 mb-4 group">
+              <div className="bg-red-600 text-white font-black text-xl px-2 py-1 transform -skew-x-12 group-hover:bg-red-700 transition-colors">
+                HABER
               </div>
-              <p className="footer-desc">
-                Turkiye ve dunya gundeminden en son haberler, son dakika gelismeler,
-                ekonomi, spor, teknoloji ve daha fazlasi.
-              </p>
-              <div className="social-icons">
-                <a href="#" className="social-icon" aria-label="Twitter">
-                  <TwitterIcon />
-                </a>
-                <a href="#" className="social-icon" aria-label="Facebook">
-                  <FacebookIcon />
-                </a>
-                <a href="#" className="social-icon" aria-label="Instagram">
-                  <InstagramIcon />
-                </a>
-                <a href="#" className="social-icon" aria-label="YouTube">
-                  <YoutubeIcon />
-                </a>
-                <a href="/rss/feed.xml" className="social-icon" aria-label="RSS">
-                  <RssIcon />
-                </a>
+              <div className="text-white font-bold text-lg tracking-tighter">
+                PORTALI
               </div>
-            </div>
-
-            {/* Kolon 2: Kategoriler */}
-            <div>
-              <h3 className="footer-title">Kategoriler</h3>
-              <nav className="footer-links">
-                {kategoriler?.slice(0, 8).map((k) => (
-                  <Link key={k.id} href={`/kategori/${k.slug}`}>
-                    {k.ad}
-                  </Link>
-                ))}
-              </nav>
-            </div>
-
-            {/* Kolon 3: Hizli Linkler */}
-            <div>
-              <h3 className="footer-title">Hizli Linkler</h3>
-              <nav className="footer-links">
-                <Link href="/">Ana Sayfa</Link>
-                <Link href="/arama">Haber Ara</Link>
-                <a href="#">Hakkimizda</a>
-                <a href="#">Iletisim</a>
-                <a href="#">Reklam</a>
-                <a href="#">Kunye</a>
-                <a href="#">Gizlilik Politikasi</a>
-                <a href="#">Kullanim Sartlari</a>
-              </nav>
-            </div>
-
-            {/* Kolon 4: Bulten */}
-            <div>
-              <h3 className="footer-title">E-Bulten</h3>
-              <p className="text-gray-400 text-sm mb-4">
-                Gunun onemli haberlerini kacirmayin. E-bultenimize abone olun.
-              </p>
-              <form className="newsletter-form" onSubmit={(e) => e.preventDefault()}>
-                <input
-                  type="email"
-                  placeholder="E-posta adresiniz"
-                  required
-                />
-                <button type="submit">Abone Ol</button>
-              </form>
-              <p className="text-gray-500 text-xs mt-3">
-                Abone olarak gizlilik politikamizi kabul etmis olursunuz.
-              </p>
+            </Link>
+            <p className="text-gray-400 text-sm leading-relaxed mb-6">
+              Türkiye ve dünya gündeminden en son haberler, son dakika gelişmeler,
+              ekonomi, spor, teknoloji ve daha fazlası en doğru ve tarafsız kaynakta.
+            </p>
+            <div className="flex items-center gap-3">
+              <a href="#" className="w-8 h-8 flex items-center justify-center rounded bg-[#1a1a1a] text-gray-400 border border-[#333] hover:text-[#1DA1F2] hover:border-[#1DA1F2] transition-all" aria-label="Twitter">
+                <TwitterIcon />
+              </a>
+              <a href="#" className="w-8 h-8 flex items-center justify-center rounded bg-[#1a1a1a] text-gray-400 border border-[#333] hover:text-[#1877F2] hover:border-[#1877F2] transition-all" aria-label="Facebook">
+                <FacebookIcon />
+              </a>
+              <a href="#" className="w-8 h-8 flex items-center justify-center rounded bg-[#1a1a1a] text-gray-400 border border-[#333] hover:text-[#E4405F] hover:border-[#E4405F] transition-all" aria-label="Instagram">
+                <InstagramIcon />
+              </a>
+              <a href="#" className="w-8 h-8 flex items-center justify-center rounded bg-[#1a1a1a] text-gray-400 border border-[#333] hover:text-[#FF0000] hover:border-[#FF0000] transition-all" aria-label="YouTube">
+                <YoutubeIcon />
+              </a>
+              <a href="/rss/feed.xml" className="w-8 h-8 flex items-center justify-center rounded bg-[#1a1a1a] text-gray-400 border border-[#333] hover:text-[#FFA500] hover:border-[#FFA500] transition-all" aria-label="RSS">
+                <RssIcon />
+              </a>
             </div>
           </div>
-        </div>
-      </div>
 
-      {/* Alt Footer */}
-      <div className="footer-bottom">
-        <div className="container">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="footer-bottom-text">
-              &copy; {currentYear} Haber Portali. Tum haklari saklidir.
+          {/* Kolon 2: Kategoriler */}
+          <div>
+            <h3 className="text-white font-bold mb-4 uppercase text-sm tracking-wider border-b border-red-600 inline-block pb-1">Kategoriler</h3>
+            <nav className="flex flex-col gap-2">
+              {kategoriler?.slice(0, 8).map((k) => (
+                <Link key={k.id} href={`/kategori/${k.slug}`} className="text-gray-400 hover:text-red-500 text-sm transition-colors">
+                  {k.ad}
+                </Link>
+              ))}
+            </nav>
+          </div>
+
+          {/* Kolon 3: Kurumsal */}
+          <div>
+            <h3 className="text-white font-bold mb-4 uppercase text-sm tracking-wider border-b border-red-600 inline-block pb-1">Kurumsal</h3>
+            <nav className="flex flex-col gap-2">
+              <Link href="/kunye" className="text-gray-400 hover:text-white text-sm transition-colors">Künye</Link>
+              <Link href="#" className="text-gray-400 hover:text-white text-sm transition-colors">İletişim</Link>
+              <Link href="#" className="text-gray-400 hover:text-white text-sm transition-colors">Reklam</Link>
+              <Link href="#" className="text-gray-400 hover:text-white text-sm transition-colors">Gizlilik Politikası</Link>
+              <Link href="#" className="text-gray-400 hover:text-white text-sm transition-colors">Kullanım Şartları</Link>
+              <Link href="#" className="text-gray-400 hover:text-white text-sm transition-colors">Çerez Politikası</Link>
+            </nav>
+          </div>
+
+          {/* Kolon 4: E-Bülten */}
+          <div>
+            <h3 className="text-white font-bold mb-4 uppercase text-sm tracking-wider border-b border-red-600 inline-block pb-1">E-Bülten</h3>
+            <p className="text-gray-400 text-sm mb-4">
+              Günün önemli haberlerini kaçırmayın. E-bültenimize abone olun.
             </p>
-            <div className="flex items-center gap-6">
-              <a href="#" className="text-gray-500 hover:text-gray-300 text-sm transition-colors">
-                Gizlilik
-              </a>
-              <a href="#" className="text-gray-500 hover:text-gray-300 text-sm transition-colors">
-                Sartlar
-              </a>
-              <a href="#" className="text-gray-500 hover:text-gray-300 text-sm transition-colors">
-                Cerezler
-              </a>
-              <Link href="/admin" className="text-gray-500 hover:text-gray-300 text-sm transition-colors">
-                Yonetim
-              </Link>
-            </div>
+            <form className="flex flex-col gap-2" onSubmit={(e) => e.preventDefault()}>
+              <input
+                type="email"
+                placeholder="E-posta adresiniz"
+                required
+                className="bg-[#1a1a1a] border border-[#333] text-white px-4 py-2 rounded text-sm focus:border-red-600 outline-none transition-colors"
+              />
+              <button type="submit" className="bg-red-600 text-white px-4 py-2 rounded text-sm font-bold hover:bg-red-700 transition-colors uppercase">
+                Abone Ol
+              </button>
+            </form>
+            <p className="text-gray-500 text-xs mt-3">
+              * Abone olarak gizlilik politikamızı kabul etmiş olursunuz.
+            </p>
+          </div>
+        </div>
+
+        {/* Alt Footer */}
+        <div className="pt-8 border-t border-[#262626] flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-gray-500 text-sm">
+            &copy; {currentYear} <span className="text-white">Haber Portali</span>. Tüm hakları saklıdır.
+          </p>
+          <div className="flex items-center gap-6">
+            <span className="text-gray-600 text-xs">Yazılım: Lystra Software</span>
+            <Link href="/admin" className="text-gray-500 hover:text-white text-xs transition-colors">
+              Yönetim Paneli
+            </Link>
           </div>
         </div>
       </div>

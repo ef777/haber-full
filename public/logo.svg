@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 60" fill="none">
+  <!-- Red Box for HABER -->
+  <rect x="0" y="0" width="130" height="60" rx="4" fill="#dc2626" />
+  <text x="65" y="42" font-family="Arial, sans-serif" font-weight="900" font-size="36" fill="white" text-anchor="middle">HABER</text>
+  
+  <!-- Text for PORTALI -->
+  <text x="140" y="42" font-family="Arial, sans-serif" font-weight="900" font-size="36" fill="white">PORTALI</text>
+</svg>
