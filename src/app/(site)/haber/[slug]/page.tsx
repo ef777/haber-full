@@ -49,6 +49,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     alternates: {
       canonical: `${siteUrl}/haber/${haber.slug}`,
     },
+    other: {
+      amphtml: `${siteUrl}/haber/${haber.slug}/amp`,
+    },
   };
 }
 
