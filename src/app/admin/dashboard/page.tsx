@@ -139,6 +139,34 @@ export default function AdminDashboardPage() {
             <div className="text-xl font-bold mb-2 text-white group-hover:text-red-500 transition-colors">👤 Yazarlar</div>
             <p className="text-gray-400">Yazarları yönet</p>
           </Link>
+          <Link
+            href="/admin/slider"
+            className="bg-[#161616] border border-[#262626] rounded-lg p-6 hover:bg-[#1c1c1c] hover:border-red-600/50 transition-all group"
+          >
+            <div className="text-xl font-bold mb-2 text-white group-hover:text-red-500 transition-colors">🎠 Slider</div>
+            <p className="text-gray-400">Ana sayfa slider yönetimi</p>
+          </Link>
+          <Link
+            href="/admin/ayarlar"
+            className="bg-[#161616] border border-[#262626] rounded-lg p-6 hover:bg-[#1c1c1c] hover:border-red-600/50 transition-all group"
+          >
+            <div className="text-xl font-bold mb-2 text-white group-hover:text-red-500 transition-colors">⚙️ Site Ayarları</div>
+            <p className="text-gray-400">Logo, sosyal medya, özel kodlar</p>
+          </Link>
+          <Link
+            href="/admin/eczaneler"
+            className="bg-[#161616] border border-[#262626] rounded-lg p-6 hover:bg-[#1c1c1c] hover:border-red-600/50 transition-all group"
+          >
+            <div className="text-xl font-bold mb-2 text-white group-hover:text-red-500 transition-colors">💊 Nöbetçi Eczaneler</div>
+            <p className="text-gray-400">Günlük nöbetçi eczane yönetimi</p>
+          </Link>
+          <Link
+            href="/admin/reklamlar"
+            className="bg-[#161616] border border-[#262626] rounded-lg p-6 hover:bg-[#1c1c1c] hover:border-red-600/50 transition-all group"
+          >
+            <div className="text-xl font-bold mb-2 text-white group-hover:text-red-500 transition-colors">📢 Reklam/İlan</div>
+            <p className="text-gray-400">Reklam alanlarını yönet</p>
+          </Link>
         </div>
 
         {/* Site Links */}

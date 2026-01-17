@@ -3,20 +3,21 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import ImageUpload from '@/components/admin/ImageUpload';
 
 interface Kategori {
   id: number;
-  isim: string;
+  ad: string;
 }
 
 interface Yazar {
   id: number;
-  isim: string;
+  ad: string;
 }
 
 interface Etiket {
   id: number;
-  isim: string;
+  ad: string;
 }
 
 export default function YeniHaberPage() {
@@ -108,12 +109,12 @@ export default function YeniHaberPage() {
 
   const handleAddEtiket = async () => {
     if (!yeniEtiket.trim()) return;
-    
+
     try {
       const res = await fetch('/api/admin/etiketler', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ isim: yeniEtiket }),
+        body: JSON.stringify({ ad: yeniEtiket }),
       });
       const data = await res.json();
       setEtiketler([...etiketler, data]);
@@ -194,30 +195,24 @@ export default function YeniHaberPage() {
           </div>
 
           {/* Resim */}
-          <div className="grid grid-cols-2 gap-4">
-            <div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <ImageUpload
+              value={formData.resimUrl}
+              onChange={(url) => setFormData({ ...formData, resimUrl: url })}
+              label="Haber Görseli"
+            />
+            <div className="flex flex-col justify-end">
               <label className="block text-sm font-medium text-gray-400 mb-1">
-                Resim URL
-              </label>
-              <input
-                type="url"
-                value={formData.resimUrl}
-                onChange={(e) => setFormData({ ...formData, resimUrl: e.target.value })}
-                className="w-full bg-[#1a1a1a] border border-[#333] rounded-lg px-3 py-2 text-white outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600 transition-colors"
-                placeholder="https://..."
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-400 mb-1">
-                Resim Alt Text
+                Resim Alt Text (SEO)
               </label>
               <input
                 type="text"
                 value={formData.resimAlt}
                 onChange={(e) => setFormData({ ...formData, resimAlt: e.target.value })}
                 className="w-full bg-[#1a1a1a] border border-[#333] rounded-lg px-3 py-2 text-white outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600 transition-colors"
-                placeholder="Resim açıklaması"
+                placeholder="Resim açıklaması (görme engelliler için)"
               />
+              <p className="text-xs text-gray-500 mt-1">SEO için önemli: Görseli tanımlayan kısa bir açıklama</p>
             </div>
           </div>
 
@@ -234,7 +229,7 @@ export default function YeniHaberPage() {
               >
                 <option value="">Seçiniz</option>
                 {kategoriler.map((k) => (
-                  <option key={k.id} value={k.id}>{k.isim}</option>
+                  <option key={k.id} value={k.id}>{k.ad}</option>
                 ))}
               </select>
             </div>
@@ -249,7 +244,7 @@ export default function YeniHaberPage() {
               >
                 <option value="">Seçiniz</option>
                 {yazarlar.map((y) => (
-                  <option key={y.id} value={y.id}>{y.isim}</option>
+                  <option key={y.id} value={y.id}>{y.ad}</option>
                 ))}
               </select>
             </div>
@@ -272,7 +267,7 @@ export default function YeniHaberPage() {
                       : 'bg-[#262626] text-gray-400 hover:bg-[#333]'
                   }`}
                 >
-                  {e.isim}
+                  {e.ad}
                 </button>
               ))}
             </div>

@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 interface Kategori {
   id: number;
-  isim: string;
+  ad: string;
   slug: string;
   aktif: boolean;
   sira: number;
@@ -18,7 +18,7 @@ export default function AdminKategorilerPage() {
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);
-  const [formData, setFormData] = useState({ isim: '', aktif: true, sira: 0 });
+  const [formData, setFormData] = useState({ ad: '', aktif: true, sira: 0 });
   const router = useRouter();
 
   useEffect(() => {
@@ -61,7 +61,7 @@ export default function AdminKategorilerPage() {
       
       setShowForm(false);
       setEditingId(null);
-      setFormData({ isim: '', aktif: true, sira: 0 });
+      setFormData({ ad: '', aktif: true, sira: 0 });
       loadKategoriler();
     } catch {
       console.error('Error saving kategori');
@@ -69,7 +69,7 @@ export default function AdminKategorilerPage() {
   };
 
   const handleEdit = (k: Kategori) => {
-    setFormData({ isim: k.isim, aktif: k.aktif, sira: k.sira });
+    setFormData({ ad: k.ad, aktif: k.aktif, sira: k.sira });
     setEditingId(k.id);
     setShowForm(true);
   };
@@ -92,7 +92,7 @@ export default function AdminKategorilerPage() {
             <h1 className="text-xl font-bold text-white">Kategoriler</h1>
           </div>
           <button
-            onClick={() => { setShowForm(true); setEditingId(null); setFormData({ isim: '', aktif: true, sira: 0 }); }}
+            onClick={() => { setShowForm(true); setEditingId(null); setFormData({ ad: '', aktif: true, sira: 0 }); }}
             className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors"
           >
             + Yeni Kategori
@@ -116,8 +116,8 @@ export default function AdminKategorilerPage() {
                   <input
                     type="text"
                     required
-                    value={formData.isim}
-                    onChange={(e) => setFormData({ ...formData, isim: e.target.value })}
+                    value={formData.ad}
+                    onChange={(e) => setFormData({ ...formData, ad: e.target.value })}
                     className="w-full bg-[#1a1a1a] border border-[#333] rounded-lg px-3 py-2 text-white outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600 transition-colors"
                     placeholder="Örn: Gündem, Spor, Ekonomi"
                   />
@@ -185,7 +185,7 @@ export default function AdminKategorilerPage() {
               <tbody className="divide-y divide-[#262626]">
                 {kategoriler.map((k) => (
                   <tr key={k.id} className="hover:bg-[#1c1c1c] transition-colors">
-                    <td className="px-4 py-3 font-medium text-white">{k.isim}</td>
+                    <td className="px-4 py-3 font-medium text-white">{k.ad}</td>
                     <td className="px-4 py-3 text-gray-400">{k.slug}</td>
                     <td className="px-4 py-3 text-gray-400">{k._count?.haberler || 0}</td>
                     <td className="px-4 py-3 text-gray-400">{k.sira}</td>

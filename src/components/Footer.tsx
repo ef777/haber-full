@@ -1,11 +1,26 @@
 "use client";
 
 import Link from 'next/link';
+import Image from 'next/image';
 
 type Kategori = {
   id: number;
   ad: string;
   slug: string;
+};
+
+type SiteAyarlari = {
+  siteAdi: string;
+  logoUrl: string | null;
+  logoAltUrl: string | null;
+  footerText: string | null;
+  copyrightText: string | null;
+  sosyalTwitter: string | null;
+  sosyalFacebook: string | null;
+  sosyalInstagram: string | null;
+  sosyalYoutube: string | null;
+  iletisimEmail: string | null;
+  iletisimTelefon: string | null;
 };
 
 // SVG Icons
@@ -41,8 +56,9 @@ const RssIcon = () => (
   </svg>
 );
 
-export default function Footer({ kategoriler }: { kategoriler?: Kategori[] }) {
+export default function Footer({ kategoriler, siteAyarlari }: { kategoriler?: Kategori[]; siteAyarlari?: SiteAyarlari | null }) {
   const currentYear = new Date().getFullYear();
+  const footerLogo = siteAyarlari?.logoAltUrl || siteAyarlari?.logoUrl;
 
   return (
     <footer className="bg-[#111] border-t border-[#262626] mt-16 pt-16 pb-8">
@@ -52,30 +68,66 @@ export default function Footer({ kategoriler }: { kategoriler?: Kategori[] }) {
           {/* Kolon 1: Marka */}
           <div>
             <Link href="/" className="flex items-center gap-2 mb-4 group">
-              <div className="bg-red-600 text-white font-black text-xl px-2 py-1 transform -skew-x-12 group-hover:bg-red-700 transition-colors">
-                HABER
-              </div>
-              <div className="text-white font-bold text-lg tracking-tighter">
-                PORTALI
-              </div>
+              {footerLogo ? (
+                <Image
+                  src={footerLogo}
+                  alt={siteAyarlari?.siteAdi || 'Logo'}
+                  width={180}
+                  height={50}
+                  className="h-[40px] w-auto object-contain"
+                  unoptimized={footerLogo.startsWith('/uploads/')}
+                />
+              ) : (
+                <>
+                  <div className="bg-red-600 text-white font-black text-xl px-2 py-1 transform -skew-x-12 group-hover:bg-red-700 transition-colors">
+                    HABER
+                  </div>
+                  <div className="text-white font-bold text-lg tracking-tighter">
+                    PORTALI
+                  </div>
+                </>
+              )}
             </Link>
             <p className="text-gray-400 text-sm leading-relaxed mb-6">
-              Türkiye ve dünya gündeminden en son haberler, son dakika gelişmeler,
-              ekonomi, spor, teknoloji ve daha fazlası en doğru ve tarafsız kaynakta.
+              {siteAyarlari?.footerText || 'Türkiye ve dünya gündeminden en son haberler, son dakika gelişmeler, ekonomi, spor, teknoloji ve daha fazlası en doğru ve tarafsız kaynakta.'}
             </p>
             <div className="flex items-center gap-3">
-              <a href="#" className="w-8 h-8 flex items-center justify-center rounded bg-[#1a1a1a] text-gray-400 border border-[#333] hover:text-[#1DA1F2] hover:border-[#1DA1F2] transition-all" aria-label="Twitter">
-                <TwitterIcon />
-              </a>
-              <a href="#" className="w-8 h-8 flex items-center justify-center rounded bg-[#1a1a1a] text-gray-400 border border-[#333] hover:text-[#1877F2] hover:border-[#1877F2] transition-all" aria-label="Facebook">
-                <FacebookIcon />
-              </a>
-              <a href="#" className="w-8 h-8 flex items-center justify-center rounded bg-[#1a1a1a] text-gray-400 border border-[#333] hover:text-[#E4405F] hover:border-[#E4405F] transition-all" aria-label="Instagram">
-                <InstagramIcon />
-              </a>
-              <a href="#" className="w-8 h-8 flex items-center justify-center rounded bg-[#1a1a1a] text-gray-400 border border-[#333] hover:text-[#FF0000] hover:border-[#FF0000] transition-all" aria-label="YouTube">
-                <YoutubeIcon />
-              </a>
+              {siteAyarlari?.sosyalTwitter && (
+                <a href={siteAyarlari.sosyalTwitter} target="_blank" rel="noopener noreferrer" className="w-8 h-8 flex items-center justify-center rounded bg-[#1a1a1a] text-gray-400 border border-[#333] hover:text-[#1DA1F2] hover:border-[#1DA1F2] transition-all" aria-label="Twitter">
+                  <TwitterIcon />
+                </a>
+              )}
+              {siteAyarlari?.sosyalFacebook && (
+                <a href={siteAyarlari.sosyalFacebook} target="_blank" rel="noopener noreferrer" className="w-8 h-8 flex items-center justify-center rounded bg-[#1a1a1a] text-gray-400 border border-[#333] hover:text-[#1877F2] hover:border-[#1877F2] transition-all" aria-label="Facebook">
+                  <FacebookIcon />
+                </a>
+              )}
+              {siteAyarlari?.sosyalInstagram && (
+                <a href={siteAyarlari.sosyalInstagram} target="_blank" rel="noopener noreferrer" className="w-8 h-8 flex items-center justify-center rounded bg-[#1a1a1a] text-gray-400 border border-[#333] hover:text-[#E4405F] hover:border-[#E4405F] transition-all" aria-label="Instagram">
+                  <InstagramIcon />
+                </a>
+              )}
+              {siteAyarlari?.sosyalYoutube && (
+                <a href={siteAyarlari.sosyalYoutube} target="_blank" rel="noopener noreferrer" className="w-8 h-8 flex items-center justify-center rounded bg-[#1a1a1a] text-gray-400 border border-[#333] hover:text-[#FF0000] hover:border-[#FF0000] transition-all" aria-label="YouTube">
+                  <YoutubeIcon />
+                </a>
+              )}
+              {!siteAyarlari?.sosyalTwitter && !siteAyarlari?.sosyalFacebook && !siteAyarlari?.sosyalInstagram && !siteAyarlari?.sosyalYoutube && (
+                <>
+                  <a href="#" className="w-8 h-8 flex items-center justify-center rounded bg-[#1a1a1a] text-gray-400 border border-[#333] hover:text-[#1DA1F2] hover:border-[#1DA1F2] transition-all" aria-label="Twitter">
+                    <TwitterIcon />
+                  </a>
+                  <a href="#" className="w-8 h-8 flex items-center justify-center rounded bg-[#1a1a1a] text-gray-400 border border-[#333] hover:text-[#1877F2] hover:border-[#1877F2] transition-all" aria-label="Facebook">
+                    <FacebookIcon />
+                  </a>
+                  <a href="#" className="w-8 h-8 flex items-center justify-center rounded bg-[#1a1a1a] text-gray-400 border border-[#333] hover:text-[#E4405F] hover:border-[#E4405F] transition-all" aria-label="Instagram">
+                    <InstagramIcon />
+                  </a>
+                  <a href="#" className="w-8 h-8 flex items-center justify-center rounded bg-[#1a1a1a] text-gray-400 border border-[#333] hover:text-[#FF0000] hover:border-[#FF0000] transition-all" aria-label="YouTube">
+                    <YoutubeIcon />
+                  </a>
+                </>
+              )}
               <a href="/rss/feed.xml" className="w-8 h-8 flex items-center justify-center rounded bg-[#1a1a1a] text-gray-400 border border-[#333] hover:text-[#FFA500] hover:border-[#FFA500] transition-all" aria-label="RSS">
                 <RssIcon />
               </a>
@@ -133,7 +185,9 @@ export default function Footer({ kategoriler }: { kategoriler?: Kategori[] }) {
         {/* Alt Footer */}
         <div className="pt-8 border-t border-[#262626] flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-gray-500 text-sm">
-            &copy; {currentYear} <span className="text-white">Haber Portali</span>. Tüm hakları saklıdır.
+            {siteAyarlari?.copyrightText || (
+              <>&copy; {currentYear} <span className="text-white">{siteAyarlari?.siteAdi || 'Haber Portali'}</span>. Tüm hakları saklıdır.</>
+            )}
           </p>
           <div className="flex items-center gap-6">
             <span className="text-gray-600 text-xs">Yazılım: Lystra Software</span>

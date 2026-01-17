@@ -118,6 +118,46 @@ model Yorum {
   haber       Haber    @relation(fields: [haberId], references: [id], onDelete: Cascade)
 }
 
+// Slider
+model Slider {
+  id          Int      @id @default(autoincrement())
+  baslik      String
+  aciklama    String?
+  resim       String
+  link        String?
+  sira        Int      @default(0)
+  aktif       Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// Nöbetçi Eczaneler
+model NobetciEczane {
+  id          Int      @id @default(autoincrement())
+  ad          String
+  adres       String
+  telefon     String?
+  il          String   @default("Eskisehir")
+  ilce        String?
+  tarih       DateTime @default(now()) // Nöbet tarihi
+  aktif       Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// Reklamlar/İlanlar
+model Reklam {
+  id          Int      @id @default(autoincrement())
+  ad          String
+  konum       String   // header, sidebar, footer, content
+  icerik      String   @db.Text // HTML/Script kodu
+  aktif       Boolean  @default(true)
+  baslangic   DateTime?
+  bitis       DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
 // Site ayarları
 model SiteAyarlari {
   id              Int      @id @default(autoincrement())
@@ -125,13 +165,22 @@ model SiteAyarlari {
   siteUrl         String   @default("http://localhost:3000")
   siteAciklama    String?
   logoUrl         String?
+  logoAltUrl      String?  // Alternatif logo (footer için)
   faviconUrl      String?
   footerText      String?
+  copyrightText   String?
   sosyalFacebook  String?
   sosyalTwitter   String?
   sosyalInstagram String?
   sosyalYoutube   String?
+  sosyalTiktok    String?
+  sosyalLinkedin  String?
   analyticsId     String?
+  headerKod       String?  @db.Text // Custom header script (Google Analytics vb.)
+  footerKod       String?  @db.Text // Custom footer script
+  iletisimEmail   String?
+  iletisimTelefon String?
+  iletisimAdres   String?
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 }

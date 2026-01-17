@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Metadata } from 'next';
 import { prisma } from '@/lib/prisma';
+import Slider from '@/components/Slider';
 
 // Type definitions
 type Yazar = {
@@ -109,6 +110,18 @@ async function getEnCokOkunanlar() {
   });
 }
 
+async function getSliders() {
+  try {
+    return await prisma.slider.findMany({
+      where: { aktif: true },
+      orderBy: { sira: 'asc' },
+    });
+  } catch {
+    // If table doesn't exist yet, return empty array
+    return [];
+  }
+}
+
 function formatTimeAgo(date: Date) {
   const now = new Date();
   const diffInMs = now.getTime() - date.getTime();
@@ -130,12 +143,13 @@ function formatTimeAgo(date: Date) {
 }
 
 export default async function HomePage() {
-  const [mansetHaberler, sonHaberler, sonDakikaHaberler, kategoriler, enCokOkunanlar] = await Promise.all([
+  const [mansetHaberler, sonHaberler, sonDakikaHaberler, kategoriler, enCokOkunanlar, sliders] = await Promise.all([
     getMansetHaberler(),
     getSonHaberler(),
     getSonDakikaHaberler(),
     getKategoriler(),
     getEnCokOkunanlar(),
+    getSliders(),
   ]);
 
   const anaHaber = mansetHaberler[0];
@@ -206,6 +220,13 @@ export default async function HomePage() {
       )}
 
       <main className="container py-6">
+        {/* SLIDER */}
+        {sliders && sliders.length > 0 && (
+          <section className="mb-8">
+            <Slider items={sliders} autoPlayInterval={5000} />
+          </section>
+        )}
+
         {/* ANA MANSET ALANI */}
         <section className="mb-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">

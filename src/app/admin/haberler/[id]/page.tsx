@@ -2,6 +2,8 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter, useParams } from 'next/navigation';
+import Link from 'next/link';
+import ImageUpload from '@/components/admin/ImageUpload';
 
 interface Kategori {
   id: number;
@@ -30,8 +32,8 @@ interface Haber {
   kategoriId: number;
   yazarId: number;
   durum: string;
-  manpiset: boolean;
-  pisonDakika: boolean;
+  manset: boolean;
+  sonDakika: boolean;
   seoBaslik: string;
   seoAciklama: string;
   seoKeywords: string;
@@ -63,8 +65,8 @@ export default function HaberDuzenle() {
     kategoriId: '',
     yazarId: '',
     durum: 'taslak',
-    manpiset: false,
-    pisonDakika: false,
+    manset: false,
+    sonDakika: false,
     seoBaslik: '',
     seoAciklama: '',
     seoKeywords: '',
@@ -106,8 +108,8 @@ export default function HaberDuzenle() {
         kategoriId: haber.kategoriId?.toString() || '',
         yazarId: haber.yazarId?.toString() || '',
         durum: haber.durum || 'taslak',
-        manpiset: haber.manpiset || false,
-        pisonDakika: haber.pisonDakika || false,
+        manset: haber.manset || false,
+        sonDakika: haber.sonDakika || false,
         seoBaslik: haber.seoBaslik || '',
         seoAciklama: haber.seoAciklama || '',
         seoKeywords: haber.seoKeywords || '',
@@ -298,42 +300,42 @@ export default function HaberDuzenle() {
         <div className="bg-white rounded-lg shadow p-6 space-y-4">
           <h2 className="text-lg font-semibold border-b pb-2">Medya</h2>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Resim URL
-            </label>
-            <input
-              type="url"
-              value={form.resim}
-              onChange={(e) => setForm({ ...form, resim: e.target.value })}
-              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="https://..."
-            />
-          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <ImageUpload
+                value={form.resim}
+                onChange={(url) => setForm({ ...form, resim: url })}
+                label="Haber Görseli"
+              />
+            </div>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Resim Alt Metni (SEO)
+                </label>
+                <input
+                  type="text"
+                  value={form.resimAlt}
+                  onChange={(e) => setForm({ ...form, resimAlt: e.target.value })}
+                  className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Görseli tanımlayan kısa açıklama"
+                />
+                <p className="text-xs text-gray-500 mt-1">SEO ve erişilebilirlik için önemli</p>
+              </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Resim Alt Metni
-            </label>
-            <input
-              type="text"
-              value={form.resimAlt}
-              onChange={(e) => setForm({ ...form, resimAlt: e.target.value })}
-              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Video URL (YouTube vb.)
-            </label>
-            <input
-              type="url"
-              value={form.video}
-              onChange={(e) => setForm({ ...form, video: e.target.value })}
-              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="https://..."
-            />
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Video URL (YouTube vb.)
+                </label>
+                <input
+                  type="url"
+                  value={form.video}
+                  onChange={(e) => setForm({ ...form, video: e.target.value })}
+                  className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="https://youtube.com/watch?v=..."
+                />
+              </div>
+            </div>
           </div>
         </div>
 
@@ -398,8 +400,8 @@ export default function HaberDuzenle() {
             <label className="flex items-center gap-2">
               <input
                 type="checkbox"
-                checked={form.manpiset}
-                onChange={(e) => setForm({ ...form, manpiset: e.target.checked })}
+                checked={form.manset}
+                onChange={(e) => setForm({ ...form, manset: e.target.checked })}
                 className="w-4 h-4 text-blue-600"
               />
               <span className="text-sm text-gray-700">Manşet Haber</span>
@@ -408,8 +410,8 @@ export default function HaberDuzenle() {
             <label className="flex items-center gap-2">
               <input
                 type="checkbox"
-                checked={form.pisonDakika}
-                onChange={(e) => setForm({ ...form, pisonDakika: e.target.checked })}
+                checked={form.sonDakika}
+                onChange={(e) => setForm({ ...form, sonDakika: e.target.checked })}
                 className="w-4 h-4 text-red-600"
               />
               <span className="text-sm text-gray-700">Son Dakika</span>
