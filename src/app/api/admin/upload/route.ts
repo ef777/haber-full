@@ -56,12 +56,15 @@ export async function POST(request: NextRequest) {
     const filePath = path.join(uploadsDir, filename);
     await writeFile(filePath, buffer);
 
-    // Return the public URL
-    const url = `/uploads/${filename}`;
+    // Build full URL
+    const protocol = request.headers.get('x-forwarded-proto') || 'http';
+    const host = request.headers.get('host') || 'localhost:3000';
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || `${protocol}://${host}`;
+    const fullUrl = `${baseUrl}/uploads/${filename}`;
 
     return NextResponse.json({
       success: true,
-      url,
+      url: fullUrl,
       filename,
       size: file.size,
       type: file.type
