@@ -19,6 +19,8 @@ const nextConfig: NextConfig = {
         hostname: 'localhost',
       },
     ],
+    // Disable optimization for local uploads
+    unoptimized: true,
   },
 
   // Security ve SEO headers
