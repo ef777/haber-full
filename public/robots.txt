@@ -5,8 +5,8 @@ User-agent: *
 Allow: /
 
 # Sitemaps
-Sitemap: https://lystrasoftware.xyz/sitemap.xml
-Sitemap: https://lystrasoftware.xyz/news-sitemap.xml
+Sitemap: https://eskisehirolay.com.tr/sitemap.xml
+Sitemap: https://eskisehirolay.com.tr/news-sitemap.xml
 
 # Admin panelini indexleme
 Disallow: /admin/
