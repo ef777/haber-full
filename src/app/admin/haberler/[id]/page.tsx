@@ -33,6 +33,7 @@ interface Haber {
   yazarId: number;
   durum: string;
   manset: boolean;
+  slider: boolean;
   sonDakika: boolean;
   seoBaslik: string;
   seoAciklama: string;
