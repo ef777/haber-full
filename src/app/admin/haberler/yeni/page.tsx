@@ -32,6 +32,7 @@ export default function YeniHaberPage() {
     etiketler: [] as number[],
     durum: 'taslak',
     manset: false,
+    slider: false,
     sondakika: false,
     seoBaslik: '',
     seoAciklama: '',
@@ -314,6 +315,17 @@ export default function YeniHaberPage() {
                   className="w-4 h-4 text-red-600 bg-[#1a1a1a] border-[#333] rounded focus:ring-red-600"
                 />
                 <span className="text-sm text-gray-300">★ Manşet</span>
+              </label>
+            </div>
+            <div className="flex items-center">
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={formData.slider}
+                  onChange={(e) => setFormData({ ...formData, slider: e.target.checked })}
+                  className="w-4 h-4 text-red-600 bg-[#1a1a1a] border-[#333] rounded focus:ring-red-600"
+                />
+                <span className="text-sm text-gray-300">🖼️ Slayta Ekle</span>
               </label>
             </div>
             <div className="flex items-center">

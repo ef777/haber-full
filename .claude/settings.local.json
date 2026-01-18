@@ -3,7 +3,16 @@
     "allow": [
       "Bash(dir:*)",
       "Bash(powershell -Command \"Get-ChildItem -Path ''src'' -Recurse | Where-Object {$_Extension -eq ''.tsx'' -or $_Extension -eq ''.ts''} | Select-Object FullName\")",
-      "Bash(npm run fix:urls:*)"
+      "Bash(npm run fix:urls:*)",
+      "WebFetch(domain:www.teb.org.tr)",
+      "WebFetch(domain:www.eczanemnerede.com)",
+      "WebFetch(domain:nobetcieczane.org)",
+      "WebFetch(domain:www.nobetcieczane.com.tr)",
+      "WebFetch(domain:nobetcieczane.com.tr)",
+      "WebFetch(domain:api.collectapi.com)",
+      "WebFetch(domain:www.nosyapi.com)",
+      "WebFetch(domain:www.saglik.gov.tr)",
+      "WebFetch(domain:eskisehireo.org.tr)"
     ]
   }
 }

@@ -1,6 +1,7 @@
 import './globals.css';
 import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
+import Script from 'next/script';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -95,6 +96,8 @@ export const metadata: Metadata = {
   category: 'news',
 };
 
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+
 export default function RootLayout({
   children,
 }: {
@@ -108,8 +111,26 @@ export default function RootLayout({
         <link rel="news-sitemap" type="application/xml" href="/news-sitemap.xml" />
         <meta name="google-news-keywords" content="haber, son dakika, gundem, turkiye, dunya, ekonomi, spor" />
         <meta name="news_keywords" content="haber, son dakika, gundem, turkiye, dunya, ekonomi, spor" />
+        <meta name="google-site-verification" content="KMRkj_Hcy4U7h8zCXi9QtNI6j9dTiGgCBbXuYe8dFi0" />
       </head>
       <body className={`${inter.className} min-h-screen bg-[#0a0a0a] text-white`}>
+        {/* Google Analytics */}
+        {GA_ID && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${GA_ID}');
+              `}
+            </Script>
+          </>
+        )}
         {children}
       </body>
     </html>

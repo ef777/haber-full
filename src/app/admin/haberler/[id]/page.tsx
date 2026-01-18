@@ -66,6 +66,7 @@ export default function HaberDuzenle() {
     yazarId: '',
     durum: 'taslak',
     manset: false,
+    slider: false,
     sonDakika: false,
     seoBaslik: '',
     seoAciklama: '',
@@ -109,6 +110,7 @@ export default function HaberDuzenle() {
         yazarId: haber.yazarId?.toString() || '',
         durum: haber.durum || 'taslak',
         manset: haber.manset || false,
+        slider: haber.slider || false,
         sonDakika: haber.sonDakika || false,
         seoBaslik: haber.seoBaslik || '',
         seoAciklama: haber.seoAciklama || '',
@@ -405,6 +407,16 @@ export default function HaberDuzenle() {
                 className="w-4 h-4 text-blue-600"
               />
               <span className="text-sm text-gray-700">Manşet Haber</span>
+            </label>
+
+            <label className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                checked={form.slider}
+                onChange={(e) => setForm({ ...form, slider: e.target.checked })}
+                className="w-4 h-4 text-purple-600"
+              />
+              <span className="text-sm text-gray-700">🖼️ Slayta Ekle</span>
             </label>
 
             <label className="flex items-center gap-2">

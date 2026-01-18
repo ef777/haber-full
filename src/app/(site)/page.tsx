@@ -112,10 +112,41 @@ async function getEnCokOkunanlar() {
 
 async function getSliders() {
   try {
-    return await prisma.slider.findMany({
+    // Önce slider tablosundan çek
+    const sliderItems = await prisma.slider.findMany({
       where: { aktif: true },
       orderBy: { sira: 'asc' },
     });
+
+    // Sonra slider: true olan haberlerden çek
+    const sliderHaberler = await prisma.haber.findMany({
+      where: {
+        slider: true,
+        durum: 'yayinda',
+        resim: { not: null },
+      },
+      orderBy: { yayinTarihi: 'desc' },
+      take: 10,
+      select: {
+        id: true,
+        baslik: true,
+        spot: true,
+        resim: true,
+        slug: true,
+      },
+    });
+
+    // Haberleri slider formatına dönüştür
+    const haberSliders = sliderHaberler.map((haber) => ({
+      id: haber.id + 10000, // ID çakışmasını önle
+      baslik: haber.baslik,
+      aciklama: haber.spot,
+      resim: haber.resim!,
+      link: `/haber/${haber.slug}`,
+    }));
+
+    // Birleştir: önce slider tablosu, sonra haberler
+    return [...sliderItems, ...haberSliders];
   } catch {
     // If table doesn't exist yet, return empty array
     return [];

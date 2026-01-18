@@ -73,6 +73,7 @@ model Haber {
   video         String?
   durum         String        @default("taslak")
   manset        Boolean       @default(false)
+  slider        Boolean       @default(false)
   sonDakika     Boolean       @default(false)
   goruntulenme  Int           @default(0)
   yayinTarihi   DateTime      @default(now())

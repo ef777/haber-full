@@ -13,31 +13,37 @@ interface Eczane {
 export default function NobetciEczaneWidget() {
   const [eczaneler, setEczaneler] = useState<Eczane[]>([]);
   const [loading, setLoading] = useState(true);
+  const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
-    const fetchEczaneler = async () => {
+    async function fetchEczaneler() {
       try {
         const res = await fetch('/api/eczaneler');
-        const data = await res.json();
-        setEczaneler(data);
-      } catch {
-        console.error('Eczaneler yüklenemedi');
+        if (res.ok) {
+          const data = await res.json();
+          setEczaneler(data);
+        }
+      } catch (error) {
+        console.error('Eczane verileri alınamadı:', error);
       } finally {
         setLoading(false);
       }
-    };
+    }
+
     fetchEczaneler();
   }, []);
 
   if (loading) {
     return (
-      <div className="bg-[#161616] border border-[#262626] rounded-lg p-4">
-        <div className="flex items-center gap-2 mb-4 pb-2 border-b border-[#262626]">
+      <div className="bg-[#111] border border-[#262626] rounded-lg p-4">
+        <div className="flex items-center gap-2 mb-3">
           <span className="text-xl">💊</span>
           <h3 className="font-bold text-white">Nöbetçi Eczaneler</h3>
         </div>
-        <div className="flex justify-center py-4">
-          <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-red-600"></div>
+        <div className="animate-pulse space-y-2">
+          <div className="h-4 bg-[#262626] rounded w-3/4"></div>
+          <div className="h-4 bg-[#262626] rounded w-1/2"></div>
+          <div className="h-4 bg-[#262626] rounded w-2/3"></div>
         </div>
       </div>
     );
@@ -45,53 +51,78 @@ export default function NobetciEczaneWidget() {
 
   if (eczaneler.length === 0) {
     return (
-      <div className="bg-[#161616] border border-[#262626] rounded-lg p-4">
-        <div className="flex items-center gap-2 mb-4 pb-2 border-b border-[#262626]">
+      <div className="bg-[#111] border border-[#262626] rounded-lg p-4">
+        <div className="flex items-center gap-2 mb-3">
           <span className="text-xl">💊</span>
           <h3 className="font-bold text-white">Nöbetçi Eczaneler</h3>
         </div>
-        <p className="text-gray-400 text-sm text-center py-4">
-          Bugün için nöbetçi eczane bilgisi bulunamadı.
+        <p className="text-gray-400 text-sm">
+          Nöbetçi eczane bilgisi bulunamadı.
+          <br />
+          <a href="tel:182" className="text-red-500 hover:underline">
+            182 ALO İlaç Hattı
+          </a>
         </p>
       </div>
     );
   }
 
+  const displayEczaneler = expanded ? eczaneler : eczaneler.slice(0, 3);
+
   return (
-    <div className="bg-[#161616] border border-[#262626] rounded-lg p-4">
-      <div className="flex items-center gap-2 mb-4 pb-2 border-b border-[#262626]">
-        <span className="text-xl">💊</span>
-        <h3 className="font-bold text-white">Nöbetçi Eczaneler</h3>
-        <span className="ml-auto text-xs text-gray-500">
-          {new Date().toLocaleDateString('tr-TR', { day: 'numeric', month: 'long' })}
+    <div className="bg-[#111] border border-[#262626] rounded-lg p-4">
+      <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center gap-2">
+          <span className="text-xl">💊</span>
+          <h3 className="font-bold text-white">Nöbetçi Eczaneler</h3>
+        </div>
+        <span className="text-xs text-gray-500 bg-[#1a1a1a] px-2 py-1 rounded">
+          Eskişehir
         </span>
       </div>
+
       <div className="space-y-3">
-        {eczaneler.slice(0, 5).map((e) => (
-          <div key={e.id} className="bg-[#1a1a1a] rounded-lg p-3 border border-[#262626]">
-            <div className="flex items-start justify-between gap-2">
-              <div className="flex-1 min-w-0">
-                <h4 className="font-semibold text-white text-sm truncate">{e.ad}</h4>
-                {e.ilce && <span className="text-xs text-gray-500">{e.ilce}</span>}
-                <p className="text-xs text-gray-400 mt-1 line-clamp-2">{e.adres}</p>
-              </div>
-              {e.telefon && (
+        {displayEczaneler.map((eczane) => (
+          <div
+            key={eczane.id}
+            className="bg-[#0a0a0a] border border-[#262626] rounded-lg p-3 hover:border-red-600/50 transition-colors"
+          >
+            <h4 className="font-semibold text-white text-sm mb-1">{eczane.ad}</h4>
+            <p className="text-gray-400 text-xs mb-2 line-clamp-2">{eczane.adres}</p>
+            <div className="flex items-center justify-between">
+              {eczane.ilce && (
+                <span className="text-xs text-gray-500">{eczane.ilce}</span>
+              )}
+              {eczane.telefon && (
                 <a
-                  href={`tel:${e.telefon.replace(/\s/g, '')}`}
-                  className="flex-shrink-0 bg-green-600 hover:bg-green-700 text-white text-xs px-2 py-1 rounded transition-colors"
+                  href={`tel:${eczane.telefon.replace(/\s/g, '')}`}
+                  className="text-xs text-red-500 hover:text-red-400 transition-colors flex items-center gap-1"
                 >
-                  Ara
+                  📞 {eczane.telefon}
                 </a>
               )}
             </div>
           </div>
         ))}
       </div>
-      {eczaneler.length > 5 && (
-        <p className="text-center text-xs text-gray-500 mt-3">
-          ve {eczaneler.length - 5} eczane daha...
-        </p>
+
+      {eczaneler.length > 3 && (
+        <button
+          onClick={() => setExpanded(!expanded)}
+          className="w-full mt-3 text-center text-sm text-red-500 hover:text-red-400 transition-colors py-2 border-t border-[#262626]"
+        >
+          {expanded ? 'Daha az göster ↑' : `Tümünü göster (${eczaneler.length}) ↓`}
+        </button>
       )}
+
+      <div className="mt-3 pt-3 border-t border-[#262626] text-center">
+        <a
+          href="tel:182"
+          className="text-xs text-gray-400 hover:text-white transition-colors"
+        >
+          📞 182 ALO İlaç Hattı
+        </a>
+      </div>
     </div>
   );
 }

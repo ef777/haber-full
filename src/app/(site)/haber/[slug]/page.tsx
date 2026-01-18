@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 export const dynamic = 'force-dynamic';
 
 import { prisma } from '@/lib/prisma';
+import NextNewsLoader from '@/components/NextNewsLoader';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -174,7 +175,7 @@ export default async function HaberPage({ params }: PageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
-      <article className="container mx-auto px-4 py-8">
+      <article className="container mx-auto px-4 py-8" data-main-article>
         {/* Breadcrumb */}
         <nav className="mb-6 text-sm">
           <ol className="flex items-center gap-2 text-gray-500">
@@ -390,6 +391,9 @@ export default async function HaberPage({ params }: PageProps) {
                 </div>
               </section>
             )}
+
+            {/* Sonsuz Akış - Sonraki Haberler */}
+            <NextNewsLoader currentHaberId={haber.id} currentSlug={haber.slug} />
           </div>
 
           {/* Sidebar */}
