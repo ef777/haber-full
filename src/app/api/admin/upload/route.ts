@@ -38,10 +38,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Create uploads directory if not exists
-    // Use /uploads at root level for Docker persistence
-    const uploadsDir = process.env.NODE_ENV === 'production'
-      ? '/uploads'
-      : path.join(process.cwd(), 'public', 'uploads');
+    const uploadsDir = path.join(process.cwd(), 'public', 'uploads');
 
     if (!existsSync(uploadsDir)) {
       await mkdir(uploadsDir, { recursive: true });

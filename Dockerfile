@@ -58,8 +58,8 @@ COPY --from=builder /app/public ./public
 COPY --chown=nextjs:nodejs start.sh ./start.sh
 RUN chmod +x ./start.sh
 
-# Create uploads directory at root level (for volume mounting)
-RUN mkdir -p /uploads && chown -R nextjs:nodejs /uploads
+# Create uploads directory with write permissions
+RUN mkdir -p /app/public/uploads && chown -R nextjs:nodejs /app/public/uploads
 
 RUN chown -R nextjs:nodejs /app
 

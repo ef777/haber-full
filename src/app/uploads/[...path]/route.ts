@@ -6,13 +6,12 @@ import path from 'path';
 // Serve uploaded files from /uploads directory
 export async function GET(
   request: NextRequest,
-  { params }: { params: { path: string[] } }
+  { params }: { params: Promise<{ path: string[] }> }
 ) {
   try {
-    const filePath = params.path.join('/');
-    const uploadsDir = process.env.NODE_ENV === 'production'
-      ? '/uploads'
-      : path.join(process.cwd(), 'public', 'uploads');
+    const { path: pathArray } = await params;
+    const filePath = pathArray.join('/');
+    const uploadsDir = path.join(process.cwd(), 'public', 'uploads');
 
     const fullPath = path.join(uploadsDir, filePath);
 
