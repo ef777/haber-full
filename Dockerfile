@@ -45,19 +45,22 @@ RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
 # Copy everything needed
-COPY --from=builder /app/public ./public
 COPY --from=builder /app/package.json ./package.json
 COPY --from=builder /app/prisma ./prisma
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
+# IMPORTANT: Copy public files (standalone mode doesn't auto-serve them)
+COPY --from=builder /app/public ./public
+
 # Copy startup script
 COPY --chown=nextjs:nodejs start.sh ./start.sh
 RUN chmod +x ./start.sh
 
-# Create uploads directory with write permissions
-RUN mkdir -p /app/public/uploads
+# Create uploads directory at root level (for volume mounting)
+RUN mkdir -p /uploads && chown -R nextjs:nodejs /uploads
+
 RUN chown -R nextjs:nodejs /app
 
 USER nextjs
