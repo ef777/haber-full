@@ -56,6 +56,8 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 COPY --chown=nextjs:nodejs start.sh ./start.sh
 RUN chmod +x ./start.sh
 
+# Create uploads directory with write permissions
+RUN mkdir -p /app/public/uploads
 RUN chown -R nextjs:nodejs /app
 
 USER nextjs
