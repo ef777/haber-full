@@ -75,7 +75,7 @@ export default function Footer({ kategoriler, siteAyarlari }: { kategoriler?: Ka
                   width={180}
                   height={50}
                   className="h-[40px] w-auto object-contain"
-                  unoptimized={footerLogo.startsWith('/uploads/')}
+                  unoptimized={footerLogo.includes('/uploads/')}
                 />
               ) : (
                 <>

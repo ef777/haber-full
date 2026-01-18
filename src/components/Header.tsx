@@ -151,7 +151,7 @@ export default function Header({ kategoriler, siteAyarlari }: { kategoriler?: Ka
                   width={200}
                   height={60}
                   className="h-[50px] w-auto object-contain"
-                  unoptimized={siteAyarlari.logoUrl.startsWith('/uploads/')}
+                  unoptimized={siteAyarlari.logoUrl.includes('/uploads/')}
                 />
               ) : (
                 <>

@@ -273,6 +273,7 @@ export default async function HaberPage({ params }: PageProps) {
                   fill
                   className="object-cover"
                   priority
+                  unoptimized={haber.resim.includes('/uploads/')}
                 />
                 {haber.resimAlt && (
                   <div className="absolute bottom-0 left-0 right-0 bg-black/60 backdrop-blur-sm p-2">
@@ -369,6 +370,7 @@ export default async function HaberPage({ params }: PageProps) {
                           width={120}
                           height={80}
                           className="w-28 h-20 object-cover rounded"
+                          unoptimized={ilgili.resim.includes('/uploads/')}
                         />
                       ) : (
                         <div className="w-28 h-20 bg-[#262626] rounded flex items-center justify-center">

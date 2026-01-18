@@ -104,6 +104,7 @@ export default async function YazarPage({ params, searchParams }: Props) {
                 width={150}
                 height={150}
                 className="rounded-full object-cover"
+                unoptimized={yazar.avatar.includes('/uploads/')}
               />
             ) : (
               <div className="w-36 h-36 bg-gray-200 rounded-full flex items-center justify-center text-4xl text-gray-500">
@@ -183,6 +184,7 @@ export default async function YazarPage({ params, searchParams }: Props) {
                         width={400}
                         height={225}
                         className="w-full h-48 object-cover"
+                        unoptimized={haber.resim.includes('/uploads/')}
                       />
                     ) : (
                       <div className="w-full h-48 bg-gray-200 flex items-center justify-center">

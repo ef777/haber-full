@@ -242,6 +242,7 @@ export default async function HomePage() {
                         fill
                         className="object-cover group-hover:scale-105 transition-transform duration-700"
                         priority
+                        unoptimized={anaHaber.resim.includes('/uploads/')}
                       />
                     ) : (
                       <div className="w-full h-full bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
@@ -290,6 +291,7 @@ export default async function HomePage() {
                             alt={haber.resimAlt || haber.baslik}
                             fill
                             className="object-cover group-hover:scale-105 transition-transform duration-300"
+                            unoptimized={haber.resim.includes('/uploads/')}
                           />
                         ) : (
                           <div className="w-full h-full bg-gray-800" />
@@ -330,6 +332,7 @@ export default async function HomePage() {
                           alt={haber.baslik}
                           fill
                           className="object-cover"
+                          unoptimized={haber.resim.includes('/uploads/')}
                         />
                       ) : (
                         <div className="w-full h-full bg-gray-800" />
@@ -382,6 +385,7 @@ export default async function HomePage() {
                                   alt={kategori.haberler[0].baslik}
                                   fill
                                   className="object-cover"
+                                  unoptimized={kategori.haberler[0].resim.includes('/uploads/')}
                                 />
                               ) : (
                                 <div className="w-full h-full bg-gray-800" />
@@ -462,6 +466,7 @@ export default async function HomePage() {
                                 alt={haber.baslik}
                                 fill
                                 className="object-cover"
+                                unoptimized={haber.resim.includes('/uploads/')}
                               />
                             ) : (
                               <div className="w-full h-full bg-gray-800" />
@@ -527,6 +532,7 @@ export default async function HomePage() {
                             alt={haber.baslik}
                             fill
                             className="object-cover group-hover:scale-105 transition-transform"
+                            unoptimized={haber.resim.includes('/uploads/')}
                           />
                         ) : (
                           <div className="w-full h-full bg-gray-800" />

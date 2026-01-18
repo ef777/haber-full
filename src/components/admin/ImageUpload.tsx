@@ -91,7 +91,7 @@ export default function ImageUpload({ value, onChange, label = 'Görsel', classN
               alt="Yüklenen görsel"
               fill
               className="object-cover"
-              unoptimized={value.startsWith('/uploads/')}
+              unoptimized={value.includes('/uploads/')}
             />
           </div>
           <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">

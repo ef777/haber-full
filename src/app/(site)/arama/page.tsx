@@ -123,6 +123,7 @@ export default async function AramaPage({ searchParams }: Props) {
                           width={400}
                           height={225}
                           className="w-full h-48 object-cover"
+                          unoptimized={haber.resim.includes('/uploads/')}
                         />
                       ) : (
                         <div className="w-full h-48 bg-gray-200 flex items-center justify-center">
