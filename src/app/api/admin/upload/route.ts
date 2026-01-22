@@ -3,6 +3,7 @@ import { getAuthUser } from '@/lib/auth';
 import { writeFile, mkdir } from 'fs/promises';
 import { existsSync } from 'fs';
 import path from 'path';
+import sharp from 'sharp';
 
 // POST upload file
 export async function POST(request: NextRequest) {
@@ -28,11 +29,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Validate file size (max 5MB)
-    const maxSize = 5 * 1024 * 1024; // 5MB
+    // Validate file size (max 10MB - increased for larger images)
+    const maxSize = 10 * 1024 * 1024; // 10MB
     if (file.size > maxSize) {
       return NextResponse.json(
-        { error: 'Dosya boyutu çok büyük. Maksimum 5MB yükleyebilirsiniz.' },
+        { error: 'Dosya boyutu çok büyük. Maksimum 10MB yükleyebilirsiniz.' },
         { status: 400 }
       );
     }
@@ -47,15 +48,35 @@ export async function POST(request: NextRequest) {
     // Generate unique filename
     const timestamp = Date.now();
     const randomString = Math.random().toString(36).substring(2, 8);
-    const extension = file.name.split('.').pop()?.toLowerCase() || 'jpg';
-    const filename = `${timestamp}-${randomString}.${extension}`;
+    const filename = `${timestamp}-${randomString}.jpg`; // Always save as JPEG
 
-    // Convert file to buffer and save
+    // Convert file to buffer
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
+    // Process image with Sharp
+    const MIN_WIDTH = 2000;
+    const image = sharp(buffer);
+    const metadata = await image.metadata();
+
+    let processedImage = image;
+
+    // If image width is less than 2000px, resize to 2000px (upscale)
+    // If image width is more than 2000px, resize to 2000px (downscale)
+    if (metadata.width !== MIN_WIDTH) {
+      processedImage = image.resize(MIN_WIDTH, null, {
+        fit: 'inside',
+        withoutEnlargement: false, // Allow upscaling
+      });
+    }
+
+    // Convert to JPEG with quality optimization
+    const optimizedBuffer = await processedImage
+      .jpeg({ quality: 85, progressive: true })
+      .toBuffer();
+
     const filePath = path.join(uploadsDir, filename);
-    await writeFile(filePath, buffer);
+    await writeFile(filePath, optimizedBuffer);
 
     // Build full URL
     const protocol = request.headers.get('x-forwarded-proto') || 'http';
@@ -63,12 +84,20 @@ export async function POST(request: NextRequest) {
     const baseUrl = (process.env.NEXT_PUBLIC_SITE_URL || `${protocol}://${host}`).replace(/\/+$/, '');
     const fullUrl = `${baseUrl}/uploads/${filename}`;
 
+    // Get final image metadata
+    const finalMetadata = await sharp(optimizedBuffer).metadata();
+
     return NextResponse.json({
       success: true,
       url: fullUrl,
       filename,
-      size: file.size,
-      type: file.type
+      size: optimizedBuffer.length,
+      type: 'image/jpeg',
+      originalWidth: metadata.width,
+      originalHeight: metadata.height,
+      processedWidth: finalMetadata.width,
+      processedHeight: finalMetadata.height,
+      wasResized: metadata.width !== MIN_WIDTH,
     });
   } catch (error) {
     console.error('Upload error:', error);

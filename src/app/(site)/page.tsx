@@ -276,8 +276,8 @@ export default async function HomePage() {
                         unoptimized={anaHaber.resim.includes('/uploads/')}
                       />
                     ) : (
-                      <div className="w-full h-full bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
-                        <span className="text-gray-600 text-lg">Haber Portali</span>
+                      <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-800 dark:to-gray-900 flex items-center justify-center">
+                        <span className="text-gray-400 dark:text-gray-600 text-lg">Haber Portali</span>
                       </div>
                     )}
                     <div className="featured-card-overlay" />
@@ -296,11 +296,11 @@ export default async function HomePage() {
                           {anaHaber.spot}
                         </p>
                       )}
-                      <div className="flex items-center gap-3 text-gray-400 text-sm">
+                      <div className="flex items-center gap-3 text-gray-600 dark:text-gray-400 text-sm">
                         {anaHaber.yazar && (
-                          <span className="font-medium text-gray-300">{anaHaber.yazar.ad}</span>
+                          <span className="font-medium text-gray-700 dark:text-gray-300">{anaHaber.yazar.ad}</span>
                         )}
-                        <span className="w-1 h-1 bg-gray-500 rounded-full" />
+                        <span className="w-1 h-1 bg-gray-500 dark:bg-gray-500 rounded-full" />
                         <time>{formatTimeAgo(anaHaber.yayinTarihi)}</time>
                       </div>
                     </div>
@@ -325,7 +325,7 @@ export default async function HomePage() {
                             unoptimized={haber.resim.includes('/uploads/')}
                           />
                         ) : (
-                          <div className="w-full h-full bg-gray-800" />
+                          <div className="w-full h-full bg-gray-200 dark:bg-gray-800" />
                         )}
                       </div>
                       <div className="flex-1 flex flex-col justify-center">
@@ -337,7 +337,7 @@ export default async function HomePage() {
                         <h3 className="side-card-title group-hover:text-red-500 transition-colors line-clamp-2">
                           {haber.baslik}
                         </h3>
-                        <time className="text-gray-500 text-xs mt-1">
+                        <time className="text-gray-500 dark:text-gray-500 text-xs mt-1">
                           {formatTimeAgo(haber.yayinTarihi)}
                         </time>
                       </div>
@@ -366,7 +366,7 @@ export default async function HomePage() {
                           unoptimized={haber.resim.includes('/uploads/')}
                         />
                       ) : (
-                        <div className="w-full h-full bg-gray-800" />
+                        <div className="w-full h-full bg-gray-200 dark:bg-gray-800" />
                       )}
                       {haber.kategori && (
                         <span className="category-badge absolute top-2 left-2">
@@ -419,7 +419,7 @@ export default async function HomePage() {
                                   unoptimized={kategori.haberler[0].resim.includes('/uploads/')}
                                 />
                               ) : (
-                                <div className="w-full h-full bg-gray-800" />
+                                <div className="w-full h-full bg-gray-200 dark:bg-gray-800" />
                               )}
                             </div>
                             <div className="news-card-body">
@@ -434,8 +434,8 @@ export default async function HomePage() {
                               <div className="news-card-meta">
                                 {kategori.haberler[0].yazar && (
                                   <>
-                                    <span className="text-gray-400">{kategori.haberler[0].yazar.ad}</span>
-                                    <span className="w-1 h-1 bg-gray-600 rounded-full" />
+                                    <span className="text-gray-600 dark:text-gray-400">{kategori.haberler[0].yazar.ad}</span>
+                                    <span className="w-1 h-1 bg-gray-400 dark:bg-gray-600 rounded-full" />
                                   </>
                                 )}
                                 <time>{formatTimeAgo(kategori.haberler[0].yayinTarihi)}</time>
@@ -459,7 +459,7 @@ export default async function HomePage() {
                                 <h4 className="list-card-title line-clamp-2">
                                   {haber.baslik}
                                 </h4>
-                                <div className="flex items-center gap-2 mt-1 text-xs text-gray-500">
+                                <div className="flex items-center gap-2 mt-1 text-xs text-gray-500 dark:text-gray-500">
                                   {haber.yazar && (
                                     <span>{haber.yazar.ad}</span>
                                   )}
@@ -500,14 +500,14 @@ export default async function HomePage() {
                                 unoptimized={haber.resim.includes('/uploads/')}
                               />
                             ) : (
-                              <div className="w-full h-full bg-gray-800" />
+                              <div className="w-full h-full bg-gray-200 dark:bg-gray-800" />
                             )}
                           </div>
                           <div className="news-card-body p-3">
                             <h3 className="news-card-title text-sm line-clamp-2">
                               {haber.baslik}
                             </h3>
-                            <time className="text-xs text-gray-500 mt-2 block">
+                            <time className="text-xs text-gray-500 dark:text-gray-500 mt-2 block">
                               {formatTimeAgo(haber.yayinTarihi)}
                             </time>
                           </div>
@@ -541,7 +541,7 @@ export default async function HomePage() {
                             {haber.kategori && (
                               <span className="text-xs text-red-500 font-medium">{haber.kategori.ad}</span>
                             )}
-                            <span className="text-xs text-gray-500">{formatTimeAgo(haber.yayinTarihi)}</span>
+                            <span className="text-xs text-gray-500 dark:text-gray-500">{formatTimeAgo(haber.yayinTarihi)}</span>
                           </div>
                         </div>
                       </article>
@@ -566,18 +566,18 @@ export default async function HomePage() {
                             unoptimized={haber.resim.includes('/uploads/')}
                           />
                         ) : (
-                          <div className="w-full h-full bg-gray-800" />
+                          <div className="w-full h-full bg-gray-200 dark:bg-gray-800" />
                         )}
                         <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
                           <span className="text-white font-bold text-lg">{index + 1}</span>
                         </div>
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-medium text-gray-300 group-hover:text-red-500 transition-colors line-clamp-2">
+                        <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-red-500 transition-colors line-clamp-2">
                           {haber.baslik}
                         </h4>
                         {haber.kategori && (
-                          <span className="text-xs text-gray-500 mt-1 block">{haber.kategori.ad}</span>
+                          <span className="text-xs text-gray-500 dark:text-gray-500 mt-1 block">{haber.kategori.ad}</span>
                         )}
                       </div>
                     </Link>
@@ -619,9 +619,9 @@ export default async function HomePage() {
         </div>
 
         {/* Hakkımızda / Site Tanıtım Metni (SEO Content) */}
-        <section className="mt-16 border-t border-[#262626] pt-10 pb-6 text-gray-400">
+        <section className="mt-16 border-t border-gray-200 dark:border-[#262626] pt-10 pb-6 text-gray-600 dark:text-gray-400">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-2xl font-bold text-white mb-6">Haber Portali Hakkında</h2>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Haber Portali Hakkında</h2>
             <div className="space-y-4 text-base leading-relaxed">
               <p>
                 Haber Portali, Türkiye ve dünya gündemini en hızlı, doğru ve tarafsız şekilde okuyucularına ulaştırmayı hedefleyen yeni nesil dijital haber platformudur.
@@ -635,7 +635,7 @@ export default async function HomePage() {
                 Amacımız, dijital dünyadaki bilgi kirliliğinin önüne geçerek okurlarımıza saf, teyit edilmiş ve doğrulanmış haberi sunmaktır.
                 Sitemizde yer alan tüm içerikler, basın meslek ilkelerine, evrensel gazetecilik değerlerine ve kişisel haklara saygılı bir yayın politikası çerçevesinde hazırlanmaktadır.
               </p>
-              <p className="font-medium text-gray-300">
+              <p className="font-medium text-gray-700 dark:text-gray-300">
                 Bizi takip ederek gündemin nabzını tutabilir, son dakika gelişmelerinden anında haberdar olabilirsiniz.
               </p>
             </div>

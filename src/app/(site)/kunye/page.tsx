@@ -12,8 +12,8 @@ export const metadata: Metadata = {
 export default function KunyePage() {
   return (
     <div className="container py-12">
-      <div className="max-w-4xl mx-auto bg-[#161616] border border-[#262626] rounded-lg p-8 shadow-2xl">
-        <h1 className="text-3xl font-black text-white mb-8 border-b border-[#262626] pb-4">
+      <div className="max-w-4xl mx-auto bg-white dark:bg-[#161616] border border-gray-300 dark:border-[#262626] rounded-lg p-8 shadow-2xl">
+        <h1 className="text-3xl font-black text-gray-900 dark:text-white mb-8 border-b border-gray-300 dark:border-[#262626] pb-4">
           Künye
         </h1>
 
@@ -21,66 +21,66 @@ export default function KunyePage() {
           {/* Sol Kolon: Yonetim */}
           <div>
             <h2 className="text-xl font-bold text-red-500 mb-4 uppercase tracking-wider">Yönetim</h2>
-            
+
             <div className="mb-6">
-              <h3 className="text-white font-bold mb-1">İmtiyaz Sahibi</h3>
-              <p className="text-gray-400">Lystra Software Medya A.Ş. Adına</p>
-              <p className="text-gray-300 font-medium">Ahmet Yılmaz</p>
+              <h3 className="text-gray-900 dark:text-white font-bold mb-1">İmtiyaz Sahibi</h3>
+              <p className="text-gray-600 dark:text-gray-400">Lystra Software Medya A.Ş. Adına</p>
+              <p className="text-gray-800 dark:text-gray-300 font-medium">Ahmet Yılmaz</p>
             </div>
 
             <div className="mb-6">
-              <h3 className="text-white font-bold mb-1">Genel Yayın Yönetmeni</h3>
-              <p className="text-gray-300 font-medium">Mehmet Demir</p>
+              <h3 className="text-gray-900 dark:text-white font-bold mb-1">Genel Yayın Yönetmeni</h3>
+              <p className="text-gray-800 dark:text-gray-300 font-medium">Mehmet Demir</p>
               <p className="text-sm text-gray-500">mehmet.demir@haberportali.com</p>
             </div>
 
             <div className="mb-6">
-              <h3 className="text-white font-bold mb-1">Sorumlu Yazı İşleri Müdürü</h3>
-              <p className="text-gray-300 font-medium">Ayşe Kaya</p>
+              <h3 className="text-gray-900 dark:text-white font-bold mb-1">Sorumlu Yazı İşleri Müdürü</h3>
+              <p className="text-gray-800 dark:text-gray-300 font-medium">Ayşe Kaya</p>
               <p className="text-sm text-gray-500">ayse.kaya@haberportali.com</p>
             </div>
 
             <div className="mb-6">
-              <h3 className="text-white font-bold mb-1">Hukuk Danışmanı</h3>
-              <p className="text-gray-300 font-medium">Av. Caner Öztürk</p>
+              <h3 className="text-gray-900 dark:text-white font-bold mb-1">Hukuk Danışmanı</h3>
+              <p className="text-gray-800 dark:text-gray-300 font-medium">Av. Caner Öztürk</p>
             </div>
           </div>
 
           {/* Sag Kolon: Iletisim */}
           <div>
             <h2 className="text-xl font-bold text-red-500 mb-4 uppercase tracking-wider">İletişim</h2>
-            
+
             <div className="mb-6">
-              <h3 className="text-white font-bold mb-1">Adres</h3>
-              <p className="text-gray-400 leading-relaxed">
+              <h3 className="text-gray-900 dark:text-white font-bold mb-1">Adres</h3>
+              <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
                 Hoşnudiye Mah. İsmet İnönü-1 Cad. No:123<br />
                 Tepebaşı / ESKİŞEHİR
               </p>
             </div>
 
             <div className="mb-6">
-              <h3 className="text-white font-bold mb-1">Telefon</h3>
-              <p className="text-gray-400">+90 (222) 123 45 67</p>
+              <h3 className="text-gray-900 dark:text-white font-bold mb-1">Telefon</h3>
+              <p className="text-gray-600 dark:text-gray-400">+90 (222) 123 45 67</p>
             </div>
 
             <div className="mb-6">
-              <h3 className="text-white font-bold mb-1">E-posta</h3>
-              <p className="text-gray-400">info@haberportali.com</p>
-              <p className="text-gray-400">reklam@haberportali.com</p>
+              <h3 className="text-gray-900 dark:text-white font-bold mb-1">E-posta</h3>
+              <p className="text-gray-600 dark:text-gray-400">info@haberportali.com</p>
+              <p className="text-gray-600 dark:text-gray-400">reklam@haberportali.com</p>
             </div>
 
             <div className="mb-6">
-              <h3 className="text-white font-bold mb-1">UETS Adresi</h3>
-              <p className="text-gray-400">12345-67890-12345</p>
+              <h3 className="text-gray-900 dark:text-white font-bold mb-1">UETS Adresi</h3>
+              <p className="text-gray-600 dark:text-gray-400">12345-67890-12345</p>
             </div>
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-[#262626]">
+        <div className="mt-12 pt-8 border-t border-gray-300 dark:border-[#262626]">
           <h2 className="text-xl font-bold text-red-500 mb-4 uppercase tracking-wider">Yazılım ve Altyapı</h2>
-          <div className="flex items-center gap-4 bg-[#0a0a0a] p-4 rounded-lg border border-[#333]">
+          <div className="flex items-center gap-4 bg-gray-50 dark:bg-[#0a0a0a] p-4 rounded-lg border border-gray-300 dark:border-[#333]">
              <div>
-                <p className="text-white font-bold">Lystra Software</p>
+                <p className="text-gray-900 dark:text-white font-bold">Lystra Software</p>
                 <p className="text-sm text-gray-500">Haber Yazılım Sistemleri v3.0</p>
                 <a href="https://lystrasoftware.xyz" target="_blank" className="text-xs text-blue-500 hover:text-blue-400 mt-1 block">www.lystrasoftware.xyz</a>
              </div>

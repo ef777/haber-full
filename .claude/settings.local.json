@@ -12,7 +12,10 @@
       "WebFetch(domain:api.collectapi.com)",
       "WebFetch(domain:www.nosyapi.com)",
       "WebFetch(domain:www.saglik.gov.tr)",
-      "WebFetch(domain:eskisehireo.org.tr)"
+      "WebFetch(domain:eskisehireo.org.tr)",
+      "Bash(npm run build:*)",
+      "Bash(wc:*)",
+      "Bash(npm install:*)"
     ]
   }
 }

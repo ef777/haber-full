@@ -62,11 +62,11 @@ export default function Slider({ items, autoPlayInterval = 5000 }: SliderProps) 
 
       {/* Content */}
       <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10">
-        <h2 className="text-2xl md:text-4xl font-bold text-white mb-3 line-clamp-2 drop-shadow-lg">
+        <h2 className="text-2xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2 drop-shadow-lg">
           {currentItem.baslik}
         </h2>
         {currentItem.aciklama && (
-          <p className="text-gray-200 text-sm md:text-base line-clamp-2 max-w-2xl drop-shadow">
+          <p className="text-gray-700 dark:text-gray-200 text-sm md:text-base line-clamp-2 max-w-2xl drop-shadow">
             {currentItem.aciklama}
           </p>
         )}
@@ -76,7 +76,7 @@ export default function Slider({ items, autoPlayInterval = 5000 }: SliderProps) 
 
   return (
     <div
-      className="relative w-full aspect-[16/9] md:aspect-[21/9] bg-[#111] rounded-lg overflow-hidden"
+      className="relative w-full aspect-[16/9] md:aspect-[21/9] bg-gray-50 dark:bg-[#111] rounded-lg overflow-hidden"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -94,7 +94,7 @@ export default function Slider({ items, autoPlayInterval = 5000 }: SliderProps) 
         <>
           <button
             onClick={prevSlide}
-            className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 bg-black/50 hover:bg-black/70 text-white rounded-full flex items-center justify-center transition-all opacity-0 hover:opacity-100 group-hover:opacity-100"
+            className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 bg-black/50 hover:bg-black/70 text-gray-900 dark:text-white rounded-full flex items-center justify-center transition-all opacity-0 hover:opacity-100 group-hover:opacity-100"
             style={{ opacity: isHovered ? 1 : 0 }}
             aria-label="Önceki"
           >
@@ -104,7 +104,7 @@ export default function Slider({ items, autoPlayInterval = 5000 }: SliderProps) 
           </button>
           <button
             onClick={nextSlide}
-            className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 bg-black/50 hover:bg-black/70 text-white rounded-full flex items-center justify-center transition-all"
+            className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 bg-black/50 hover:bg-black/70 text-gray-900 dark:text-white rounded-full flex items-center justify-center transition-all"
             style={{ opacity: isHovered ? 1 : 0 }}
             aria-label="Sonraki"
           >

@@ -95,7 +95,7 @@ export default async function YazarPage({ params, searchParams }: Props) {
 
       <main className="container mx-auto px-4 py-8">
         {/* Yazar Profil */}
-        <div className="bg-white rounded-lg shadow-md p-6 mb-8">
+        <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-md p-6 mb-8">
           <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
             {yazar.avatar ? (
               <Image
@@ -107,14 +107,14 @@ export default async function YazarPage({ params, searchParams }: Props) {
                 unoptimized={yazar.avatar.includes('/uploads/')}
               />
             ) : (
-              <div className="w-36 h-36 bg-gray-200 rounded-full flex items-center justify-center text-4xl text-gray-500">
+              <div className="w-36 h-36 bg-gray-200 dark:bg-[#1a1a1a] rounded-full flex items-center justify-center text-4xl text-gray-500 dark:text-gray-400">
                 {yazar.ad.charAt(0)}
               </div>
             )}
             <div className="flex-1 text-center md:text-left">
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">{yazar.ad}</h1>
+              <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{yazar.ad}</h1>
               {yazar.biyografi && (
-                <p className="text-gray-600 mb-4">{yazar.biyografi}</p>
+                <p className="text-gray-600 dark:text-gray-400 mb-4">{yazar.biyografi}</p>
               )}
               <div className="flex gap-4 justify-center md:justify-start">
                 {yazar.twitter && (
@@ -146,7 +146,7 @@ export default async function YazarPage({ params, searchParams }: Props) {
                     href={yazar.website}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-gray-600 hover:text-gray-700"
+                    className="text-gray-600 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
                   >
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
@@ -154,7 +154,7 @@ export default async function YazarPage({ params, searchParams }: Props) {
                   </a>
                 )}
               </div>
-              <p className="text-gray-500 mt-4">
+              <p className="text-gray-500 dark:text-gray-400 mt-4">
                 Toplam <span className="font-semibold">{totalCount}</span> haber yazıldı
               </p>
             </div>
@@ -162,10 +162,10 @@ export default async function YazarPage({ params, searchParams }: Props) {
         </div>
 
         {/* Haberler */}
-        <h2 className="text-2xl font-bold mb-6">{yazar.ad} Yazıları</h2>
+        <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">{yazar.ad} Yazıları</h2>
 
         {haberler.length === 0 ? (
-          <p className="text-gray-500 text-center py-12">
+          <p className="text-gray-500 dark:text-gray-400 text-center py-12">
             Bu yazara ait haber bulunamadı.
           </p>
         ) : (
@@ -174,7 +174,7 @@ export default async function YazarPage({ params, searchParams }: Props) {
               {haberler.map((haber) => (
                 <article
                   key={haber.id}
-                  className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
+                  className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
                 >
                   <Link href={`/haber/${haber.slug}`}>
                     {haber.resim ? (
@@ -187,8 +187,8 @@ export default async function YazarPage({ params, searchParams }: Props) {
                         unoptimized={haber.resim.includes('/uploads/')}
                       />
                     ) : (
-                      <div className="w-full h-48 bg-gray-200 flex items-center justify-center">
-                        <span className="text-gray-400">Resim yok</span>
+                      <div className="w-full h-48 bg-gray-200 dark:bg-[#1a1a1a] flex items-center justify-center">
+                        <span className="text-gray-600 dark:text-gray-400">Resim yok</span>
                       </div>
                     )}
                   </Link>
@@ -202,17 +202,17 @@ export default async function YazarPage({ params, searchParams }: Props) {
                           {haber.kategori.ad}
                         </Link>
                       )}
-                      <span className="text-xs text-gray-500">
+                      <span className="text-xs text-gray-500 dark:text-gray-400">
                         {new Date(haber.yayinTarihi).toLocaleDateString('tr-TR')}
                       </span>
                     </div>
                     <Link href={`/haber/${haber.slug}`}>
-                      <h3 className="font-bold text-gray-900 hover:text-red-600 transition-colors line-clamp-2">
+                      <h3 className="font-bold text-gray-900 dark:text-white hover:text-red-600 transition-colors line-clamp-2">
                         {haber.baslik}
                       </h3>
                     </Link>
                     {haber.spot && (
-                      <p className="text-sm text-gray-600 mt-2 line-clamp-2">
+                      <p className="text-sm text-gray-600 dark:text-gray-400 mt-2 line-clamp-2">
                         {haber.spot}
                       </p>
                     )}
@@ -227,40 +227,40 @@ export default async function YazarPage({ params, searchParams }: Props) {
                 {currentPage > 1 && (
                   <Link
                     href={`/yazar/${slug}?sayfa=${currentPage - 1}`}
-                    className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
+                    className="px-4 py-2 bg-gray-200 dark:bg-[#1a1a1a] text-gray-900 dark:text-white rounded hover:bg-gray-300 dark:hover:bg-[#262626]"
                   >
                     ← Önceki
                   </Link>
                 )}
-                
+
                 {Array.from({ length: totalPages }, (_, i) => i + 1)
-                  .filter(page => 
-                    page === 1 || 
-                    page === totalPages || 
+                  .filter(page =>
+                    page === 1 ||
+                    page === totalPages ||
                     Math.abs(page - currentPage) <= 2
                   )
                   .map((page, index, array) => (
                     <span key={page}>
                       {index > 0 && array[index - 1] !== page - 1 && (
-                        <span className="px-2">...</span>
+                        <span className="px-2 text-gray-600 dark:text-gray-400">...</span>
                       )}
                       <Link
                         href={`/yazar/${slug}?sayfa=${page}`}
                         className={`px-4 py-2 rounded ${
                           page === currentPage
                             ? 'bg-red-600 text-white'
-                            : 'bg-gray-200 hover:bg-gray-300'
+                            : 'bg-gray-200 dark:bg-[#1a1a1a] text-gray-900 dark:text-white hover:bg-gray-300 dark:hover:bg-[#262626]'
                         }`}
                       >
                         {page}
                       </Link>
                     </span>
                   ))}
-                
+
                 {currentPage < totalPages && (
                   <Link
                     href={`/yazar/${slug}?sayfa=${currentPage + 1}`}
-                    className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
+                    className="px-4 py-2 bg-gray-200 dark:bg-[#1a1a1a] text-gray-900 dark:text-white rounded hover:bg-gray-300 dark:hover:bg-[#262626]"
                   >
                     Sonraki →
                   </Link>

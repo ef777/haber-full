@@ -10,6 +10,8 @@ interface SiteAyarlari {
   siteAdi: string;
   siteUrl: string;
   siteAciklama: string;
+  seoBaslik: string;
+  seoKeywords: string;
   logoUrl: string;
   logoAltUrl: string;
   faviconUrl: string;
@@ -42,6 +44,8 @@ export default function AdminAyarlarPage() {
     siteAdi: '',
     siteUrl: '',
     siteAciklama: '',
+    seoBaslik: '',
+    seoKeywords: '',
     logoUrl: '',
     logoAltUrl: '',
     faviconUrl: '',
@@ -78,6 +82,8 @@ export default function AdminAyarlarPage() {
         siteAdi: data.siteAdi || '',
         siteUrl: data.siteUrl || '',
         siteAciklama: data.siteAciklama || '',
+        seoBaslik: data.seoBaslik || '',
+        seoKeywords: data.seoKeywords || '',
         logoUrl: data.logoUrl || '',
         logoAltUrl: data.logoAltUrl || '',
         faviconUrl: data.faviconUrl || '',
@@ -252,6 +258,34 @@ export default function AdminAyarlarPage() {
                   placeholder="Sitenizin kısa açıklaması (meta description)"
                 />
                 <p className="text-xs text-gray-500 mt-1">SEO için önemli: 150-160 karakter önerilir</p>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-400 mb-1">
+                  SEO Başlık
+                </label>
+                <input
+                  type="text"
+                  value={form.seoBaslik}
+                  onChange={(e) => setForm({ ...form, seoBaslik: e.target.value })}
+                  className="w-full bg-[#1a1a1a] border border-[#333] rounded-lg px-3 py-2 text-white outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600 transition-colors"
+                  placeholder="Özel SEO başlık (boş bırakılırsa Site Adı kullanılır)"
+                />
+                <p className="text-xs text-gray-500 mt-1">Örnek: Eskişehir Olay Haber - Eskişehir Son Dakika Haberler</p>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-400 mb-1">
+                  SEO Anahtar Kelimeler
+                </label>
+                <textarea
+                  value={form.seoKeywords}
+                  onChange={(e) => setForm({ ...form, seoKeywords: e.target.value })}
+                  rows={2}
+                  className="w-full bg-[#1a1a1a] border border-[#333] rounded-lg px-3 py-2 text-white outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600 transition-colors"
+                  placeholder="eskişehir haber, eskişehir son dakika, eskişehir gündem, eskişehir olay haber"
+                />
+                <p className="text-xs text-gray-500 mt-1">Virgülle ayrılmış anahtar kelimeler. Google için maksimum 10-15 kelime önerilir.</p>
               </div>
 
               <div>

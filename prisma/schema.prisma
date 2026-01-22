@@ -165,6 +165,8 @@ model SiteAyarlari {
   siteAdi         String   @default("Haber Sitesi")
   siteUrl         String   @default("http://localhost:3000")
   siteAciklama    String?
+  seoBaslik       String?  // SEO için özel başlık
+  seoKeywords     String?  // SEO anahtar kelimeler (virgülle ayrılmış)
   logoUrl         String?
   logoAltUrl      String?  // Alternatif logo (footer için)
   faviconUrl      String?

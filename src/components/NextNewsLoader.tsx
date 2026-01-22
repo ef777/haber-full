@@ -36,7 +36,7 @@ function formatDate(dateString: string) {
 
 function HaberCard({ haber }: { haber: Haber }) {
   return (
-    <article className="bg-[#111] rounded-xl overflow-hidden border border-[#262626] scroll-mt-20">
+    <article className="bg-white dark:bg-[#111] rounded-xl overflow-hidden border border-gray-300 dark:border-[#262626] scroll-mt-20">
       {/* Header */}
       <header className="p-6">
         <div className="flex items-center gap-3 mb-4 text-sm">
@@ -48,17 +48,17 @@ function HaberCard({ haber }: { haber: Haber }) {
               {haber.kategori.ad}
             </Link>
           )}
-          <time className="text-gray-400">{formatDate(haber.yayinTarihi)}</time>
+          <time className="text-gray-600 dark:text-gray-400">{formatDate(haber.yayinTarihi)}</time>
         </div>
 
-        <h2 className="text-2xl md:text-3xl font-bold text-white mb-4 leading-tight">
+        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4 leading-tight">
           <Link href={`/haber/${haber.slug}`} className="hover:text-red-500 transition-colors">
             {haber.baslik}
           </Link>
         </h2>
 
         {haber.spot && (
-          <p className="text-lg text-gray-300 leading-relaxed mb-4">
+          <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
             {haber.spot}
           </p>
         )}
@@ -68,7 +68,7 @@ function HaberCard({ haber }: { haber: Haber }) {
             <div className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center text-white font-bold text-sm">
               {haber.yazar.ad.charAt(0)}
             </div>
-            <span className="text-gray-400 text-sm">{haber.yazar.ad}</span>
+            <span className="text-gray-600 dark:text-gray-400 text-sm">{haber.yazar.ad}</span>
           </div>
         )}
       </header>
@@ -89,23 +89,23 @@ function HaberCard({ haber }: { haber: Haber }) {
       {/* İçerik */}
       <div className="p-6">
         <div
-          className="prose prose-invert prose-lg max-w-none
-            prose-headings:text-white prose-headings:font-bold
-            prose-p:text-gray-300 prose-p:leading-relaxed
+          className="prose dark:prose-invert prose-lg max-w-none
+            prose-headings:text-gray-900 dark:prose-headings:text-white prose-headings:font-bold
+            prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-p:leading-relaxed
             prose-a:text-red-500 prose-a:no-underline hover:prose-a:underline
-            prose-strong:text-white"
+            prose-strong:text-gray-900 dark:prose-strong:text-white"
           dangerouslySetInnerHTML={{ __html: haber.icerik }}
         />
 
         {/* Etiketler */}
         {haber.etiketler && haber.etiketler.length > 0 && (
-          <div className="mt-6 pt-4 border-t border-[#262626]">
+          <div className="mt-6 pt-4 border-t border-gray-300 dark:border-[#262626]">
             <div className="flex flex-wrap gap-2">
               {haber.etiketler.map(({ etiket }) => (
                 <Link
                   key={etiket.id}
                   href={`/etiket/${etiket.slug}`}
-                  className="bg-[#1a1a1a] hover:bg-[#262626] text-gray-300 px-3 py-1 rounded-full text-sm transition-colors"
+                  className="bg-gray-200 dark:bg-[#1a1a1a] hover:bg-gray-300 dark:hover:bg-[#262626] text-gray-700 dark:text-gray-300 px-3 py-1 rounded-full text-sm transition-colors"
                 >
                   #{etiket.ad}
                 </Link>
@@ -133,7 +133,7 @@ export default function NextNewsLoader({ currentHaberId, currentSlug }: NextNews
 
     setLoading(true);
     try {
-      const res = await fetch(`/api/haberler/sonraki?currentId=${lastLoadedId.current}&limit=2`);
+      const res = await fetch(`/api/haberler/sonraki?currentId=${lastLoadedId.current}&limit=1`);
 
       if (!res.ok) throw new Error('Haberler yüklenemedi');
 
@@ -157,11 +157,12 @@ export default function NextNewsLoader({ currentHaberId, currentSlug }: NextNews
     let lastPushedSlug = currentSlug;
 
     const handleScroll = () => {
-      // Ana haber için kontrol
+      // Ana haber için kontrol - viewport'un ortasında mı?
       const mainArticle = document.querySelector('[data-main-article]');
       if (mainArticle) {
         const rect = mainArticle.getBoundingClientRect();
-        if (rect.top <= 100 && rect.bottom > 100 && activeSlug !== currentSlug) {
+        // Viewport ortasına geldiğinde aktif et
+        if (rect.top <= 200 && rect.bottom > 200 && activeSlug !== currentSlug) {
           setActiveSlug(currentSlug);
           if (lastPushedSlug !== currentSlug) {
             window.history.pushState({ slug: currentSlug }, '', `/haber/${currentSlug}`);
@@ -170,10 +171,11 @@ export default function NextNewsLoader({ currentHaberId, currentSlug }: NextNews
         }
       }
 
-      // Yüklenen haberler için kontrol
+      // Yüklenen haberler için kontrol - daha agresif tracking
       articleRefs.current.forEach((element, slug) => {
         const rect = element.getBoundingClientRect();
-        const isInView = rect.top <= 100 && rect.bottom > 100;
+        // Header'ın hemen altında (200px) geldiğinde aktif et
+        const isInView = rect.top <= 200 && rect.bottom > 200;
 
         if (isInView && activeSlug !== slug) {
           const haber = haberler.find(h => h.slug === slug);
@@ -224,7 +226,7 @@ export default function NextNewsLoader({ currentHaberId, currentSlug }: NextNews
           loadMore();
         }
       },
-      { rootMargin: '800px' }
+      { rootMargin: '400px' }
     );
 
     return () => observerRef.current?.disconnect();
@@ -251,30 +253,42 @@ export default function NextNewsLoader({ currentHaberId, currentSlug }: NextNews
     <div className="mt-12 space-y-8">
       {/* Ayırıcı */}
       {(haberler.length > 0 || loading) && (
-        <div className="flex items-center justify-center py-4">
-          <div className="flex items-center gap-4 text-gray-500">
-            <div className="h-px w-20 bg-gradient-to-r from-transparent to-red-600"></div>
-            <span className="text-sm font-medium text-red-500">Okumaya Devam Et</span>
-            <div className="h-px w-20 bg-gradient-to-l from-transparent to-red-600"></div>
+        <div className="flex items-center justify-center py-8">
+          <div className="flex items-center gap-4 text-gray-600 dark:text-gray-500">
+            <div className="h-0.5 w-32 bg-gradient-to-r from-transparent via-red-600 to-transparent"></div>
+            <span className="text-sm font-bold text-red-500 uppercase tracking-wider">Sonraki Haber</span>
+            <div className="h-0.5 w-32 bg-gradient-to-r from-transparent via-red-600 to-transparent"></div>
           </div>
         </div>
       )}
 
       {/* Yüklenen Haberler */}
-      {haberler.map((haber) => (
-        <div
-          key={haber.id}
-          ref={(el) => setArticleRef(haber.slug, el)}
-          className="scroll-mt-20"
-        >
-          <HaberCard haber={haber} />
+      {haberler.map((haber, index) => (
+        <div key={haber.id}>
+          <div
+            ref={(el) => setArticleRef(haber.slug, el)}
+            className="scroll-mt-20"
+          >
+            <HaberCard haber={haber} />
+          </div>
+
+          {/* Her haber arasında ayırıcı */}
+          {index < haberler.length - 1 && (
+            <div className="flex items-center justify-center py-8">
+              <div className="flex items-center gap-4 text-gray-500">
+                <div className="h-px w-24 bg-gradient-to-r from-transparent to-gray-400 dark:to-gray-600"></div>
+                <span className="text-xs">•</span>
+                <div className="h-px w-24 bg-gradient-to-l from-transparent to-gray-400 dark:to-gray-600"></div>
+              </div>
+            </div>
+          )}
         </div>
       ))}
 
       {/* Loading */}
       {loading && (
         <div className="flex justify-center py-8">
-          <div className="flex items-center gap-3 text-gray-400">
+          <div className="flex items-center gap-3 text-gray-600 dark:text-gray-400">
             <div className="w-6 h-6 border-2 border-red-600 border-t-transparent rounded-full animate-spin"></div>
             <span>Sonraki haber yükleniyor...</span>
           </div>
@@ -283,12 +297,12 @@ export default function NextNewsLoader({ currentHaberId, currentSlug }: NextNews
 
       {/* Load more trigger */}
       {hasMore && !loading && (
-        <div ref={loadMoreRef} className="h-20" />
+        <div ref={loadMoreRef} className="h-40" />
       )}
 
       {/* Son */}
       {!hasMore && haberler.length > 0 && (
-        <div className="text-center py-8 border-t border-[#262626]">
+        <div className="text-center py-8 border-t border-gray-300 dark:border-[#262626]">
           <p className="text-gray-500 mb-4">Daha fazla haber yok</p>
           <Link
             href="/"

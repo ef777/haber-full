@@ -68,7 +68,7 @@ export default async function AramaPage({ searchParams }: Props) {
 
   return (
     <main className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-6">Haber Ara</h1>
+      <h1 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Haber Ara</h1>
 
       {/* Arama Formu */}
       <form action="/arama" method="GET" className="mb-8">
@@ -78,7 +78,7 @@ export default async function AramaPage({ searchParams }: Props) {
             name="q"
             defaultValue={query}
             placeholder="Aramak istediğiniz kelimeyi yazın..."
-            className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+            className="flex-1 px-4 py-3 border border-gray-300 dark:border-[#262626] rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent bg-white dark:bg-[#1a1a1a] text-gray-900 dark:text-white"
             minLength={2}
             required
           />
@@ -94,7 +94,7 @@ export default async function AramaPage({ searchParams }: Props) {
       {/* Sonuçlar */}
       {query && (
         <>
-          <p className="text-gray-600 mb-6">
+          <p className="text-gray-600 dark:text-gray-400 mb-6">
             {totalCount > 0 ? (
               <>
                 <span className="font-semibold">&ldquo;{query}&rdquo;</span> için{' '}
@@ -113,7 +113,7 @@ export default async function AramaPage({ searchParams }: Props) {
                 {haberler.map((haber) => (
                   <article
                     key={haber.id}
-                    className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
+                    className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
                   >
                     <Link href={`/haber/${haber.slug}`}>
                       {haber.resim ? (
@@ -126,8 +126,8 @@ export default async function AramaPage({ searchParams }: Props) {
                           unoptimized={haber.resim.includes('/uploads/')}
                         />
                       ) : (
-                        <div className="w-full h-48 bg-gray-200 flex items-center justify-center">
-                          <span className="text-gray-400">Resim yok</span>
+                        <div className="w-full h-48 bg-gray-200 dark:bg-[#1a1a1a] flex items-center justify-center">
+                          <span className="text-gray-600 dark:text-gray-400">Resim yok</span>
                         </div>
                       )}
                     </Link>
@@ -141,24 +141,24 @@ export default async function AramaPage({ searchParams }: Props) {
                             {haber.kategori.ad}
                           </Link>
                         )}
-                        <span className="text-xs text-gray-500">
+                        <span className="text-xs text-gray-500 dark:text-gray-400">
                           {new Date(haber.yayinTarihi).toLocaleDateString('tr-TR')}
                         </span>
                       </div>
                       <Link href={`/haber/${haber.slug}`}>
-                        <h2 className="font-bold text-gray-900 hover:text-red-600 transition-colors line-clamp-2">
+                        <h2 className="font-bold text-gray-900 dark:text-white hover:text-red-600 transition-colors line-clamp-2">
                           {haber.baslik}
                         </h2>
                       </Link>
                       {haber.spot && (
-                        <p className="text-sm text-gray-600 mt-2 line-clamp-2">
+                        <p className="text-sm text-gray-600 dark:text-gray-400 mt-2 line-clamp-2">
                           {haber.spot}
                         </p>
                       )}
                         {haber.yazar && (
                         <Link
                           href={`/yazar/${haber.yazar.slug}`}
-                          className="text-xs text-gray-500 mt-2 inline-block hover:text-red-600"
+                          className="text-xs text-gray-500 dark:text-gray-400 mt-2 inline-block hover:text-red-600"
                         >
                           {haber.yazar.ad}
                         </Link>
@@ -174,7 +174,7 @@ export default async function AramaPage({ searchParams }: Props) {
                   {currentPage > 1 && (
                     <Link
                       href={`/arama?q=${encodeURIComponent(query)}&sayfa=${currentPage - 1}`}
-                      className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
+                      className="px-4 py-2 bg-gray-200 dark:bg-[#1a1a1a] text-gray-900 dark:text-white rounded hover:bg-gray-300 dark:hover:bg-[#262626]"
                     >
                       ← Önceki
                     </Link>
@@ -190,14 +190,14 @@ export default async function AramaPage({ searchParams }: Props) {
                     .map((page, index, array) => (
                       <span key={page}>
                         {index > 0 && array[index - 1] !== page - 1 && (
-                          <span className="px-2">...</span>
+                          <span className="px-2 text-gray-600 dark:text-gray-400">...</span>
                         )}
                         <Link
                           href={`/arama?q=${encodeURIComponent(query)}&sayfa=${page}`}
                           className={`px-4 py-2 rounded ${
                             page === currentPage
                               ? 'bg-red-600 text-white'
-                              : 'bg-gray-200 hover:bg-gray-300'
+                              : 'bg-gray-200 dark:bg-[#1a1a1a] text-gray-900 dark:text-white hover:bg-gray-300 dark:hover:bg-[#262626]'
                           }`}
                         >
                           {page}
@@ -208,7 +208,7 @@ export default async function AramaPage({ searchParams }: Props) {
                   {currentPage < totalPages && (
                     <Link
                       href={`/arama?q=${encodeURIComponent(query)}&sayfa=${currentPage + 1}`}
-                      className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
+                      className="px-4 py-2 bg-gray-200 dark:bg-[#1a1a1a] text-gray-900 dark:text-white rounded hover:bg-gray-300 dark:hover:bg-[#262626]"
                     >
                       Sonraki →
                     </Link>
@@ -221,7 +221,7 @@ export default async function AramaPage({ searchParams }: Props) {
       )}
 
       {!query && (
-        <p className="text-gray-500 text-center py-12">
+        <p className="text-gray-500 dark:text-gray-400 text-center py-12">
           Arama yapmak için yukarıdaki kutuya en az 2 karakter yazın.
         </p>
       )}

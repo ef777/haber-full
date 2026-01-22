@@ -44,16 +44,16 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   KOYU TEMA HABER SİTESİ - DESIGN TOKENS
+   LIGHT/DARK MODE - DESIGN TOKENS
    ═══════════════════════════════════════════════════════════════ */
 
 :root {
-  /* Ana Arka Plan Renkleri */
-  --bg-primary: #0a0a0a;
-  --bg-secondary: #111111;
-  --bg-card: #161616;
-  --bg-card-hover: #1c1c1c;
-  --bg-elevated: #1a1a1a;
+  /* Light Mode - Default */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f9fafb;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f3f4f6;
+  --bg-elevated: #f9fafb;
 
   /* Vurgu Renkleri */
   --accent-primary: #dc2626;
@@ -62,22 +62,22 @@
   --accent-blue: #3b82f6;
   --accent-green: #22c55e;
 
-  /* Metin Renkleri */
-  --text-primary: #ffffff;
-  --text-secondary: #d1d5db;
-  --text-muted: #9ca3af;
-  --text-dimmed: #6b7280;
+  /* Metin Renkleri - Light Mode */
+  --text-primary: #111827;
+  --text-secondary: #4b5563;
+  --text-muted: #6b7280;
+  --text-dimmed: #9ca3af;
 
-  /* Border */
-  --border-primary: #262626;
-  --border-secondary: #333333;
+  /* Border - Light Mode */
+  --border-primary: #e5e7eb;
+  --border-secondary: #d1d5db;
   --border-accent: #dc2626;
 
-  /* Gölgeler */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.5);
-  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
-  --shadow-glow: 0 0 20px rgba(220, 38, 38, 0.3);
+  /* Gölgeler - Light Mode */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-glow: 0 0 20px rgba(220, 38, 38, 0.2);
 
   /* Layout */
   --container-width: 1280px;
@@ -86,6 +86,28 @@
   /* Fontlar */
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-headline: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Dark Mode */
+.dark {
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #111111;
+  --bg-card: #161616;
+  --bg-card-hover: #1c1c1c;
+  --bg-elevated: #1a1a1a;
+
+  --text-primary: #ffffff;
+  --text-secondary: #d1d5db;
+  --text-muted: #9ca3af;
+  --text-dimmed: #6b7280;
+
+  --border-primary: #262626;
+  --border-secondary: #333333;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 20px rgba(220, 38, 38, 0.3);
 }
 
 /* ═══════════════════════════════════════════════════════════════

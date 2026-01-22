@@ -1,6 +1,7 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { prisma } from '@/lib/prisma';
+import { ThemeProvider } from '@/contexts/ThemeContext';
 
 async function getSiteAyarlari() {
   try {
@@ -40,22 +41,24 @@ export default async function SiteLayout({
   }
 
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* Custom Header Code */}
-      {siteAyarlari?.headerKod && (
-        <div dangerouslySetInnerHTML={{ __html: siteAyarlari.headerKod }} />
-      )}
+    <ThemeProvider>
+      <div className="flex flex-col min-h-screen">
+        {/* Custom Header Code */}
+        {siteAyarlari?.headerKod && (
+          <div dangerouslySetInnerHTML={{ __html: siteAyarlari.headerKod }} />
+        )}
 
-      <Header kategoriler={kategoriler} siteAyarlari={siteAyarlari} />
-      <main className="flex-1">
-        {children}
-      </main>
-      <Footer kategoriler={kategoriler} siteAyarlari={siteAyarlari} />
+        <Header kategoriler={kategoriler} siteAyarlari={siteAyarlari} />
+        <main className="flex-1">
+          {children}
+        </main>
+        <Footer kategoriler={kategoriler} siteAyarlari={siteAyarlari} />
 
-      {/* Custom Footer Code */}
-      {siteAyarlari?.footerKod && (
-        <div dangerouslySetInnerHTML={{ __html: siteAyarlari.footerKod }} />
-      )}
-    </div>
+        {/* Custom Footer Code */}
+        {siteAyarlari?.footerKod && (
+          <div dangerouslySetInnerHTML={{ __html: siteAyarlari.footerKod }} />
+        )}
+      </div>
+    </ThemeProvider>
   );
 }

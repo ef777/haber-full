@@ -67,15 +67,15 @@ export default async function KategoriPage({ params }: PageProps) {
   return (
     <>
       <main className="max-w-7xl mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-2">{kategori.ad}</h1>
+        <h1 className="text-3xl font-bold mb-2 text-gray-900 dark:text-white">{kategori.ad}</h1>
         {kategori.aciklama && (
-          <p className="text-gray-600 mb-8">{kategori.aciklama}</p>
+          <p className="text-gray-600 dark:text-gray-400 mb-8">{kategori.aciklama}</p>
         )}
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {haberler.map((haber) => (
             <Link key={haber.id} href={`/haber/${haber.slug}`} className="group">
-              <article className="bg-white rounded-lg shadow overflow-hidden">
+              <article className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow overflow-hidden">
                 {haber.resim ? (
                   <img
                     src={haber.resim}
@@ -83,18 +83,18 @@ export default async function KategoriPage({ params }: PageProps) {
                     className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                 ) : (
-                  <div className="w-full h-48 bg-gray-200 flex items-center justify-center">
-                    <span className="text-gray-400">Resim Yok</span>
+                  <div className="w-full h-48 bg-gray-200 dark:bg-[#1a1a1a] flex items-center justify-center">
+                    <span className="text-gray-600 dark:text-gray-400">Resim Yok</span>
                   </div>
                 )}
                 <div className="p-4">
-                  <h2 className="font-semibold text-gray-900 group-hover:text-red-600 line-clamp-2 mb-2">
+                  <h2 className="font-semibold text-gray-900 dark:text-white group-hover:text-red-600 line-clamp-2 mb-2">
                     {haber.baslik}
                   </h2>
                   {haber.spot && (
-                    <p className="text-gray-600 text-sm line-clamp-2 mb-3">{haber.spot}</p>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm line-clamp-2 mb-3">{haber.spot}</p>
                   )}
-                  <div className="flex items-center justify-between text-sm text-gray-500">
+                  <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
                     {haber.yazar && <span>{haber.yazar.ad}</span>}
                     <time>{new Date(haber.yayinTarihi).toLocaleDateString('tr-TR')}</time>
                   </div>
@@ -105,15 +105,15 @@ export default async function KategoriPage({ params }: PageProps) {
         </div>
 
         {haberler.length === 0 && (
-          <p className="text-center text-gray-500 py-12">
+          <p className="text-center text-gray-500 dark:text-gray-400 py-12">
             Bu kategoride henüz haber yok.
           </p>
         )}
       </main>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white mt-12">
-        <div className="max-w-7xl mx-auto px-4 py-8 text-center text-gray-400">
+      <footer className="bg-gray-900 dark:bg-[#111] text-white mt-12">
+        <div className="max-w-7xl mx-auto px-4 py-8 text-center text-gray-400 dark:text-gray-300">
           <p>&copy; {new Date().getFullYear()} Haber Sitesi. Tüm hakları saklıdır.</p>
         </div>
       </footer>

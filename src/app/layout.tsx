@@ -2,13 +2,21 @@ import './globals.css';
 import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import Script from 'next/script';
+import { prisma } from '@/lib/prisma';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const dynamic = 'force-dynamic';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
-const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'Haber Portali';
+
+async function getSiteSettings() {
+  try {
+    return await prisma.siteAyarlari.findFirst();
+  } catch {
+    return null;
+  }
+}
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -16,85 +24,102 @@ export const viewport: Viewport = {
   themeColor: '#0a0a0a',
 };
 
-export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
-  title: {
-    default: `${siteName} - Guncel Haberler`,
-    template: `%s | ${siteName}`,
-  },
-  description: 'Turkiye ve dunyadan son dakika haberleri, en guncel ekonomi verileri, spor sonuclari, teknoloji gelismeleri ve yasam haberleri. En dogru, hizli ve tarafsiz haber kaynagi Haber Portali ile gundemi takip edin.',
-  keywords: [
+export async function generateMetadata(): Promise<Metadata> {
+  const siteSettings = await getSiteSettings();
+
+  const siteName = siteSettings?.siteAdi || process.env.NEXT_PUBLIC_SITE_NAME || 'Haber Portali';
+  const seoTitle = siteSettings?.seoBaslik || `${siteName} - Guncel Haberler`;
+  const description = siteSettings?.siteAciklama || 'Turkiye ve dunyadan son dakika haberleri, en guncel ekonomi verileri, spor sonuclari, teknoloji gelismeleri ve yasam haberleri.';
+
+  // Parse keywords from comma-separated string
+  const keywordsFromDB = siteSettings?.seoKeywords
+    ? siteSettings.seoKeywords.split(',').map(k => k.trim()).filter(Boolean)
+    : [];
+
+  const defaultKeywords = [
     'haber', 'son dakika', 'gundem', 'turkiye haberleri', 'dunya haberleri',
     'ekonomi', 'spor', 'teknoloji', 'saglik', 'yasam', 'kultur sanat',
     'breaking news', 'guncel haberler', 'haber sitesi', 'gazete'
-  ],
-  authors: [{ name: siteName }],
-  creator: siteName,
-  publisher: siteName,
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
-  alternates: {
-    canonical: siteUrl,
-    types: {
-      'application/rss+xml': [
-        { url: '/rss/feed.xml', title: `${siteName} RSS` },
-      ],
+  ];
+
+  const keywords = keywordsFromDB.length > 0 ? keywordsFromDB : defaultKeywords;
+
+  return {
+    metadataBase: new URL(siteUrl),
+    title: {
+      default: seoTitle,
+      template: `%s | ${siteName}`,
     },
-  },
-  robots: {
-    index: true,
-    follow: true,
-    nocache: false,
-    googleBot: {
+    description,
+    keywords,
+    authors: [{ name: siteName }],
+    creator: siteName,
+    publisher: siteName,
+    formatDetection: {
+      email: false,
+      address: false,
+      telephone: false,
+    },
+    alternates: {
+      canonical: siteUrl,
+      types: {
+        'application/rss+xml': [
+          { url: '/rss/feed.xml', title: `${siteName} RSS` },
+        ],
+      },
+    },
+    robots: {
       index: true,
       follow: true,
-      noimageindex: false,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  },
-  verification: {
-    google: process.env.GOOGLE_SITE_VERIFICATION,
-  },
-  openGraph: {
-    type: 'website',
-    locale: 'tr_TR',
-    url: siteUrl,
-    siteName: siteName,
-    title: `${siteName} - Guncel Haberler`,
-    description: 'Turkiye ve dunyadan son dakika haberleri, ekonomi, spor ve teknoloji gelismeleri. En hizli ve guvenilir haber kaynagi.',
-    images: [
-      {
-        url: `${siteUrl}/og-image.png`,
-        width: 1200,
-        height: 630,
-        alt: siteName,
+      nocache: false,
+      googleBot: {
+        index: true,
+        follow: true,
+        noimageindex: false,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
       },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    site: '@haberportali',
-    creator: '@haberportali',
-    title: `${siteName} - Guncel Haberler`,
-    description: 'Turkiye ve dunyadan son dakika haberleri, ekonomi, spor ve teknoloji gelismeleri.',
-    images: [`${siteUrl}/og-image.png`],
-  },
-  icons: {
-    icon: [
-      { url: '/favicon.svg', type: 'image/svg+xml' },
-    ],
-    apple: [
-      { url: '/favicon.svg', type: 'image/svg+xml' },
-    ],
-  },
-  manifest: '/site.webmanifest',
-  category: 'news',
-};
+    },
+    verification: {
+      google: process.env.GOOGLE_SITE_VERIFICATION,
+    },
+    openGraph: {
+      type: 'website',
+      locale: 'tr_TR',
+      url: siteUrl,
+      siteName: siteName,
+      title: seoTitle,
+      description,
+      images: [
+        {
+          url: `${siteUrl}/og-image.png`,
+          width: 1200,
+          height: 630,
+          alt: siteName,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      site: '@haberportali',
+      creator: '@haberportali',
+      title: seoTitle,
+      description,
+      images: [`${siteUrl}/og-image.png`],
+    },
+    icons: {
+      icon: [
+        { url: '/favicon.svg', type: 'image/svg+xml' },
+      ],
+      apple: [
+        { url: '/favicon.svg', type: 'image/svg+xml' },
+      ],
+    },
+    manifest: '/site.webmanifest',
+    category: 'news',
+  };
+}
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
@@ -113,7 +138,7 @@ export default function RootLayout({
         <meta name="news_keywords" content="haber, son dakika, gundem, turkiye, dunya, ekonomi, spor" />
         <meta name="google-site-verification" content="KMRkj_Hcy4U7h8zCXi9QtNI6j9dTiGgCBbXuYe8dFi0" />
       </head>
-      <body className={`${inter.className} min-h-screen bg-[#0a0a0a] text-white`}>
+      <body className={`${inter.className} min-h-screen bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white transition-colors`}>
         {/* Google Analytics */}
         {GA_ID && (
           <>
