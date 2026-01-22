@@ -89,7 +89,7 @@ export default function KunyePage() {
 
         <div className="mt-8 text-xs text-gray-500 text-center leading-relaxed">
           <p>
-            Sitemizde yayınlanan haberlerin tüm hakları Lystra Software Medya A.Ş.'ye aittir. Kaynak gösterilmeden kullanılamaz.
+            Sitemizde yayınlanan haberlerin tüm hakları Lystra Software Medya A.Ş.&apos;ye aittir. Kaynak gösterilmeden kullanılamaz.
             Sitemizdeki harici linkler ayrı bir sayfada açılır. Yayınlanan yazı ve yorumlardan yazarları sorumludur.
             Sitemiz Basın Meslek İlkelerine uymaya söz vermiştir.
           </p>

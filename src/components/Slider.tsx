@@ -47,7 +47,7 @@ export default function Slider({ items, autoPlayInterval = 5000 }: SliderProps) 
 
   const currentItem = items[currentIndex];
 
-  const SlideContent = () => (
+  const slideContent = (
     <div className="relative w-full h-full">
       <Image
         src={currentItem.resim}
@@ -83,10 +83,10 @@ export default function Slider({ items, autoPlayInterval = 5000 }: SliderProps) 
       {/* Main Slide */}
       {currentItem.link ? (
         <Link href={currentItem.link} className="block w-full h-full">
-          <SlideContent />
+          {slideContent}
         </Link>
       ) : (
-        <SlideContent />
+        slideContent
       )}
 
       {/* Navigation Arrows */}
