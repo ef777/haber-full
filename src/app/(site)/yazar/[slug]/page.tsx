@@ -107,7 +107,7 @@ export default async function YazarPage({ params, searchParams }: Props) {
                 unoptimized={yazar.avatar.includes('/uploads/')}
               />
             ) : (
-              <div className="w-36 h-36 bg-gray-200 dark:bg-[#1a1a1a] rounded-full flex items-center justify-center text-4xl text-gray-500 dark:text-gray-400">
+              <div className="w-36 h-36 bg-gray-200 dark:bg-[#0a0a0a] rounded-full flex items-center justify-center text-4xl text-gray-600 dark:text-gray-500">
                 {yazar.ad.charAt(0)}
               </div>
             )}
@@ -187,8 +187,8 @@ export default async function YazarPage({ params, searchParams }: Props) {
                         unoptimized={haber.resim.includes('/uploads/')}
                       />
                     ) : (
-                      <div className="w-full h-48 bg-gray-200 dark:bg-[#1a1a1a] flex items-center justify-center">
-                        <span className="text-gray-600 dark:text-gray-400">Resim yok</span>
+                      <div className="w-full h-48 bg-gray-200 dark:bg-[#0a0a0a] flex items-center justify-center">
+                        <span className="text-gray-500 dark:text-gray-600">Resim yok</span>
                       </div>
                     )}
                   </Link>
@@ -227,7 +227,7 @@ export default async function YazarPage({ params, searchParams }: Props) {
                 {currentPage > 1 && (
                   <Link
                     href={`/yazar/${slug}?sayfa=${currentPage - 1}`}
-                    className="px-4 py-2 bg-gray-200 dark:bg-[#1a1a1a] text-gray-900 dark:text-white rounded hover:bg-gray-300 dark:hover:bg-[#262626]"
+                    className="px-4 py-2 bg-gray-200 dark:bg-[#1a1a1a] text-gray-900 dark:text-white rounded hover:bg-gray-300 dark:hover:bg-[#1c1c1c]"
                   >
                     ← Önceki
                   </Link>
@@ -260,7 +260,7 @@ export default async function YazarPage({ params, searchParams }: Props) {
                 {currentPage < totalPages && (
                   <Link
                     href={`/yazar/${slug}?sayfa=${currentPage + 1}`}
-                    className="px-4 py-2 bg-gray-200 dark:bg-[#1a1a1a] text-gray-900 dark:text-white rounded hover:bg-gray-300 dark:hover:bg-[#262626]"
+                    className="px-4 py-2 bg-gray-200 dark:bg-[#1a1a1a] text-gray-900 dark:text-white rounded hover:bg-gray-300 dark:hover:bg-[#1c1c1c]"
                   >
                     Sonraki →
                   </Link>

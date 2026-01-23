@@ -41,9 +41,9 @@ export default function NobetciEczaneWidget() {
           <h3 className="font-bold text-gray-900 dark:text-white">Nöbetçi Eczaneler</h3>
         </div>
         <div className="animate-pulse space-y-2">
-          <div className="h-4 bg-gray-300 dark:bg-[#262626] rounded w-3/4"></div>
-          <div className="h-4 bg-gray-300 dark:bg-[#262626] rounded w-1/2"></div>
-          <div className="h-4 bg-gray-300 dark:bg-[#262626] rounded w-2/3"></div>
+          <div className="h-4 bg-gray-200 dark:bg-[#1a1a1a] rounded w-3/4"></div>
+          <div className="h-4 bg-gray-200 dark:bg-[#1a1a1a] rounded w-1/2"></div>
+          <div className="h-4 bg-gray-200 dark:bg-[#1a1a1a] rounded w-2/3"></div>
         </div>
       </div>
     );

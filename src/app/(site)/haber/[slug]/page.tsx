@@ -261,7 +261,7 @@ export default async function HaberPage({ params }: PageProps) {
                         minute: '2-digit',
                     })}
                     </time>
-                    <span className="text-xs text-gray-600 dark:text-gray-600">Güncelleme: {new Date(haber.updatedAt).toLocaleDateString('tr-TR')}</span>
+                    <span className="text-xs text-gray-500 dark:text-gray-500">Güncelleme: {new Date(haber.updatedAt).toLocaleDateString('tr-TR')}</span>
                 </div>
               </div>
             </header>
@@ -278,7 +278,7 @@ export default async function HaberPage({ params }: PageProps) {
                 />
                 {haber.resimAlt && (
                   <div className="absolute bottom-0 left-0 right-0 bg-black/60 backdrop-blur-sm p-2">
-                    <figcaption className="text-sm text-gray-700 dark:text-gray-300 text-center">
+                    <figcaption className="text-sm text-white text-center">
                         {haber.resimAlt}
                     </figcaption>
                   </div>
@@ -369,7 +369,7 @@ export default async function HaberPage({ params }: PageProps) {
                         </div>
                       )}
                       <div className="flex-1">
-                        <h3 className="font-semibold text-gray-800 dark:text-gray-200 group-hover:text-red-500 line-clamp-2 transition-colors">
+                        <h3 className="font-semibold text-gray-900 dark:text-white group-hover:text-red-500 line-clamp-2 transition-colors">
                           {ilgili.baslik}
                         </h3>
                         <span className="text-xs text-gray-500 dark:text-gray-500 mt-2 block">
@@ -416,7 +416,7 @@ async function SonHaberlerWidget() {
             <span className="text-gray-700 dark:text-gray-300 group-hover:text-red-500 text-sm font-medium line-clamp-2 transition-colors leading-snug">
               {haber.baslik}
             </span>
-            <span className="text-xs text-gray-600 dark:text-gray-600 block mt-2">
+            <span className="text-xs text-gray-500 dark:text-gray-500 block mt-2">
               {new Date(haber.yayinTarihi).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' })}
             </span>
           </Link>

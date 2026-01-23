@@ -190,7 +190,7 @@ export default function Footer({ kategoriler, siteAyarlari }: { kategoriler?: Ka
             )}
           </p>
           <div className="flex items-center gap-6">
-            <span className="text-gray-600 dark:text-gray-600 text-xs">Yazılım: Lystra Software</span>
+            <span className="text-gray-500 dark:text-gray-500 text-xs">Yazılım: Lystra Software</span>
             <Link href="/admin" className="text-gray-500 dark:text-gray-500 hover:text-gray-900 dark:hover:text-white text-xs transition-colors">
               Yönetim Paneli
             </Link>

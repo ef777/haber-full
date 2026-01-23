@@ -93,7 +93,7 @@ function HaberContent({ haber, isFirst }: { haber: Haber; isFirst: boolean }) {
             unoptimized={haber.resim.includes('/uploads/')}
           />
           {haber.resimAlt && (
-            <figcaption className="absolute bottom-0 left-0 right-0 bg-black/60 backdrop-blur-sm p-2 text-sm text-gray-200 dark:text-gray-300 text-center">
+            <figcaption className="absolute bottom-0 left-0 right-0 bg-black/60 backdrop-blur-sm p-2 text-sm text-white text-center">
               {haber.resimAlt}
             </figcaption>
           )}
@@ -122,7 +122,7 @@ function HaberContent({ haber, isFirst }: { haber: Haber; isFirst: boolean }) {
                 <Link
                   key={etiket.id}
                   href={`/etiket/${etiket.slug}`}
-                  className="bg-gray-100 dark:bg-[#1a1a1a] hover:bg-gray-200 dark:hover:bg-[#262626] text-gray-700 dark:text-gray-300 px-3 py-1.5 rounded-full text-sm transition-colors"
+                  className="bg-gray-100 dark:bg-[#1a1a1a] hover:bg-gray-200 dark:hover:bg-[#1c1c1c] text-gray-700 dark:text-gray-300 px-3 py-1.5 rounded-full text-sm transition-colors"
                 >
                   #{etiket.ad}
                 </Link>
@@ -298,8 +298,8 @@ export default function InfiniteNewsScroll({ initialHaber, ilgiliHaberler }: Inf
                     unoptimized={ilgili.resim.includes('/uploads/')}
                   />
                 ) : (
-                  <div className="w-28 h-20 bg-gray-300 dark:bg-[#262626] rounded flex items-center justify-center">
-                    <span className="text-gray-500 text-xs">Resim yok</span>
+                  <div className="w-28 h-20 bg-gray-200 dark:bg-[#0a0a0a] rounded flex items-center justify-center">
+                    <span className="text-gray-500 dark:text-gray-600 text-xs">Resim yok</span>
                   </div>
                 )}
                 <div className="flex-1">

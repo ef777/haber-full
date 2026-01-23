@@ -276,8 +276,8 @@ export default async function HomePage() {
                         unoptimized={anaHaber.resim.includes('/uploads/')}
                       />
                     ) : (
-                      <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-800 dark:to-gray-900 flex items-center justify-center">
-                        <span className="text-gray-400 dark:text-gray-600 text-lg">Haber Portali</span>
+                      <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 dark:from-[#0a0a0a] dark:to-[#111] flex items-center justify-center">
+                        <span className="text-gray-500 dark:text-gray-600 text-lg">Haber Portali</span>
                       </div>
                     )}
                     <div className="featured-card-overlay" />
@@ -325,7 +325,7 @@ export default async function HomePage() {
                             unoptimized={haber.resim.includes('/uploads/')}
                           />
                         ) : (
-                          <div className="w-full h-full bg-gray-200 dark:bg-gray-800" />
+                          <div className="w-full h-full bg-gray-200 dark:bg-[#0a0a0a]" />
                         )}
                       </div>
                       <div className="flex-1 flex flex-col justify-center">
@@ -366,7 +366,7 @@ export default async function HomePage() {
                           unoptimized={haber.resim.includes('/uploads/')}
                         />
                       ) : (
-                        <div className="w-full h-full bg-gray-200 dark:bg-gray-800" />
+                        <div className="w-full h-full bg-gray-200 dark:bg-[#0a0a0a]" />
                       )}
                       {haber.kategori && (
                         <span className="category-badge absolute top-2 left-2">
@@ -419,7 +419,7 @@ export default async function HomePage() {
                                   unoptimized={kategori.haberler[0].resim.includes('/uploads/')}
                                 />
                               ) : (
-                                <div className="w-full h-full bg-gray-200 dark:bg-gray-800" />
+                                <div className="w-full h-full bg-gray-200 dark:bg-[#0a0a0a]" />
                               )}
                             </div>
                             <div className="news-card-body">
@@ -500,7 +500,7 @@ export default async function HomePage() {
                                 unoptimized={haber.resim.includes('/uploads/')}
                               />
                             ) : (
-                              <div className="w-full h-full bg-gray-200 dark:bg-gray-800" />
+                              <div className="w-full h-full bg-gray-200 dark:bg-[#0a0a0a]" />
                             )}
                           </div>
                           <div className="news-card-body p-3">
@@ -566,7 +566,7 @@ export default async function HomePage() {
                             unoptimized={haber.resim.includes('/uploads/')}
                           />
                         ) : (
-                          <div className="w-full h-full bg-gray-200 dark:bg-gray-800" />
+                          <div className="w-full h-full bg-gray-200 dark:bg-[#0a0a0a]" />
                         )}
                         <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
                           <span className="text-white font-bold text-lg">{index + 1}</span>

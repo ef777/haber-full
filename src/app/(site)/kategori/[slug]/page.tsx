@@ -83,8 +83,8 @@ export default async function KategoriPage({ params }: PageProps) {
                     className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                 ) : (
-                  <div className="w-full h-48 bg-gray-200 dark:bg-[#1a1a1a] flex items-center justify-center">
-                    <span className="text-gray-600 dark:text-gray-400">Resim Yok</span>
+                  <div className="w-full h-48 bg-gray-200 dark:bg-[#0a0a0a] flex items-center justify-center">
+                    <span className="text-gray-500 dark:text-gray-600">Resim Yok</span>
                   </div>
                 )}
                 <div className="p-4">
@@ -112,8 +112,8 @@ export default async function KategoriPage({ params }: PageProps) {
       </main>
 
       {/* Footer */}
-      <footer className="bg-gray-900 dark:bg-[#111] text-white mt-12">
-        <div className="max-w-7xl mx-auto px-4 py-8 text-center text-gray-400 dark:text-gray-300">
+      <footer className="bg-gray-100 dark:bg-[#111] border-t border-gray-300 dark:border-[#262626] mt-12">
+        <div className="max-w-7xl mx-auto px-4 py-8 text-center text-gray-600 dark:text-gray-400">
           <p>&copy; {new Date().getFullYear()} Haber Sitesi. Tüm hakları saklıdır.</p>
         </div>
       </footer>

@@ -25,24 +25,24 @@ export default function KunyePage() {
             <div className="mb-6">
               <h3 className="text-gray-900 dark:text-white font-bold mb-1">İmtiyaz Sahibi</h3>
               <p className="text-gray-600 dark:text-gray-400">Lystra Software Medya A.Ş. Adına</p>
-              <p className="text-gray-800 dark:text-gray-300 font-medium">Ahmet Yılmaz</p>
+              <p className="text-gray-900 dark:text-white font-medium">Ahmet Yılmaz</p>
             </div>
 
             <div className="mb-6">
               <h3 className="text-gray-900 dark:text-white font-bold mb-1">Genel Yayın Yönetmeni</h3>
-              <p className="text-gray-800 dark:text-gray-300 font-medium">Mehmet Demir</p>
+              <p className="text-gray-900 dark:text-white font-medium">Mehmet Demir</p>
               <p className="text-sm text-gray-500">mehmet.demir@haberportali.com</p>
             </div>
 
             <div className="mb-6">
               <h3 className="text-gray-900 dark:text-white font-bold mb-1">Sorumlu Yazı İşleri Müdürü</h3>
-              <p className="text-gray-800 dark:text-gray-300 font-medium">Ayşe Kaya</p>
+              <p className="text-gray-900 dark:text-white font-medium">Ayşe Kaya</p>
               <p className="text-sm text-gray-500">ayse.kaya@haberportali.com</p>
             </div>
 
             <div className="mb-6">
               <h3 className="text-gray-900 dark:text-white font-bold mb-1">Hukuk Danışmanı</h3>
-              <p className="text-gray-800 dark:text-gray-300 font-medium">Av. Caner Öztürk</p>
+              <p className="text-gray-900 dark:text-white font-medium">Av. Caner Öztürk</p>
             </div>
           </div>
 

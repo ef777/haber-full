@@ -105,7 +105,7 @@ function HaberCard({ haber }: { haber: Haber }) {
                 <Link
                   key={etiket.id}
                   href={`/etiket/${etiket.slug}`}
-                  className="bg-gray-200 dark:bg-[#1a1a1a] hover:bg-gray-300 dark:hover:bg-[#262626] text-gray-700 dark:text-gray-300 px-3 py-1 rounded-full text-sm transition-colors"
+                  className="bg-gray-200 dark:bg-[#1a1a1a] hover:bg-gray-300 dark:hover:bg-[#1c1c1c] text-gray-700 dark:text-gray-300 px-3 py-1 rounded-full text-sm transition-colors"
                 >
                   #{etiket.ad}
                 </Link>
