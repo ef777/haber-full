@@ -210,7 +210,7 @@ export default async function HaberPage({ params }: PageProps) {
                 {haber.kategori && (
                   <Link
                     href={`/kategori/${haber.kategori.slug}`}
-                    className="bg-gray-200 dark:bg-[#262626] text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-[#333] px-3 py-1 rounded text-sm hover:bg-gray-300 dark:hover:bg-[#333] hover:text-gray-900 dark:hover:text-white transition-colors"
+                    className="bg-gray-100 dark:bg-[#1a1a1a] text-gray-600 dark:text-gray-400 border border-gray-200 dark:border-[#262626] px-3 py-1 rounded text-sm hover:bg-gray-200 dark:hover:bg-[#262626] hover:text-gray-900 dark:hover:text-white transition-colors"
                   >
                     {haber.kategori.ad}
                   </Link>
@@ -227,7 +227,7 @@ export default async function HaberPage({ params }: PageProps) {
                 </p>
               )}
 
-              <div className="flex flex-wrap items-center justify-between gap-4 text-sm text-gray-500 dark:text-gray-500 border-t border-b border-gray-300 dark:border-[#262626] py-4">
+              <div className="flex flex-wrap items-center justify-between gap-4 text-sm text-gray-500 dark:text-gray-500 border-t border-b border-gray-200 dark:border-[#262626] py-4">
                 <div className="flex items-center gap-4">
                     {haber.yazar && (
                     <Link href={`/yazar/${haber.yazar.slug}`} className="flex items-center gap-2 hover:text-red-500 group transition-colors">
@@ -237,16 +237,16 @@ export default async function HaberPage({ params }: PageProps) {
                             alt={haber.yazar.ad}
                             width={40}
                             height={40}
-                            className="rounded-full ring-2 ring-gray-300 dark:ring-[#262626] group-hover:ring-red-500 transition-all"
+                            className="rounded-full ring-2 ring-gray-200 dark:ring-[#262626] group-hover:ring-red-500 transition-all"
                         />
                         ) : (
-                        <div className="w-10 h-10 bg-gray-200 dark:bg-[#262626] rounded-full flex items-center justify-center text-sm font-bold text-gray-700 dark:text-gray-300 group-hover:bg-red-600 group-hover:text-white transition-colors">
+                        <div className="w-10 h-10 bg-gray-100 dark:bg-[#1a1a1a] rounded-full flex items-center justify-center text-sm font-bold text-gray-600 dark:text-gray-400 group-hover:bg-red-600 group-hover:text-white transition-colors">
                             {haber.yazar.ad.charAt(0)}
                         </div>
                         )}
                         <div className="flex flex-col">
                             <span className="font-bold text-gray-700 dark:text-gray-300 group-hover:text-red-500 transition-colors">{haber.yazar.ad}</span>
-                            <span className="text-xs">Editör</span>
+                            <span className="text-xs text-gray-400 dark:text-gray-500">Editör</span>
                         </div>
                     </Link>
                     )}
@@ -261,7 +261,7 @@ export default async function HaberPage({ params }: PageProps) {
                         minute: '2-digit',
                     })}
                     </time>
-                    <span className="text-xs text-gray-500 dark:text-gray-500">Güncelleme: {new Date(haber.updatedAt).toLocaleDateString('tr-TR')}</span>
+                    <span className="text-xs text-gray-400 dark:text-gray-500">Güncelleme: {new Date(haber.updatedAt).toLocaleDateString('tr-TR')}</span>
                 </div>
               </div>
             </header>
@@ -292,7 +292,7 @@ export default async function HaberPage({ params }: PageProps) {
             />
 
             {haber.video && (
-              <div className="mb-8 aspect-video rounded-lg overflow-hidden border border-gray-300 dark:border-[#262626]">
+              <div className="mb-8 aspect-video rounded-lg overflow-hidden border border-gray-200 dark:border-[#262626]">
                 <iframe
                   src={haber.video.replace('watch?v=', 'embed/')}
                   className="w-full h-full"
@@ -309,7 +309,7 @@ export default async function HaberPage({ params }: PageProps) {
                   {haber.etiketler.map(({ etiket }) => (
                     <span
                       key={etiket.id}
-                      className="bg-gray-200 dark:bg-[#1a1a1a] text-gray-600 dark:text-gray-400 border border-gray-400 dark:border-[#333] px-3 py-1 rounded-full text-sm hover:text-gray-900 dark:hover:text-white hover:border-red-600 transition-all cursor-pointer"
+                      className="bg-gray-100 dark:bg-[#141414] text-gray-600 dark:text-gray-400 border border-gray-200 dark:border-[#262626] px-3 py-1 rounded-full text-sm hover:text-gray-900 dark:hover:text-white hover:border-red-600 transition-all cursor-pointer"
                     >
                       #{etiket.ad}
                     </span>
@@ -318,14 +318,14 @@ export default async function HaberPage({ params }: PageProps) {
               </div>
             )}
 
-            <div className="mb-8 p-6 bg-white dark:bg-[#111] rounded-lg border border-gray-300 dark:border-[#262626]">
+            <div className="mb-8 p-6 bg-gray-50 dark:bg-[#0f0f0f] rounded-lg border border-gray-200 dark:border-[#262626]">
               <span className="text-sm font-bold text-gray-900 dark:text-white mb-4 block uppercase tracking-wider">Haberi Paylaş:</span>
               <div className="flex gap-2">
                 <a
                   href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(`${siteUrl}/haber/${haber.slug}`)}&text=${encodeURIComponent(haber.baslik)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-black text-white px-6 py-3 rounded-lg hover:bg-[#1DA1F2] transition-colors flex-1 text-center font-medium border border-gray-400 dark:border-[#333]"
+                  className="bg-black text-white px-6 py-3 rounded-lg hover:bg-[#1DA1F2] transition-colors flex-1 text-center font-medium"
                 >
                   X
                 </a>
@@ -349,11 +349,11 @@ export default async function HaberPage({ params }: PageProps) {
             </div>
 
             {ilgiliHaberler.length > 0 && (
-              <section className="border-t border-gray-300 dark:border-[#262626] pt-8">
+              <section className="border-t border-gray-200 dark:border-[#262626] pt-8">
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 border-l-4 border-red-600 pl-4">İlgili Haberler</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {ilgiliHaberler.map((ilgili) => (
-                    <Link key={ilgili.id} href={`/haber/${ilgili.slug}`} className="flex gap-4 group bg-white dark:bg-[#111] p-3 rounded-lg border border-gray-300 dark:border-[#262626] hover:border-red-600/50 transition-all">
+                    <Link key={ilgili.id} href={`/haber/${ilgili.slug}`} className="flex gap-4 group bg-white dark:bg-[#141414] p-3 rounded-lg border border-gray-200 dark:border-[#262626] hover:border-red-600/50 transition-all">
                       {ilgili.resim ? (
                         <Image
                           src={ilgili.resim}
@@ -364,15 +364,15 @@ export default async function HaberPage({ params }: PageProps) {
                           unoptimized={ilgili.resim.includes('/uploads/')}
                         />
                       ) : (
-                        <div className="w-28 h-20 bg-gray-200 dark:bg-[#262626] rounded flex items-center justify-center">
-                          <span className="text-gray-500 dark:text-gray-500 text-xs">Resim yok</span>
+                        <div className="w-28 h-20 bg-gray-100 dark:bg-[#0a0a0a] rounded flex items-center justify-center">
+                          <span className="text-gray-400 dark:text-gray-600 text-xs">Resim yok</span>
                         </div>
                       )}
                       <div className="flex-1">
                         <h3 className="font-semibold text-gray-900 dark:text-white group-hover:text-red-500 line-clamp-2 transition-colors">
                           {ilgili.baslik}
                         </h3>
-                        <span className="text-xs text-gray-500 dark:text-gray-500 mt-2 block">
+                        <span className="text-xs text-gray-400 dark:text-gray-500 mt-2 block">
                           {new Date(ilgili.yayinTarihi).toLocaleDateString('tr-TR')}
                         </span>
                       </div>
@@ -388,8 +388,8 @@ export default async function HaberPage({ params }: PageProps) {
 
           {/* Sidebar */}
           <aside className="lg:col-span-1">
-            <div className="sticky top-24 bg-white dark:bg-[#111] border border-gray-300 dark:border-[#262626] rounded-lg shadow-xl p-6">
-              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6 border-b border-gray-300 dark:border-[#262626] pb-3 uppercase tracking-wider">
+            <div className="sticky top-24 bg-white dark:bg-[#141414] border border-gray-200 dark:border-[#262626] rounded-lg shadow-lg dark:shadow-none p-6">
+              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6 border-b border-gray-200 dark:border-[#262626] pb-3 uppercase tracking-wider">
                 <span className="border-b-2 border-red-600 pb-3">Son Haberler</span>
               </h3>
               <SonHaberlerWidget />

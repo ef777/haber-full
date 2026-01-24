@@ -4,80 +4,47 @@
 @source "../components/**/*.tsx";
 @source "./**/*.tsx";
 
-/* Manual Typography for Dark Mode */
-.prose-invert {
-  color: #d1d5db;
-}
-.prose-invert h1, .prose-invert h2, .prose-invert h3, .prose-invert h4 {
-  color: #ffffff;
-  font-weight: 700;
-  margin-top: 1.5em;
-  margin-bottom: 0.5em;
-}
-.prose-invert p {
-  margin-bottom: 1.25em;
-  line-height: 1.75;
-}
-.prose-invert a {
-  color: #dc2626;
-  text-decoration: underline;
-}
-.prose-invert strong {
-  color: #ffffff;
-  font-weight: 600;
-}
-.prose-invert ul {
-  list-style-type: disc;
-  padding-left: 1.5em;
-  margin-bottom: 1.25em;
-}
-.prose-invert ol {
-  list-style-type: decimal;
-  padding-left: 1.5em;
-  margin-bottom: 1.25em;
-}
-.prose-invert blockquote {
-  border-left: 4px solid #dc2626;
-  padding-left: 1em;
-  color: #9ca3af;
-  font-style: italic;
-}
+/* ═══════════════════════════════════════════════════════════════
+   MODERN HABER SİTESİ TEMA SİSTEMİ
+   Default: Dark Mode
+   ═══════════════════════════════════════════════════════════════ */
 
 /* ═══════════════════════════════════════════════════════════════
-   LIGHT/DARK MODE - DESIGN TOKENS
+   DESIGN TOKENS - Dark Mode (Default)
    ═══════════════════════════════════════════════════════════════ */
 
 :root {
-  /* Light Mode - Default */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f9fafb;
-  --bg-card: #ffffff;
-  --bg-card-hover: #f3f4f6;
-  --bg-elevated: #f9fafb;
+  /* Dark Mode - Varsayılan */
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #0f0f0f;
+  --bg-card: #141414;
+  --bg-card-hover: #1a1a1a;
+  --bg-elevated: #1e1e1e;
+  --bg-input: #1a1a1a;
+
+  /* Metin Renkleri */
+  --text-primary: #ffffff;
+  --text-secondary: #a3a3a3;
+  --text-muted: #737373;
+  --text-dimmed: #525252;
+
+  /* Border Renkleri */
+  --border-primary: #262626;
+  --border-secondary: #333333;
+  --border-hover: #404040;
 
   /* Vurgu Renkleri */
   --accent-primary: #dc2626;
   --accent-primary-hover: #ef4444;
-  --accent-secondary: #f59e0b;
+  --accent-secondary: #f97316;
   --accent-blue: #3b82f6;
   --accent-green: #22c55e;
 
-  /* Metin Renkleri - Light Mode */
-  --text-primary: #111827;
-  --text-secondary: #4b5563;
-  --text-muted: #6b7280;
-  --text-dimmed: #9ca3af;
-
-  /* Border - Light Mode */
-  --border-primary: #e5e7eb;
-  --border-secondary: #d1d5db;
-  --border-accent: #dc2626;
-
-  /* Gölgeler - Light Mode */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
-  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
-  --shadow-glow: 0 0 20px rgba(220, 38, 38, 0.2);
+  /* Gölgeler */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.6);
+  --shadow-glow: 0 0 20px rgba(220, 38, 38, 0.3);
 
   /* Layout */
   --container-width: 1280px;
@@ -85,29 +52,33 @@
 
   /* Fontlar */
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-headline: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-/* Dark Mode */
-.dark {
-  --bg-primary: #0a0a0a;
-  --bg-secondary: #111111;
-  --bg-card: #161616;
-  --bg-card-hover: #1c1c1c;
-  --bg-elevated: #1a1a1a;
+/* ═══════════════════════════════════════════════════════════════
+   DESIGN TOKENS - Light Mode
+   ═══════════════════════════════════════════════════════════════ */
 
-  --text-primary: #ffffff;
-  --text-secondary: #d1d5db;
-  --text-muted: #9ca3af;
-  --text-dimmed: #6b7280;
+.light {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f5f5f5;
+  --bg-card: #ffffff;
+  --bg-card-hover: #fafafa;
+  --bg-elevated: #f5f5f5;
+  --bg-input: #f5f5f5;
 
-  --border-primary: #262626;
-  --border-secondary: #333333;
+  --text-primary: #0a0a0a;
+  --text-secondary: #525252;
+  --text-muted: #737373;
+  --text-dimmed: #a3a3a3;
 
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.5);
-  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
-  --shadow-glow: 0 0 20px rgba(220, 38, 38, 0.3);
+  --border-primary: #e5e5e5;
+  --border-secondary: #d4d4d4;
+  --border-hover: #a3a3a3;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+  --shadow-glow: 0 0 20px rgba(220, 38, 38, 0.15);
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -129,6 +100,29 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   TYPOGRAPHY
+   ═══════════════════════════════════════════════════════════════ */
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+p {
+  color: var(--text-secondary);
+}
+
+a {
+  color: var(--accent-primary);
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--accent-primary-hover);
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -153,14 +147,12 @@ body {
    HEADER STYLES
    ═══════════════════════════════════════════════════════════════ */
 
-/* Üst Bar */
 .header-top-bar {
   background: var(--bg-secondary);
   border-bottom: 1px solid var(--border-primary);
   font-size: 0.8125rem;
 }
 
-/* Ana Header */
 .site-header {
   background: var(--bg-primary);
   border-bottom: 1px solid var(--border-primary);
@@ -174,26 +166,12 @@ body {
   box-shadow: var(--shadow-lg);
 }
 
-/* Logo */
 .site-brand {
   font-weight: 800;
   font-size: 1.75rem;
   color: var(--text-primary);
   text-decoration: none;
   letter-spacing: -0.025em;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.site-brand-accent {
-  color: var(--accent-primary);
-}
-
-/* Navigasyon */
-.site-nav {
-  display: flex;
-  gap: 0;
 }
 
 .site-nav a {
@@ -214,13 +192,12 @@ body {
   border-bottom-color: var(--accent-primary);
 }
 
-/* Arama */
+/* Search Box */
 .search-box {
-  background: var(--bg-card);
+  background: var(--bg-input);
   border: 1px solid var(--border-primary);
-  border-radius: 0.5rem;
+  border-radius: 9999px;
   overflow: hidden;
-  display: flex;
   transition: all 0.2s ease;
 }
 
@@ -235,52 +212,14 @@ body {
   padding: 0.625rem 1rem;
   color: var(--text-primary);
   font-size: 0.875rem;
-  width: 200px;
   outline: none;
 }
 
 .search-box input::placeholder {
-  color: var(--text-dimmed);
-}
-
-.search-box button {
-  background: var(--accent-primary);
-  border: none;
-  padding: 0.625rem 1rem;
-  color: white;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.search-box button:hover {
-  background: var(--accent-primary-hover);
+  color: var(--text-muted);
 }
 
 /* Mobile Menu */
-.mobile-menu-btn {
-  display: none;
-  background: none;
-  border: none;
-  color: var(--text-primary);
-  padding: 0.5rem;
-  cursor: pointer;
-}
-
-@media (max-width: 1024px) {
-  .mobile-menu-btn {
-    display: flex;
-  }
-
-  .site-nav {
-    display: none;
-  }
-
-  .search-box {
-    display: none;
-  }
-}
-
-/* Mobile Drawer */
 .mobile-drawer {
   position: fixed;
   top: 0;
@@ -290,12 +229,6 @@ body {
   background: var(--bg-primary);
   z-index: 200;
   padding: 1rem;
-  transform: translateX(-100%);
-  transition: transform 0.3s ease;
-}
-
-.mobile-drawer.open {
-  transform: translateX(0);
 }
 
 .mobile-drawer-nav a {
@@ -315,24 +248,6 @@ body {
   background: var(--bg-secondary);
   border-top: 1px solid var(--border-primary);
   margin-top: 4rem;
-}
-
-.footer-main {
-  padding: 3rem 0;
-}
-
-.footer-brand {
-  font-size: 1.5rem;
-  font-weight: 800;
-  color: var(--text-primary);
-  margin-bottom: 1rem;
-}
-
-.footer-desc {
-  color: var(--text-muted);
-  font-size: 0.875rem;
-  line-height: 1.7;
-  max-width: 300px;
 }
 
 .footer-title {
@@ -359,27 +274,10 @@ body {
   color: var(--accent-primary);
 }
 
-.footer-bottom {
-  background: var(--bg-primary);
-  padding: 1.25rem 0;
-  border-top: 1px solid var(--border-primary);
-}
-
-.footer-bottom-text {
-  color: var(--text-dimmed);
-  font-size: 0.8125rem;
-}
-
 /* Newsletter */
-.newsletter-form {
-  display: flex;
-  gap: 0;
-  margin-top: 1rem;
-}
-
 .newsletter-form input {
   flex: 1;
-  background: var(--bg-card);
+  background: var(--bg-input);
   border: 1px solid var(--border-primary);
   border-right: none;
   border-radius: 0.375rem 0 0 0.375rem;
@@ -389,7 +287,7 @@ body {
 }
 
 .newsletter-form input::placeholder {
-  color: var(--text-dimmed);
+  color: var(--text-muted);
 }
 
 .newsletter-form button {
@@ -399,7 +297,6 @@ body {
   padding: 0.75rem 1.25rem;
   color: white;
   font-weight: 600;
-  font-size: 0.875rem;
   cursor: pointer;
   transition: background 0.2s;
 }
@@ -409,12 +306,6 @@ body {
 }
 
 /* Social Icons */
-.social-icons {
-  display: flex;
-  gap: 0.75rem;
-  margin-top: 1.5rem;
-}
-
 .social-icon {
   width: 36px;
   height: 36px;
@@ -478,18 +369,17 @@ body {
    NEWS CARDS
    ═══════════════════════════════════════════════════════════════ */
 
-/* Base Card */
 .news-card {
   background: var(--bg-card);
   border: 1px solid var(--border-primary);
-  border-radius: 0.5rem;
+  border-radius: 0.75rem;
   overflow: hidden;
   transition: all 0.3s ease;
 }
 
 .news-card:hover {
   background: var(--bg-card-hover);
-  border-color: var(--border-secondary);
+  border-color: var(--border-hover);
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
 }
@@ -551,13 +441,7 @@ body {
   border-radius: 0.25rem;
 }
 
-.category-badge-outline {
-  background: transparent;
-  border: 1px solid var(--accent-primary);
-  color: var(--accent-primary);
-}
-
-/* Featured Card - Large */
+/* Featured Card - FOTOĞRAF ÜZERİNDE HER ZAMAN BEYAZ YAZI */
 .featured-card {
   position: relative;
   border-radius: 0.75rem;
@@ -578,24 +462,27 @@ body {
   padding: 1.5rem;
 }
 
+/* FOTOĞRAF ÜZERİNDE HER ZAMAN BEYAZ */
 .featured-card-title {
-  color: white;
+  color: white !important;
   font-size: 1.5rem;
   font-weight: 800;
   line-height: 1.3;
   margin-bottom: 0.75rem;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.featured-card-excerpt {
+  color: rgba(255,255,255,0.9) !important;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
 }
 
 @media (min-width: 768px) {
   .featured-card-title {
     font-size: 2rem;
   }
-}
-
-.featured-card-excerpt {
-  color: rgba(255,255,255,0.85);
-  font-size: 0.9375rem;
-  line-height: 1.6;
 }
 
 /* List Card */
@@ -722,7 +609,7 @@ body {
 .sidebar-widget {
   background: var(--bg-card);
   border: 1px solid var(--border-primary);
-  border-radius: 0.5rem;
+  border-radius: 0.75rem;
   padding: 1.25rem;
   margin-bottom: 1.5rem;
 }
@@ -856,58 +743,6 @@ body {
   text-underline-offset: 2px;
 }
 
-.news-content a:hover {
-  color: var(--accent-primary-hover);
-}
-
-/* ==================================================================
-   LEGACY WHITE-BG OVERRIDES - Map old `bg-white` usages to dark theme
-   This helps quickly fix admin and content areas that still used
-   Tailwind's `bg-white` without requiring edits in many files.
-   ================================================================== */
-
-/* Replace white backgrounds with the card background and ensure
-   text and form controls remain readable in dark theme. */
-.bg-white {
-  background-color: var(--bg-card) !important;
-  color: var(--text-primary) !important;
-  border-color: var(--border-primary) !important;
-}
-
-.bg-white h1,
-.bg-white h2,
-.bg-white h3,
-.bg-white h4,
-.bg-white p,
-.bg-white a,
-.bg-white label,
-.bg-white span,
-.bg-white small {
-  color: var(--text-primary) !important;
-}
-
-.bg-white input,
-.bg-white textarea,
-.bg-white select,
-.bg-white button {
-  background: var(--bg-elevated) !important;
-  color: var(--text-primary) !important;
-  border: 1px solid var(--border-primary) !important;
-}
-
-.bg-white .shadow,
-.bg-white.shadow,
-.bg-white.shadow-md,
-.bg-white.shadow-lg {
-  box-shadow: none !important;
-}
-
-/* Slight lift for interactive cards that previously used shadow */
-.bg-white:hover {
-  background: var(--bg-card-hover) !important;
-  border-color: var(--border-secondary) !important;
-}
-
 .news-content table {
   width: 100%;
   border-collapse: collapse;
@@ -927,15 +762,93 @@ body {
   color: var(--text-primary);
 }
 
-/* Drop Cap */
-.drop-cap::first-letter {
-  float: left;
-  font-size: 4.5rem;
-  line-height: 0.8;
-  padding-right: 0.75rem;
-  padding-top: 0.25rem;
-  font-weight: 800;
+/* Prose for Dark Mode */
+.prose-dark {
+  color: var(--text-secondary);
+}
+
+.prose-dark h1, .prose-dark h2, .prose-dark h3, .prose-dark h4 {
+  color: var(--text-primary);
+}
+
+.prose-dark a {
   color: var(--accent-primary);
+}
+
+.prose-dark strong {
+  color: var(--text-primary);
+}
+
+.prose-dark blockquote {
+  border-left-color: var(--accent-primary);
+  color: var(--text-muted);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   FORM ELEMENTS
+   ═══════════════════════════════════════════════════════════════ */
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+textarea,
+select {
+  background: var(--bg-input);
+  border: 1px solid var(--border-primary);
+  color: var(--text-primary);
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.2);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-muted);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BUTTONS
+   ═══════════════════════════════════════════════════════════════ */
+
+.btn-primary {
+  background: var(--accent-primary);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+  background: var(--accent-primary-hover);
+}
+
+.btn-secondary {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border-primary);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-hover);
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -964,13 +877,6 @@ body {
   overflow: hidden;
 }
 
-.line-clamp-4 {
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
 /* Scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
@@ -987,7 +893,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--text-dimmed);
+  background: var(--text-muted);
 }
 
 .scrollbar-hide {
@@ -1028,6 +934,21 @@ body {
   height: 1px;
   background: var(--border-primary);
   margin: 1.5rem 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   FOTOĞRAF ÜZERİNDE BEYAZ METİN
+   Slider, featured card, image overlay'lerde her zaman beyaz
+   ═══════════════════════════════════════════════════════════════ */
+
+.image-overlay-text {
+  color: white !important;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.image-overlay-text-secondary {
+  color: rgba(255,255,255,0.9) !important;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
 }
 
 /* ═══════════════════════════════════════════════════════════════

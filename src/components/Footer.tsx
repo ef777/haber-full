@@ -61,7 +61,7 @@ export default function Footer({ kategoriler, siteAyarlari }: { kategoriler?: Ka
   const footerLogo = siteAyarlari?.logoAltUrl || siteAyarlari?.logoUrl;
 
   return (
-    <footer className="bg-gray-100 dark:bg-[#111] border-t border-gray-300 dark:border-[#262626] mt-16 pt-16 pb-8">
+    <footer className="bg-gray-50 dark:bg-[#0f0f0f] border-t border-gray-200 dark:border-[#262626] mt-16 pt-16 pb-8">
       {/* Ana Footer */}
       <div className="container">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-12">
@@ -93,42 +93,42 @@ export default function Footer({ kategoriler, siteAyarlari }: { kategoriler?: Ka
             </p>
             <div className="flex items-center gap-3">
               {siteAyarlari?.sosyalTwitter && (
-                <a href={siteAyarlari.sosyalTwitter} target="_blank" rel="noopener noreferrer" className="w-8 h-8 flex items-center justify-center rounded bg-gray-200 dark:bg-[#1a1a1a] text-gray-600 dark:text-gray-400 border border-gray-400 dark:border-[#333] hover:text-[#1DA1F2] hover:border-[#1DA1F2] transition-all" aria-label="Twitter">
+                <a href={siteAyarlari.sosyalTwitter} target="_blank" rel="noopener noreferrer" className="w-8 h-8 flex items-center justify-center rounded bg-gray-100 dark:bg-[#141414] text-gray-500 dark:text-gray-500 border border-gray-200 dark:border-[#262626] hover:text-[#1DA1F2] hover:border-[#1DA1F2] transition-all" aria-label="Twitter">
                   <TwitterIcon />
                 </a>
               )}
               {siteAyarlari?.sosyalFacebook && (
-                <a href={siteAyarlari.sosyalFacebook} target="_blank" rel="noopener noreferrer" className="w-8 h-8 flex items-center justify-center rounded bg-gray-200 dark:bg-[#1a1a1a] text-gray-600 dark:text-gray-400 border border-gray-400 dark:border-[#333] hover:text-[#1877F2] hover:border-[#1877F2] transition-all" aria-label="Facebook">
+                <a href={siteAyarlari.sosyalFacebook} target="_blank" rel="noopener noreferrer" className="w-8 h-8 flex items-center justify-center rounded bg-gray-100 dark:bg-[#141414] text-gray-500 dark:text-gray-500 border border-gray-200 dark:border-[#262626] hover:text-[#1877F2] hover:border-[#1877F2] transition-all" aria-label="Facebook">
                   <FacebookIcon />
                 </a>
               )}
               {siteAyarlari?.sosyalInstagram && (
-                <a href={siteAyarlari.sosyalInstagram} target="_blank" rel="noopener noreferrer" className="w-8 h-8 flex items-center justify-center rounded bg-gray-200 dark:bg-[#1a1a1a] text-gray-600 dark:text-gray-400 border border-gray-400 dark:border-[#333] hover:text-[#E4405F] hover:border-[#E4405F] transition-all" aria-label="Instagram">
+                <a href={siteAyarlari.sosyalInstagram} target="_blank" rel="noopener noreferrer" className="w-8 h-8 flex items-center justify-center rounded bg-gray-100 dark:bg-[#141414] text-gray-500 dark:text-gray-500 border border-gray-200 dark:border-[#262626] hover:text-[#E4405F] hover:border-[#E4405F] transition-all" aria-label="Instagram">
                   <InstagramIcon />
                 </a>
               )}
               {siteAyarlari?.sosyalYoutube && (
-                <a href={siteAyarlari.sosyalYoutube} target="_blank" rel="noopener noreferrer" className="w-8 h-8 flex items-center justify-center rounded bg-gray-200 dark:bg-[#1a1a1a] text-gray-600 dark:text-gray-400 border border-gray-400 dark:border-[#333] hover:text-[#FF0000] hover:border-[#FF0000] transition-all" aria-label="YouTube">
+                <a href={siteAyarlari.sosyalYoutube} target="_blank" rel="noopener noreferrer" className="w-8 h-8 flex items-center justify-center rounded bg-gray-100 dark:bg-[#141414] text-gray-500 dark:text-gray-500 border border-gray-200 dark:border-[#262626] hover:text-[#FF0000] hover:border-[#FF0000] transition-all" aria-label="YouTube">
                   <YoutubeIcon />
                 </a>
               )}
               {!siteAyarlari?.sosyalTwitter && !siteAyarlari?.sosyalFacebook && !siteAyarlari?.sosyalInstagram && !siteAyarlari?.sosyalYoutube && (
                 <>
-                  <a href="#" className="w-8 h-8 flex items-center justify-center rounded bg-gray-200 dark:bg-[#1a1a1a] text-gray-600 dark:text-gray-400 border border-gray-400 dark:border-[#333] hover:text-[#1DA1F2] hover:border-[#1DA1F2] transition-all" aria-label="Twitter">
+                  <a href="#" className="w-8 h-8 flex items-center justify-center rounded bg-gray-100 dark:bg-[#141414] text-gray-500 dark:text-gray-500 border border-gray-200 dark:border-[#262626] hover:text-[#1DA1F2] hover:border-[#1DA1F2] transition-all" aria-label="Twitter">
                     <TwitterIcon />
                   </a>
-                  <a href="#" className="w-8 h-8 flex items-center justify-center rounded bg-gray-200 dark:bg-[#1a1a1a] text-gray-600 dark:text-gray-400 border border-gray-400 dark:border-[#333] hover:text-[#1877F2] hover:border-[#1877F2] transition-all" aria-label="Facebook">
+                  <a href="#" className="w-8 h-8 flex items-center justify-center rounded bg-gray-100 dark:bg-[#141414] text-gray-500 dark:text-gray-500 border border-gray-200 dark:border-[#262626] hover:text-[#1877F2] hover:border-[#1877F2] transition-all" aria-label="Facebook">
                     <FacebookIcon />
                   </a>
-                  <a href="#" className="w-8 h-8 flex items-center justify-center rounded bg-gray-200 dark:bg-[#1a1a1a] text-gray-600 dark:text-gray-400 border border-gray-400 dark:border-[#333] hover:text-[#E4405F] hover:border-[#E4405F] transition-all" aria-label="Instagram">
+                  <a href="#" className="w-8 h-8 flex items-center justify-center rounded bg-gray-100 dark:bg-[#141414] text-gray-500 dark:text-gray-500 border border-gray-200 dark:border-[#262626] hover:text-[#E4405F] hover:border-[#E4405F] transition-all" aria-label="Instagram">
                     <InstagramIcon />
                   </a>
-                  <a href="#" className="w-8 h-8 flex items-center justify-center rounded bg-gray-200 dark:bg-[#1a1a1a] text-gray-600 dark:text-gray-400 border border-gray-400 dark:border-[#333] hover:text-[#FF0000] hover:border-[#FF0000] transition-all" aria-label="YouTube">
+                  <a href="#" className="w-8 h-8 flex items-center justify-center rounded bg-gray-100 dark:bg-[#141414] text-gray-500 dark:text-gray-500 border border-gray-200 dark:border-[#262626] hover:text-[#FF0000] hover:border-[#FF0000] transition-all" aria-label="YouTube">
                     <YoutubeIcon />
                   </a>
                 </>
               )}
-              <a href="/rss/feed.xml" className="w-8 h-8 flex items-center justify-center rounded bg-gray-200 dark:bg-[#1a1a1a] text-gray-600 dark:text-gray-400 border border-gray-400 dark:border-[#333] hover:text-[#FFA500] hover:border-[#FFA500] transition-all" aria-label="RSS">
+              <a href="/rss/feed.xml" className="w-8 h-8 flex items-center justify-center rounded bg-gray-100 dark:bg-[#141414] text-gray-500 dark:text-gray-500 border border-gray-200 dark:border-[#262626] hover:text-[#FFA500] hover:border-[#FFA500] transition-all" aria-label="RSS">
                 <RssIcon />
               </a>
             </div>
@@ -162,7 +162,7 @@ export default function Footer({ kategoriler, siteAyarlari }: { kategoriler?: Ka
           {/* Kolon 4: E-Bülten */}
           <div>
             <h3 className="text-gray-900 dark:text-white font-bold mb-4 uppercase text-sm tracking-wider border-b border-red-600 inline-block pb-1">E-Bülten</h3>
-            <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">
+            <p className="text-gray-500 dark:text-gray-400 text-sm mb-4">
               Günün önemli haberlerini kaçırmayın. E-bültenimize abone olun.
             </p>
             <form className="flex flex-col gap-2" onSubmit={(e) => e.preventDefault()}>
@@ -170,28 +170,28 @@ export default function Footer({ kategoriler, siteAyarlari }: { kategoriler?: Ka
                 type="email"
                 placeholder="E-posta adresiniz"
                 required
-                className="bg-gray-200 dark:bg-[#1a1a1a] border border-gray-400 dark:border-[#333] text-gray-900 dark:text-white px-4 py-2 rounded text-sm focus:border-red-600 outline-none transition-colors"
+                className="bg-gray-100 dark:bg-[#141414] border border-gray-200 dark:border-[#262626] text-gray-900 dark:text-white px-4 py-2 rounded text-sm focus:border-red-600 outline-none transition-colors placeholder-gray-400 dark:placeholder-gray-500"
               />
               <button type="submit" className="bg-red-600 text-white px-4 py-2 rounded text-sm font-bold hover:bg-red-700 transition-colors uppercase">
                 Abone Ol
               </button>
             </form>
-            <p className="text-gray-500 dark:text-gray-500 text-xs mt-3">
+            <p className="text-gray-400 dark:text-gray-500 text-xs mt-3">
               * Abone olarak gizlilik politikamızı kabul etmiş olursunuz.
             </p>
           </div>
         </div>
 
         {/* Alt Footer */}
-        <div className="pt-8 border-t border-gray-300 dark:border-[#262626] flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="pt-8 border-t border-gray-200 dark:border-[#262626] flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-gray-500 dark:text-gray-500 text-sm">
             {siteAyarlari?.copyrightText || (
               <>&copy; {currentYear} <span className="text-gray-900 dark:text-white">{siteAyarlari?.siteAdi || 'Haber Portali'}</span>. Tüm hakları saklıdır.</>
             )}
           </p>
           <div className="flex items-center gap-6">
-            <span className="text-gray-500 dark:text-gray-500 text-xs">Yazılım: Lystra Software</span>
-            <Link href="/admin" className="text-gray-500 dark:text-gray-500 hover:text-gray-900 dark:hover:text-white text-xs transition-colors">
+            <span className="text-gray-400 dark:text-gray-500 text-xs">Yazılım: Lystra Software</span>
+            <Link href="/admin" className="text-gray-400 dark:text-gray-500 hover:text-gray-900 dark:hover:text-white text-xs transition-colors">
               Yönetim Paneli
             </Link>
           </div>

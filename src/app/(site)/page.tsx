@@ -296,12 +296,12 @@ export default async function HomePage() {
                           {anaHaber.spot}
                         </p>
                       )}
-                      <div className="flex items-center gap-3 text-gray-600 dark:text-gray-400 text-sm">
+                      <div className="flex items-center gap-3 text-white/80 text-sm">
                         {anaHaber.yazar && (
-                          <span className="font-medium text-gray-700 dark:text-gray-300">{anaHaber.yazar.ad}</span>
+                          <span className="font-medium text-white">{anaHaber.yazar.ad}</span>
                         )}
-                        <span className="w-1 h-1 bg-gray-500 dark:bg-gray-500 rounded-full" />
-                        <time>{formatTimeAgo(anaHaber.yayinTarihi)}</time>
+                        <span className="w-1 h-1 bg-white/50 rounded-full" />
+                        <time className="text-white/70">{formatTimeAgo(anaHaber.yayinTarihi)}</time>
                       </div>
                     </div>
                   </article>

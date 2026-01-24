@@ -128,9 +128,23 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  // Tema flash'ını önlemek için blocking script
+  const themeScript = `
+    (function() {
+      try {
+        var theme = localStorage.getItem('theme');
+        if (!theme) theme = 'dark';
+        document.documentElement.classList.add(theme);
+      } catch (e) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  `;
+
   return (
-    <html lang="tr">
+    <html lang="tr" suppressHydrationWarning>
       <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/rss/feed.xml" />
         <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
         <link rel="news-sitemap" type="application/xml" href="/news-sitemap.xml" />
@@ -138,7 +152,7 @@ export default function RootLayout({
         <meta name="news_keywords" content="haber, son dakika, gundem, turkiye, dunya, ekonomi, spor" />
         <meta name="google-site-verification" content="KMRkj_Hcy4U7h8zCXi9QtNI6j9dTiGgCBbXuYe8dFi0" />
       </head>
-      <body className={`${inter.className} min-h-screen bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white transition-colors`}>
+      <body className={`${inter.className} min-h-screen`}>
         {/* Google Analytics */}
         {GA_ID && (
           <>

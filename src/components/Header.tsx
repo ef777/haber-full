@@ -115,58 +115,58 @@ export default function Header({ kategoriler, siteAyarlari }: { kategoriler?: Ka
   return (
     <>
       {/* 1. Ust Bilgi Cubugu (Tarih, Hava Durumu, Sosyal Medya) */}
-      <div className="bg-gray-100 dark:bg-[#111] border-b border-gray-300 dark:border-[#262626] text-xs py-2 hidden lg:block">
+      <div className="bg-gray-50 dark:bg-[#0f0f0f] border-b border-gray-200 dark:border-[#1e1e1e] text-xs py-2 hidden lg:block">
         <div className="container flex justify-between items-center">
-          <div className="flex items-center gap-4 text-gray-600 dark:text-gray-400">
+          <div className="flex items-center gap-4 text-gray-500 dark:text-gray-500">
             <span className="capitalize">{formattedDate}</span>
-            <span className="w-px h-3 bg-[#333]"></span>
+            <span className="w-px h-3 bg-gray-300 dark:bg-[#333]"></span>
             <span>{weather ? `${weather.city} ${weather.temp}°C` : 'Yükleniyor...'}</span>
-            <span className="w-px h-3 bg-[#333]"></span>
+            <span className="w-px h-3 bg-gray-300 dark:bg-[#333]"></span>
             <span>USD: 34.20</span>
             <span>EUR: 37.50</span>
           </div>
           <div className="flex items-center gap-3">
              {siteAyarlari?.sosyalTwitter && (
-               <a href={siteAyarlari.sosyalTwitter} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-[#1DA1F2] transition-colors"><TwitterIcon /></a>
+               <a href={siteAyarlari.sosyalTwitter} target="_blank" rel="noopener noreferrer" className="text-gray-400 dark:text-gray-500 hover:text-[#1DA1F2] transition-colors"><TwitterIcon /></a>
              )}
              {siteAyarlari?.sosyalFacebook && (
-               <a href={siteAyarlari.sosyalFacebook} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-[#1877F2] transition-colors"><FacebookIcon /></a>
+               <a href={siteAyarlari.sosyalFacebook} target="_blank" rel="noopener noreferrer" className="text-gray-400 dark:text-gray-500 hover:text-[#1877F2] transition-colors"><FacebookIcon /></a>
              )}
              {siteAyarlari?.sosyalInstagram && (
-               <a href={siteAyarlari.sosyalInstagram} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-[#E4405F] transition-colors"><InstagramIcon /></a>
+               <a href={siteAyarlari.sosyalInstagram} target="_blank" rel="noopener noreferrer" className="text-gray-400 dark:text-gray-500 hover:text-[#E4405F] transition-colors"><InstagramIcon /></a>
              )}
              {siteAyarlari?.sosyalYoutube && (
-               <a href={siteAyarlari.sosyalYoutube} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-[#FF0000] transition-colors"><YoutubeIcon /></a>
+               <a href={siteAyarlari.sosyalYoutube} target="_blank" rel="noopener noreferrer" className="text-gray-400 dark:text-gray-500 hover:text-[#FF0000] transition-colors"><YoutubeIcon /></a>
              )}
              {!siteAyarlari?.sosyalTwitter && !siteAyarlari?.sosyalFacebook && !siteAyarlari?.sosyalInstagram && !siteAyarlari?.sosyalYoutube && (
                <>
-                 <a href="#" className="text-gray-500 hover:text-[#1DA1F2] transition-colors"><TwitterIcon /></a>
-                 <a href="#" className="text-gray-500 hover:text-[#1877F2] transition-colors"><FacebookIcon /></a>
-                 <a href="#" className="text-gray-500 hover:text-[#E4405F] transition-colors"><InstagramIcon /></a>
-                 <a href="#" className="text-gray-500 hover:text-[#FF0000] transition-colors"><YoutubeIcon /></a>
+                 <a href="#" className="text-gray-400 dark:text-gray-500 hover:text-[#1DA1F2] transition-colors"><TwitterIcon /></a>
+                 <a href="#" className="text-gray-400 dark:text-gray-500 hover:text-[#1877F2] transition-colors"><FacebookIcon /></a>
+                 <a href="#" className="text-gray-400 dark:text-gray-500 hover:text-[#E4405F] transition-colors"><InstagramIcon /></a>
+                 <a href="#" className="text-gray-400 dark:text-gray-500 hover:text-[#FF0000] transition-colors"><YoutubeIcon /></a>
                </>
              )}
-             <span className="w-px h-4 bg-gray-700"></span>
+             <span className="w-px h-4 bg-gray-300 dark:bg-[#333]"></span>
              <button
                onClick={toggleTheme}
-               className="text-gray-500 hover:text-yellow-500 dark:hover:text-blue-400 transition-colors p-1"
+               className="text-gray-400 dark:text-gray-500 hover:text-amber-500 dark:hover:text-amber-400 transition-colors p-1"
                title={theme === 'light' ? 'Koyu Mod' : 'Aydınlık Mod'}
              >
                {theme === 'light' ? <MoonIcon /> : <SunIcon />}
              </button>
-             <Link href="/kunye" className="ml-2 text-gray-400 hover:text-white dark:hover:text-white transition-colors">Künye</Link>
-             <Link href="/admin" className="text-gray-400 hover:text-white dark:hover:text-white transition-colors">Yönetim</Link>
+             <Link href="/kunye" className="ml-2 text-gray-500 dark:text-gray-500 hover:text-gray-900 dark:hover:text-white transition-colors">Künye</Link>
+             <Link href="/admin" className="text-gray-500 dark:text-gray-500 hover:text-gray-900 dark:hover:text-white transition-colors">Yönetim</Link>
           </div>
         </div>
       </div>
 
       {/* 2. Ana Header (Logo, Reklam Alani) */}
-      <header className={`bg-white dark:bg-[#0a0a0a] border-b border-gray-300 dark:border-[#262626] transition-all duration-300 ${scrolled ? 'sticky top-0 z-50 shadow-lg' : 'relative'}`}>
+      <header className={`bg-white dark:bg-[#0a0a0a] border-b border-gray-200 dark:border-[#262626] transition-all duration-300 ${scrolled ? 'sticky top-0 z-50 shadow-lg' : 'relative'}`}>
         <div className="container">
           <div className="flex items-center justify-between h-[80px]">
             {/* Mobile Menu Trigger */}
             <button
-              className="lg:hidden p-2 text-gray-900 dark:text-white"
+              className="lg:hidden p-2 text-gray-700 dark:text-white"
               onClick={() => setMobileMenuOpen(true)}
             >
               <MenuIcon />
@@ -203,9 +203,9 @@ export default function Header({ kategoriler, siteAyarlari }: { kategoriler?: Ka
                       type="text"
                       name="q"
                       placeholder="Haber ara..."
-                      className="bg-gray-100 dark:bg-[#1a1a1a] border border-gray-300 dark:border-[#333] text-gray-900 dark:text-gray-300 pl-4 pr-10 py-2 rounded-full text-sm w-[200px] focus:w-[300px] transition-all focus:border-red-600 outline-none"
+                      className="bg-gray-100 dark:bg-[#141414] border border-gray-200 dark:border-[#262626] text-gray-900 dark:text-gray-200 pl-4 pr-10 py-2 rounded-full text-sm w-[200px] focus:w-[300px] transition-all focus:border-red-600 dark:focus:border-red-600 outline-none placeholder-gray-400 dark:placeholder-gray-500"
                    />
-                   <button type="submit" className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-red-500">
+                   <button type="submit" className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 hover:text-red-500">
                      <SearchIcon />
                    </button>
                  </form>
@@ -214,7 +214,7 @@ export default function Header({ kategoriler, siteAyarlari }: { kategoriler?: Ka
 
             {/* Mobile Search Toggle */}
              <button
-              className="lg:hidden p-2 text-gray-900 dark:text-white"
+              className="lg:hidden p-2 text-gray-700 dark:text-white"
               onClick={() => setSearchOpen(!searchOpen)}
             >
               <SearchIcon />
@@ -229,9 +229,9 @@ export default function Header({ kategoriler, siteAyarlari }: { kategoriler?: Ka
                       type="text"
                       name="q"
                       placeholder="Haber ara..."
-                      className="w-full bg-gray-100 dark:bg-[#1a1a1a] border border-gray-300 dark:border-[#333] text-gray-900 dark:text-gray-300 pl-4 pr-10 py-3 rounded-lg text-sm outline-none focus:border-red-600"
+                      className="w-full bg-gray-100 dark:bg-[#141414] border border-gray-200 dark:border-[#262626] text-gray-900 dark:text-gray-200 pl-4 pr-10 py-3 rounded-lg text-sm outline-none focus:border-red-600 placeholder-gray-400 dark:placeholder-gray-500"
                    />
-                   <button type="submit" className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">
+                   <button type="submit" className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500">
                      <SearchIcon />
                    </button>
                </form>
@@ -240,11 +240,11 @@ export default function Header({ kategoriler, siteAyarlari }: { kategoriler?: Ka
         </div>
 
         {/* 3. Kategori Menusu (Desktop) */}
-        <nav className="border-t border-gray-300 dark:border-[#262626] hidden lg:block bg-gray-50 dark:bg-[#111]">
+        <nav className="border-t border-gray-200 dark:border-[#262626] hidden lg:block bg-gray-50 dark:bg-[#0f0f0f]">
           <div className="container">
              <ul className="flex items-center gap-1 overflow-x-auto scrollbar-hide">
                <li>
-                 <Link href="/" className="block py-3 px-4 text-sm font-bold text-red-500 hover:bg-gray-200 dark:hover:bg-[#1a1a1a] border-b-2 border-red-600">
+                 <Link href="/" className="block py-3 px-4 text-sm font-bold text-red-600 hover:bg-gray-100 dark:hover:bg-[#1a1a1a] border-b-2 border-red-600">
                    MANŞET
                  </Link>
                </li>
@@ -252,14 +252,14 @@ export default function Header({ kategoriler, siteAyarlari }: { kategoriler?: Ka
                  <li key={k.id}>
                    <Link
                     href={`/kategori/${k.slug}`}
-                    className="block py-3 px-4 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-[#1a1a1a] border-b-2 border-transparent hover:border-red-600 transition-all whitespace-nowrap"
+                    className="block py-3 px-4 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-[#1a1a1a] border-b-2 border-transparent hover:border-red-600 transition-all whitespace-nowrap"
                    >
                      {k.ad.toUpperCase()}
                    </Link>
                  </li>
                ))}
                <li className="ml-auto">
-                 <Link href="/kunye" className="block py-3 px-4 text-sm text-gray-600 dark:text-gray-500 hover:text-gray-900 dark:hover:text-white">
+                 <Link href="/kunye" className="block py-3 px-4 text-sm text-gray-500 dark:text-gray-500 hover:text-gray-900 dark:hover:text-white">
                    Künye
                  </Link>
                </li>
@@ -272,10 +272,10 @@ export default function Header({ kategoriler, siteAyarlari }: { kategoriler?: Ka
       {mobileMenuOpen && (
         <div className="fixed inset-0 z-[100] lg:hidden">
           <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={() => setMobileMenuOpen(false)} />
-          <div className="absolute top-0 left-0 bottom-0 w-[80%] max-w-[300px] bg-white dark:bg-[#0a0a0a] border-r border-gray-300 dark:border-[#262626] shadow-2xl flex flex-col">
-            <div className="p-4 border-b border-gray-300 dark:border-[#262626] flex justify-between items-center">
+          <div className="absolute top-0 left-0 bottom-0 w-[80%] max-w-[300px] bg-white dark:bg-[#0a0a0a] border-r border-gray-200 dark:border-[#262626] shadow-2xl flex flex-col">
+            <div className="p-4 border-b border-gray-200 dark:border-[#262626] flex justify-between items-center">
                <span className="font-black text-xl text-gray-900 dark:text-white">MENÜ</span>
-               <button onClick={() => setMobileMenuOpen(false)} className="text-gray-900 dark:text-white"><CloseIcon /></button>
+               <button onClick={() => setMobileMenuOpen(false)} className="text-gray-700 dark:text-white"><CloseIcon /></button>
             </div>
             <div className="overflow-y-auto flex-1 p-4">
               <nav className="space-y-1">
@@ -287,13 +287,13 @@ export default function Header({ kategoriler, siteAyarlari }: { kategoriler?: Ka
                     key={k.id}
                     href={`/kategori/${k.slug}`}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="block py-3 px-4 rounded text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-[#1a1a1a] hover:text-gray-900 dark:hover:text-white font-medium border-l-2 border-transparent hover:border-red-600 transition-all"
+                    className="block py-3 px-4 rounded text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-[#1a1a1a] hover:text-gray-900 dark:hover:text-white font-medium border-l-2 border-transparent hover:border-red-600 transition-all"
                    >
                      {k.ad}
                    </Link>
                  ))}
-                 <div className="my-4 border-t border-gray-300 dark:border-[#262626]" />
-                 <Link href="/kunye" className="block py-2 text-gray-600 dark:text-gray-400">Künye / İletişim</Link>
+                 <div className="my-4 border-t border-gray-200 dark:border-[#262626]" />
+                 <Link href="/kunye" className="block py-2 text-gray-500 dark:text-gray-500 hover:text-gray-900 dark:hover:text-white">Künye / İletişim</Link>
               </nav>
             </div>
           </div>

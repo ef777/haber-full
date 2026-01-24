@@ -78,7 +78,7 @@ export default async function AramaPage({ searchParams }: Props) {
             name="q"
             defaultValue={query}
             placeholder="Aramak istediğiniz kelimeyi yazın..."
-            className="flex-1 px-4 py-3 border border-gray-300 dark:border-[#262626] rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent bg-white dark:bg-[#1a1a1a] text-gray-900 dark:text-white"
+            className="flex-1 px-4 py-3 border border-gray-200 dark:border-[#262626] rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent bg-white dark:bg-[#141414] text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500"
             minLength={2}
             required
           />
@@ -113,7 +113,7 @@ export default async function AramaPage({ searchParams }: Props) {
                 {haberler.map((haber) => (
                   <article
                     key={haber.id}
-                    className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
+                    className="bg-white dark:bg-[#141414] rounded-lg border border-gray-200 dark:border-[#262626] overflow-hidden hover:border-gray-300 dark:hover:border-[#333] transition-all"
                   >
                     <Link href={`/haber/${haber.slug}`}>
                       {haber.resim ? (
@@ -126,8 +126,8 @@ export default async function AramaPage({ searchParams }: Props) {
                           unoptimized={haber.resim.includes('/uploads/')}
                         />
                       ) : (
-                        <div className="w-full h-48 bg-gray-200 dark:bg-[#0a0a0a] flex items-center justify-center">
-                          <span className="text-gray-500 dark:text-gray-600">Resim yok</span>
+                        <div className="w-full h-48 bg-gray-100 dark:bg-[#0a0a0a] flex items-center justify-center">
+                          <span className="text-gray-400 dark:text-gray-600">Resim yok</span>
                         </div>
                       )}
                     </Link>
@@ -141,7 +141,7 @@ export default async function AramaPage({ searchParams }: Props) {
                             {haber.kategori.ad}
                           </Link>
                         )}
-                        <span className="text-xs text-gray-500 dark:text-gray-400">
+                        <span className="text-xs text-gray-400 dark:text-gray-500">
                           {new Date(haber.yayinTarihi).toLocaleDateString('tr-TR')}
                         </span>
                       </div>
@@ -151,14 +151,14 @@ export default async function AramaPage({ searchParams }: Props) {
                         </h2>
                       </Link>
                       {haber.spot && (
-                        <p className="text-sm text-gray-600 dark:text-gray-400 mt-2 line-clamp-2">
+                        <p className="text-sm text-gray-500 dark:text-gray-400 mt-2 line-clamp-2">
                           {haber.spot}
                         </p>
                       )}
                         {haber.yazar && (
                         <Link
                           href={`/yazar/${haber.yazar.slug}`}
-                          className="text-xs text-gray-500 dark:text-gray-400 mt-2 inline-block hover:text-red-600"
+                          className="text-xs text-gray-400 dark:text-gray-500 mt-2 inline-block hover:text-red-600"
                         >
                           {haber.yazar.ad}
                         </Link>
@@ -174,7 +174,7 @@ export default async function AramaPage({ searchParams }: Props) {
                   {currentPage > 1 && (
                     <Link
                       href={`/arama?q=${encodeURIComponent(query)}&sayfa=${currentPage - 1}`}
-                      className="px-4 py-2 bg-gray-200 dark:bg-[#1a1a1a] text-gray-900 dark:text-white rounded hover:bg-gray-300 dark:hover:bg-[#1c1c1c]"
+                      className="px-4 py-2 bg-gray-100 dark:bg-[#141414] text-gray-700 dark:text-white rounded border border-gray-200 dark:border-[#262626] hover:bg-gray-200 dark:hover:bg-[#1a1a1a]"
                     >
                       ← Önceki
                     </Link>
@@ -190,14 +190,14 @@ export default async function AramaPage({ searchParams }: Props) {
                     .map((page, index, array) => (
                       <span key={page}>
                         {index > 0 && array[index - 1] !== page - 1 && (
-                          <span className="px-2 text-gray-600 dark:text-gray-400">...</span>
+                          <span className="px-2 text-gray-400 dark:text-gray-500">...</span>
                         )}
                         <Link
                           href={`/arama?q=${encodeURIComponent(query)}&sayfa=${page}`}
-                          className={`px-4 py-2 rounded ${
+                          className={`px-4 py-2 rounded border ${
                             page === currentPage
-                              ? 'bg-red-600 text-white'
-                              : 'bg-gray-200 dark:bg-[#1a1a1a] text-gray-900 dark:text-white hover:bg-gray-300 dark:hover:bg-[#262626]'
+                              ? 'bg-red-600 text-white border-red-600'
+                              : 'bg-gray-100 dark:bg-[#141414] text-gray-700 dark:text-white border-gray-200 dark:border-[#262626] hover:bg-gray-200 dark:hover:bg-[#1a1a1a]'
                           }`}
                         >
                           {page}
@@ -208,7 +208,7 @@ export default async function AramaPage({ searchParams }: Props) {
                   {currentPage < totalPages && (
                     <Link
                       href={`/arama?q=${encodeURIComponent(query)}&sayfa=${currentPage + 1}`}
-                      className="px-4 py-2 bg-gray-200 dark:bg-[#1a1a1a] text-gray-900 dark:text-white rounded hover:bg-gray-300 dark:hover:bg-[#1c1c1c]"
+                      className="px-4 py-2 bg-gray-100 dark:bg-[#141414] text-gray-700 dark:text-white rounded border border-gray-200 dark:border-[#262626] hover:bg-gray-200 dark:hover:bg-[#1a1a1a]"
                     >
                       Sonraki →
                     </Link>

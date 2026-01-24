@@ -76,7 +76,7 @@ export default function Slider({ items, autoPlayInterval = 5000 }: SliderProps) 
 
   return (
     <div
-      className="relative w-full aspect-[16/9] md:aspect-[21/9] bg-gray-50 dark:bg-[#111] rounded-lg overflow-hidden"
+      className="relative w-full aspect-[16/9] md:aspect-[21/9] bg-gray-100 dark:bg-[#0a0a0a] rounded-lg overflow-hidden"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
