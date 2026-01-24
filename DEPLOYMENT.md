@@ -1,103 +1,54 @@
-# Coolify Deployment Talimatları
+# Coolify Deployment & Uploads Rehberi
 
-## 1. Environment Variables
+Coolify üzerinde uygulamanızın resimlerinin kalıcı olması (silinmemesi) ve düzgün çalışması için yapmanız gereken ayarlar aşağıdadır.
 
-Coolify projenizde **Environment** sekmesine gidin ve şu değişkenleri ekleyin:
+## 1. Environment Variables (Ortam Değişkenleri)
+
+Coolify projenizde **Environment Variables** sekmesine şu değişkenleri ekleyin:
 
 ```bash
-NEXT_PUBLIC_SITE_URL=https://eskisehirolay.com.tr
-NEXT_PUBLIC_SITE_NAME=Eskişehir Olay
+NEXT_PUBLIC_SITE_URL=https://sizin-site-adresiniz.com
+NEXT_PUBLIC_SITE_NAME="Site Adı"
 NODE_ENV=production
 ```
 
-## 2. Persistent Volume (ÇOK ÖNEMLİ!)
+## 2. Persistent Storage (Kalıcı Depolama) - KRİTİK ADIM!
 
-Resimlererin kaybolmaması için **volume mount** yapmalısınız:
+Docker container'lar her yeniden başlatıldığında (redeploy) içindeki dosyalar sıfırlanır. Yüklenen resimlerin silinmemesi için **Storage** ayarı yapmalısınız.
 
-**Coolify → Storage/Volumes → Add Volume:**
+1.  Coolify'da projenize gidin.
+2.  **Storage** sekmesine tıklayın.
+3.  **"Add Storage"** (veya benzeri bir buton) ile yeni bir volume ekleyin.
+4.  Şu ayarları girin:
 
-```
-Name: uploads-volume
-Source: /uploads
-Destination: (Coolify otomatik oluşturacak)
-```
+    *   **Volume Name:** `uploads-data` (veya istediğiniz bir isim)
+    *   **Destination Path (Container İçi Yol):** `/app/public/uploads`
+        *   *Burası çok önemli! Kodunuz dosyaları tam olarak buraya kaydediyor.*
 
-Bu olmazsa container her restart'ta resimleri siler!
+> **Not:** Eğer Coolify'da `docker-compose.yml` düzenliyorsanız, şöyle görünmelidir:
+> ```yaml
+> volumes:
+>   - type: volume
+>     source: uploads-data
+>     target: /app/public/uploads
+> ```
 
-## 3. Custom Nginx Configuration (Static File Serving)
+## 3. Deployment Kontrolü
 
-Coolify'da varsayılan Nginx konfigürasyonu `/uploads` klasörünü serve etmiyor. Bunu eklemeniz gerekiyor.
+Bu ayarları yaptıktan sonra uygulamanızı **"Redeploy"** etmeniz gerekir.
 
-### Seçenek A: Coolify Custom Nginx Config
+### Test Etme
+1.  Admin paneline girip bir resim yükleyin.
+2.  Resmin sayfada göründüğünden emin olun.
+3.  Coolify üzerinden "Restart" veya "Redeploy" yapın.
+4.  Site tekrar açıldığında resmin hala orada olduğunu doğrulayın.
 
-Coolify'da **"Custom Nginx Configuration"** varsa, şunu ekleyin:
+---
 
-```nginx
-location /uploads/ {
-    root /;
-    expires 1y;
-    add_header Cache-Control "public, immutable";
-    try_files $uri =404;
-}
-```
+## Teknik Detaylar (Meraklısı İçin)
 
-### Seçenek B: Nginx Reverse Proxy Container Ekle
+*   **Nereye Kaydediliyor?**
+    Next.js uygulaması içinde `src/app/api/admin/upload/route.ts` dosyası, resimleri `process.cwd() + '/public/uploads'` klasörüne kaydeder. Docker içinde `process.cwd()` `/app` olduğu için tam yol `/app/public/uploads` olur.
 
-Eğer custom nginx config yoksa, projeye nginx container ekleyin:
-
-1. Coolify'da "Add Service" → "Nginx"
-2. `nginx.conf` dosyasını mount edin
-3. Port 80/443'ü nginx'e yönlendirin
-4. Nginx'ten Next.js'e proxy yapın
-
-## 4. Build & Deploy
-
-```bash
-# Local'de test
-git add .
-git commit -m "Fix: Upload static file serving düzeltildi"
-git push
-
-# Coolify'da
-→ Force Rebuild
-→ Redeploy
-```
-
-## 5. Test
-
-1. Admin panele gidin: `https://eskisehirolay.com.tr/admin`
-2. Yeni haber ekleyin
-3. Resim yükleyin
-4. URL'nin `https://eskisehirolay.com.tr/uploads/...` olduğunu doğrulayın
-5. Resmi tarayıcıda açın - 404 almamalısınız!
-
-## Sorun Giderme
-
-### 404 Hatası Alıyorum
-
-- **Volume mount yaptınız mı?** Kontrol edin.
-- **Nginx config eklediniz mi?** Coolify logs'ta nginx hatası var mı?
-- **Container'a bağlanıp kontrol edin:**
-
-```bash
-# Coolify terminal'den
-ls -la /uploads
-# Dosyalar var mı?
-```
-
-### Resim Yüklenmiyor (Upload Hatası)
-
-- Container logs'u kontrol edin:
-```bash
-Error: EACCES: permission denied, open '/uploads/...'
-```
-
-Bu durumda Dockerfile'daki permission ayarlarını kontrol edin.
-
-### Resimler Container Restart Sonrası Kayboluyor
-
-- Volume mount eksik! Adım 2'yi uygulayın.
-
-## Alternatif: S3/Cloudflare R2 Kullanımı
-
-Eğer Nginx configuration ile uğraşmak istemiyorsanız, upload endpoint'i değiştirip dosyaları external storage'a (S3, R2, etc.) yükleyebilirsiniz.
+*   **Neden Kayboluyor?**
+    Docker container'lar "ephemeral" (geçici) dosya sistemine sahiptir. Volume mount etmezseniz, container öldüğünde içindeki `/app/public/uploads` klasörü de ölür. Volume mount ettiğimizde, bu klasörü sunucunun fiziksel diskinde güvenli bir yere bağlıyoruz.
