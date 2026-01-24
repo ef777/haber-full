@@ -133,10 +133,10 @@ export default function RootLayout({
     (function() {
       try {
         var theme = localStorage.getItem('theme');
-        if (!theme) theme = 'dark';
+        if (!theme) theme = 'light';
         document.documentElement.classList.add(theme);
       } catch (e) {
-        document.documentElement.classList.add('dark');
+        document.documentElement.classList.add('light');
       }
     })();
   `;
