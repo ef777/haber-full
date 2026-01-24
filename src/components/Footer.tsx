@@ -61,7 +61,7 @@ export default function Footer({ kategoriler, siteAyarlari }: { kategoriler?: Ka
   const footerLogo = siteAyarlari?.logoAltUrl || siteAyarlari?.logoUrl;
 
   return (
-    <footer className="bg-gray-50 dark:bg-[#0f0f0f] border-t border-gray-200 dark:border-[#262626] mt-16 pt-16 pb-8">
+    <footer className="bg-gray-50 dark:bg-[#0f0f0f] border-t border-gray-200 dark:border-[#262626] mt-16 pt-16 pb-8 transition-colors duration-300">
       {/* Ana Footer */}
       <div className="container">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-12">
@@ -82,13 +82,13 @@ export default function Footer({ kategoriler, siteAyarlari }: { kategoriler?: Ka
                   <div className="bg-red-600 text-white font-black text-xl px-2 py-1 transform -skew-x-12 group-hover:bg-red-700 transition-colors">
                     HABER
                   </div>
-                  <div className="text-gray-900 dark:text-white font-bold text-lg tracking-tighter">
+                  <div className="text-gray-900 dark:text-white font-bold text-lg tracking-tighter transition-colors duration-300">
                     PORTALI
                   </div>
                 </>
               )}
             </Link>
-            <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-6">
+            <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-6 transition-colors duration-300">
               {siteAyarlari?.footerText || 'Türkiye ve dünya gündeminden en son haberler, son dakika gelişmeler, ekonomi, spor, teknoloji ve daha fazlası en doğru ve tarafsız kaynakta.'}
             </p>
             <div className="flex items-center gap-3">
@@ -136,10 +136,10 @@ export default function Footer({ kategoriler, siteAyarlari }: { kategoriler?: Ka
 
           {/* Kolon 2: Kategoriler */}
           <div>
-            <h3 className="text-gray-900 dark:text-white font-bold mb-4 uppercase text-sm tracking-wider border-b border-red-600 inline-block pb-1">Kategoriler</h3>
+            <h3 className="text-gray-900 dark:text-white font-bold mb-4 uppercase text-sm tracking-wider border-b border-red-600 inline-block pb-1 transition-colors duration-300">Kategoriler</h3>
             <nav className="flex flex-col gap-2">
               {kategoriler?.slice(0, 8).map((k) => (
-                <Link key={k.id} href={`/kategori/${k.slug}`} className="text-gray-600 dark:text-gray-400 hover:text-red-500 text-sm transition-colors">
+                <Link key={k.id} href={`/kategori/${k.slug}`} className="text-gray-600 dark:text-gray-400 hover:text-red-500 text-sm transition-colors duration-300">
                   {k.ad}
                 </Link>
               ))}
@@ -148,21 +148,21 @@ export default function Footer({ kategoriler, siteAyarlari }: { kategoriler?: Ka
 
           {/* Kolon 3: Kurumsal */}
           <div>
-            <h3 className="text-gray-900 dark:text-white font-bold mb-4 uppercase text-sm tracking-wider border-b border-red-600 inline-block pb-1">Kurumsal</h3>
+            <h3 className="text-gray-900 dark:text-white font-bold mb-4 uppercase text-sm tracking-wider border-b border-red-600 inline-block pb-1 transition-colors duration-300">Kurumsal</h3>
             <nav className="flex flex-col gap-2">
-              <Link href="/kunye" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm transition-colors">Künye</Link>
-              <Link href="#" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm transition-colors">İletişim</Link>
-              <Link href="#" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm transition-colors">Reklam</Link>
-              <Link href="#" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm transition-colors">Gizlilik Politikası</Link>
-              <Link href="#" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm transition-colors">Kullanım Şartları</Link>
-              <Link href="#" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm transition-colors">Çerez Politikası</Link>
+              <Link href="/kunye" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm transition-colors duration-300">Künye</Link>
+              <Link href="#" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm transition-colors duration-300">İletişim</Link>
+              <Link href="#" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm transition-colors duration-300">Reklam</Link>
+              <Link href="#" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm transition-colors duration-300">Gizlilik Politikası</Link>
+              <Link href="#" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm transition-colors duration-300">Kullanım Şartları</Link>
+              <Link href="#" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm transition-colors duration-300">Çerez Politikası</Link>
             </nav>
           </div>
 
           {/* Kolon 4: E-Bülten */}
           <div>
-            <h3 className="text-gray-900 dark:text-white font-bold mb-4 uppercase text-sm tracking-wider border-b border-red-600 inline-block pb-1">E-Bülten</h3>
-            <p className="text-gray-500 dark:text-gray-400 text-sm mb-4">
+            <h3 className="text-gray-900 dark:text-white font-bold mb-4 uppercase text-sm tracking-wider border-b border-red-600 inline-block pb-1 transition-colors duration-300">E-Bülten</h3>
+            <p className="text-gray-500 dark:text-gray-400 text-sm mb-4 transition-colors duration-300">
               Günün önemli haberlerini kaçırmayın. E-bültenimize abone olun.
             </p>
             <form className="flex flex-col gap-2" onSubmit={(e) => e.preventDefault()}>
@@ -170,28 +170,28 @@ export default function Footer({ kategoriler, siteAyarlari }: { kategoriler?: Ka
                 type="email"
                 placeholder="E-posta adresiniz"
                 required
-                className="bg-gray-100 dark:bg-[#141414] border border-gray-200 dark:border-[#262626] text-gray-900 dark:text-white px-4 py-2 rounded text-sm focus:border-red-600 outline-none transition-colors placeholder-gray-400 dark:placeholder-gray-500"
+                className="bg-gray-100 dark:bg-[#141414] border border-gray-200 dark:border-[#262626] text-gray-900 dark:text-white px-4 py-2 rounded text-sm focus:border-red-600 outline-none transition-colors duration-300 placeholder-gray-400 dark:placeholder-gray-500"
               />
               <button type="submit" className="bg-red-600 text-white px-4 py-2 rounded text-sm font-bold hover:bg-red-700 transition-colors uppercase">
                 Abone Ol
               </button>
             </form>
-            <p className="text-gray-400 dark:text-gray-500 text-xs mt-3">
+            <p className="text-gray-400 dark:text-gray-500 text-xs mt-3 transition-colors duration-300">
               * Abone olarak gizlilik politikamızı kabul etmiş olursunuz.
             </p>
           </div>
         </div>
 
         {/* Alt Footer */}
-        <div className="pt-8 border-t border-gray-200 dark:border-[#262626] flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-gray-500 dark:text-gray-500 text-sm">
+        <div className="pt-8 border-t border-gray-200 dark:border-[#262626] flex flex-col md:flex-row items-center justify-between gap-4 transition-colors duration-300">
+          <p className="text-gray-500 dark:text-gray-500 text-sm transition-colors duration-300">
             {siteAyarlari?.copyrightText || (
               <>&copy; {currentYear} <span className="text-gray-900 dark:text-white">{siteAyarlari?.siteAdi || 'Haber Portali'}</span>. Tüm hakları saklıdır.</>
             )}
           </p>
           <div className="flex items-center gap-6">
-            <span className="text-gray-400 dark:text-gray-500 text-xs">Yazılım: Lystra Software</span>
-            <Link href="/admin" className="text-gray-400 dark:text-gray-500 hover:text-gray-900 dark:hover:text-white text-xs transition-colors">
+            <span className="text-gray-400 dark:text-gray-500 text-xs transition-colors duration-300">Yazılım: Lystra Software</span>
+            <Link href="/admin" className="text-gray-400 dark:text-gray-500 hover:text-gray-900 dark:hover:text-white text-xs transition-colors duration-300">
               Yönetim Paneli
             </Link>
           </div>
