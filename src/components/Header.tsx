@@ -72,6 +72,7 @@ const MoonIcon = () => (
 
 export default function Header({ kategoriler, siteAyarlari }: { kategoriler?: Kategori[]; siteAyarlari?: SiteAyarlari | null }) {
   const { theme, toggleTheme } = useTheme();
+  const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
