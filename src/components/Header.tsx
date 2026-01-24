@@ -115,13 +115,13 @@ export default function Header({ kategoriler, siteAyarlari }: { kategoriler?: Ka
   return (
     <>
       {/* 1. Ust Bilgi Cubugu (Tarih, Hava Durumu, Sosyal Medya) */}
-      <div className="bg-gray-50 dark:bg-[#0f0f0f] border-b border-gray-200 dark:border-[#1e1e1e] text-xs py-2 hidden lg:block">
+      <div className="bg-gray-50 dark:bg-[#0f0f0f] border-b border-gray-200 dark:border-[#1e1e1e] text-xs py-2 hidden lg:block transition-colors duration-300">
         <div className="container flex justify-between items-center">
-          <div className="flex items-center gap-4 text-gray-500 dark:text-gray-500">
+          <div className="flex items-center gap-4 text-gray-600 dark:text-gray-400 transition-colors duration-300">
             <span className="capitalize">{formattedDate}</span>
-            <span className="w-px h-3 bg-gray-300 dark:bg-[#333]"></span>
+            <span className="w-px h-3 bg-gray-300 dark:bg-[#333] transition-colors duration-300"></span>
             <span>{weather ? `${weather.city} ${weather.temp}°C` : 'Yükleniyor...'}</span>
-            <span className="w-px h-3 bg-gray-300 dark:bg-[#333]"></span>
+            <span className="w-px h-3 bg-gray-300 dark:bg-[#333] transition-colors duration-300"></span>
             <span>USD: 34.20</span>
             <span>EUR: 37.50</span>
           </div>
@@ -146,16 +146,16 @@ export default function Header({ kategoriler, siteAyarlari }: { kategoriler?: Ka
                  <a href="#" className="text-gray-400 dark:text-gray-500 hover:text-[#FF0000] transition-colors"><YoutubeIcon /></a>
                </>
              )}
-             <span className="w-px h-4 bg-gray-300 dark:bg-[#333]"></span>
+             <span className="w-px h-4 bg-gray-300 dark:bg-[#333] transition-colors duration-300"></span>
              <button
                onClick={toggleTheme}
-               className="text-gray-400 dark:text-gray-500 hover:text-amber-500 dark:hover:text-amber-400 transition-colors p-1"
+               className="text-gray-500 dark:text-gray-400 hover:text-amber-500 dark:hover:text-amber-400 transition-colors duration-300 p-1"
                title={theme === 'light' ? 'Koyu Mod' : 'Aydınlık Mod'}
              >
                {theme === 'light' ? <MoonIcon /> : <SunIcon />}
              </button>
-             <Link href="/kunye" className="ml-2 text-gray-500 dark:text-gray-500 hover:text-gray-900 dark:hover:text-white transition-colors">Künye</Link>
-             <Link href="/admin" className="text-gray-500 dark:text-gray-500 hover:text-gray-900 dark:hover:text-white transition-colors">Yönetim</Link>
+             <Link href="/kunye" className="ml-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors duration-300">Künye</Link>
+             <Link href="/admin" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors duration-300">Yönetim</Link>
           </div>
         </div>
       </div>
@@ -166,7 +166,7 @@ export default function Header({ kategoriler, siteAyarlari }: { kategoriler?: Ka
           <div className="flex items-center justify-between h-[80px]">
             {/* Mobile Menu Trigger */}
             <button
-              className="lg:hidden p-2 text-gray-700 dark:text-white"
+              className="lg:hidden p-2 text-gray-700 dark:text-white transition-colors duration-300"
               onClick={() => setMobileMenuOpen(true)}
             >
               <MenuIcon />
@@ -185,10 +185,10 @@ export default function Header({ kategoriler, siteAyarlari }: { kategoriler?: Ka
                 />
               ) : (
                 <>
-                  <div className="bg-red-600 text-white font-black text-3xl px-2 py-1 transform -skew-x-12 group-hover:bg-red-700 transition-colors">
+                  <div className="bg-red-600 text-white font-black text-3xl px-2 py-1 transform -skew-x-12 group-hover:bg-red-700 transition-colors duration-300">
                     HABER
                   </div>
-                  <div className="text-gray-900 dark:text-white font-bold text-2xl tracking-tighter">
+                  <div className="text-gray-900 dark:text-white font-bold text-2xl tracking-tighter transition-colors duration-300">
                     PORTALI
                   </div>
                 </>
@@ -203,9 +203,9 @@ export default function Header({ kategoriler, siteAyarlari }: { kategoriler?: Ka
                       type="text"
                       name="q"
                       placeholder="Haber ara..."
-                      className="bg-gray-100 dark:bg-[#141414] border border-gray-200 dark:border-[#262626] text-gray-900 dark:text-gray-200 pl-4 pr-10 py-2 rounded-full text-sm w-[200px] focus:w-[300px] transition-all focus:border-red-600 dark:focus:border-red-600 outline-none placeholder-gray-400 dark:placeholder-gray-500"
+                      className="bg-gray-100 dark:bg-[#141414] border border-gray-200 dark:border-[#262626] text-gray-900 dark:text-gray-200 pl-4 pr-10 py-2 rounded-full text-sm w-[200px] focus:w-[300px] transition-all duration-300 focus:border-red-600 dark:focus:border-red-600 outline-none placeholder-gray-400 dark:placeholder-gray-500"
                    />
-                   <button type="submit" className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 hover:text-red-500">
+                   <button type="submit" className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 hover:text-red-500 transition-colors duration-300">
                      <SearchIcon />
                    </button>
                  </form>
@@ -214,7 +214,7 @@ export default function Header({ kategoriler, siteAyarlari }: { kategoriler?: Ka
 
             {/* Mobile Search Toggle */}
              <button
-              className="lg:hidden p-2 text-gray-700 dark:text-white"
+              className="lg:hidden p-2 text-gray-700 dark:text-white transition-colors duration-300"
               onClick={() => setSearchOpen(!searchOpen)}
             >
               <SearchIcon />
@@ -229,9 +229,9 @@ export default function Header({ kategoriler, siteAyarlari }: { kategoriler?: Ka
                       type="text"
                       name="q"
                       placeholder="Haber ara..."
-                      className="w-full bg-gray-100 dark:bg-[#141414] border border-gray-200 dark:border-[#262626] text-gray-900 dark:text-gray-200 pl-4 pr-10 py-3 rounded-lg text-sm outline-none focus:border-red-600 placeholder-gray-400 dark:placeholder-gray-500"
+                      className="w-full bg-gray-100 dark:bg-[#141414] border border-gray-200 dark:border-[#262626] text-gray-900 dark:text-gray-200 pl-4 pr-10 py-3 rounded-lg text-sm outline-none focus:border-red-600 placeholder-gray-400 dark:placeholder-gray-500 transition-colors duration-300"
                    />
-                   <button type="submit" className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500">
+                   <button type="submit" className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 transition-colors duration-300">
                      <SearchIcon />
                    </button>
                </form>
@@ -240,11 +240,11 @@ export default function Header({ kategoriler, siteAyarlari }: { kategoriler?: Ka
         </div>
 
         {/* 3. Kategori Menusu (Desktop) */}
-        <nav className="border-t border-gray-200 dark:border-[#262626] hidden lg:block bg-gray-50 dark:bg-[#0f0f0f]">
+        <nav className="border-t border-gray-200 dark:border-[#262626] hidden lg:block bg-gray-50 dark:bg-[#0f0f0f] transition-colors duration-300">
           <div className="container">
              <ul className="flex items-center gap-1 overflow-x-auto scrollbar-hide">
                <li>
-                 <Link href="/" className="block py-3 px-4 text-sm font-bold text-red-600 hover:bg-gray-100 dark:hover:bg-[#1a1a1a] border-b-2 border-red-600">
+                 <Link href="/" className="block py-3 px-4 text-sm font-bold text-red-600 hover:bg-gray-100 dark:hover:bg-[#1a1a1a] border-b-2 border-red-600 transition-colors duration-300">
                    MANŞET
                  </Link>
                </li>
@@ -252,14 +252,14 @@ export default function Header({ kategoriler, siteAyarlari }: { kategoriler?: Ka
                  <li key={k.id}>
                    <Link
                     href={`/kategori/${k.slug}`}
-                    className="block py-3 px-4 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-[#1a1a1a] border-b-2 border-transparent hover:border-red-600 transition-all whitespace-nowrap"
+                    className="block py-3 px-4 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-[#1a1a1a] border-b-2 border-transparent hover:border-red-600 transition-all duration-300 whitespace-nowrap"
                    >
                      {k.ad.toUpperCase()}
                    </Link>
                  </li>
                ))}
                <li className="ml-auto">
-                 <Link href="/kunye" className="block py-3 px-4 text-sm text-gray-500 dark:text-gray-500 hover:text-gray-900 dark:hover:text-white">
+                 <Link href="/kunye" className="block py-3 px-4 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors duration-300">
                    Künye
                  </Link>
                </li>
@@ -272,10 +272,10 @@ export default function Header({ kategoriler, siteAyarlari }: { kategoriler?: Ka
       {mobileMenuOpen && (
         <div className="fixed inset-0 z-[100] lg:hidden">
           <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={() => setMobileMenuOpen(false)} />
-          <div className="absolute top-0 left-0 bottom-0 w-[80%] max-w-[300px] bg-white dark:bg-[#0a0a0a] border-r border-gray-200 dark:border-[#262626] shadow-2xl flex flex-col">
-            <div className="p-4 border-b border-gray-200 dark:border-[#262626] flex justify-between items-center">
-               <span className="font-black text-xl text-gray-900 dark:text-white">MENÜ</span>
-               <button onClick={() => setMobileMenuOpen(false)} className="text-gray-700 dark:text-white"><CloseIcon /></button>
+          <div className="absolute top-0 left-0 bottom-0 w-[80%] max-w-[300px] bg-white dark:bg-[#0a0a0a] border-r border-gray-200 dark:border-[#262626] shadow-2xl flex flex-col transition-colors duration-300">
+            <div className="p-4 border-b border-gray-200 dark:border-[#262626] flex justify-between items-center transition-colors duration-300">
+               <span className="font-black text-xl text-gray-900 dark:text-white transition-colors duration-300">MENÜ</span>
+               <button onClick={() => setMobileMenuOpen(false)} className="text-gray-700 dark:text-white transition-colors duration-300"><CloseIcon /></button>
             </div>
             <div className="overflow-y-auto flex-1 p-4">
               <nav className="space-y-1">
@@ -287,13 +287,13 @@ export default function Header({ kategoriler, siteAyarlari }: { kategoriler?: Ka
                     key={k.id}
                     href={`/kategori/${k.slug}`}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="block py-3 px-4 rounded text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-[#1a1a1a] hover:text-gray-900 dark:hover:text-white font-medium border-l-2 border-transparent hover:border-red-600 transition-all"
+                    className="block py-3 px-4 rounded text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-[#1a1a1a] hover:text-gray-900 dark:hover:text-white font-medium border-l-2 border-transparent hover:border-red-600 transition-all duration-300"
                    >
                      {k.ad}
                    </Link>
                  ))}
-                 <div className="my-4 border-t border-gray-200 dark:border-[#262626]" />
-                 <Link href="/kunye" className="block py-2 text-gray-500 dark:text-gray-500 hover:text-gray-900 dark:hover:text-white">Künye / İletişim</Link>
+                 <div className="my-4 border-t border-gray-200 dark:border-[#262626] transition-colors duration-300" />
+                 <Link href="/kunye" className="block py-2 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors duration-300">Künye / İletişim</Link>
               </nav>
             </div>
           </div>

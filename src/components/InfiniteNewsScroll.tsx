@@ -36,7 +36,7 @@ function formatDate(dateString: string) {
 
 function HaberContent({ haber, isFirst }: { haber: Haber; isFirst: boolean }) {
   return (
-    <article className="haber-article bg-white dark:bg-[#111] rounded-xl overflow-hidden border border-gray-300 dark:border-[#262626]">
+    <article className="haber-article bg-white dark:bg-[#141414] rounded-xl overflow-hidden border border-gray-200 dark:border-[#262626] transition-colors duration-300">
       {/* Header */}
       <header className="p-6 md:p-8">
         {/* Kategori ve Tarih */}
@@ -49,19 +49,19 @@ function HaberContent({ haber, isFirst }: { haber: Haber; isFirst: boolean }) {
               {haber.kategori.ad}
             </Link>
           )}
-          <time className="text-gray-600 dark:text-gray-400">{formatDate(haber.yayinTarihi)}</time>
+          <time className="text-gray-600 dark:text-gray-400 transition-colors duration-300">{formatDate(haber.yayinTarihi)}</time>
           <span className="text-gray-500">•</span>
-          <span className="text-gray-600 dark:text-gray-400">{haber.goruntulenme.toLocaleString('tr-TR')} görüntülenme</span>
+          <span className="text-gray-600 dark:text-gray-400 transition-colors duration-300">{haber.goruntulenme.toLocaleString('tr-TR')} görüntülenme</span>
         </div>
 
         {/* Başlık */}
-        <h1 className="text-2xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4 leading-tight">
+        <h1 className="text-2xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4 leading-tight transition-colors duration-300">
           {haber.baslik}
         </h1>
 
         {/* Spot */}
         {haber.spot && (
-          <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+          <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 leading-relaxed mb-4 transition-colors duration-300">
             {haber.spot}
           </p>
         )}
@@ -115,8 +115,8 @@ function HaberContent({ haber, isFirst }: { haber: Haber; isFirst: boolean }) {
 
         {/* Etiketler */}
         {haber.etiketler && haber.etiketler.length > 0 && (
-          <div className="mt-8 pt-6 border-t border-gray-300 dark:border-[#262626]">
-            <h3 className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-3">Etiketler</h3>
+          <div className="mt-8 pt-6 border-t border-gray-200 dark:border-[#262626] transition-colors duration-300">
+            <h3 className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-3 transition-colors duration-300">Etiketler</h3>
             <div className="flex flex-wrap gap-2">
               {haber.etiketler.map(({ etiket }) => (
                 <Link
@@ -277,8 +277,8 @@ export default function InfiniteNewsScroll({ initialHaber, ilgiliHaberler }: Inf
 
       {/* İlgili Haberler (ilk haber için) */}
       {ilgiliHaberler.length > 0 && haberler.length === 1 && (
-        <section className="bg-white dark:bg-[#111] rounded-xl p-6 border border-gray-300 dark:border-[#262626]">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 border-l-4 border-red-600 pl-4">
+        <section className="bg-white dark:bg-[#141414] rounded-xl p-6 border border-gray-200 dark:border-[#262626] transition-colors duration-300">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 border-l-4 border-red-600 pl-4 transition-colors duration-300">
             İlgili Haberler
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -286,7 +286,7 @@ export default function InfiniteNewsScroll({ initialHaber, ilgiliHaberler }: Inf
               <Link
                 key={ilgili.id}
                 href={`/haber/${ilgili.slug}`}
-                className="flex gap-4 group bg-gray-50 dark:bg-[#0a0a0a] p-3 rounded-lg border border-gray-300 dark:border-[#262626] hover:border-red-600/50 transition-all"
+                className="flex gap-4 group bg-gray-50 dark:bg-[#0a0a0a] p-3 rounded-lg border border-gray-200 dark:border-[#262626] hover:border-red-600/50 transition-all duration-300"
               >
                 {ilgili.resim ? (
                   <Image
@@ -303,7 +303,7 @@ export default function InfiniteNewsScroll({ initialHaber, ilgiliHaberler }: Inf
                   </div>
                 )}
                 <div className="flex-1">
-                  <h3 className="text-gray-900 dark:text-white font-medium group-hover:text-red-500 transition-colors line-clamp-2">
+                  <h3 className="text-gray-900 dark:text-white font-medium group-hover:text-red-500 transition-colors duration-300 line-clamp-2">
                     {ilgili.baslik}
                   </h3>
                   <time className="text-xs text-gray-500 mt-2 block">

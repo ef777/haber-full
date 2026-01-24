@@ -36,7 +36,7 @@ function formatDate(dateString: string) {
 
 function HaberCard({ haber }: { haber: Haber }) {
   return (
-    <article className="bg-white dark:bg-[#111] rounded-xl overflow-hidden border border-gray-300 dark:border-[#262626] scroll-mt-20">
+    <article className="bg-white dark:bg-[#141414] rounded-xl overflow-hidden border border-gray-200 dark:border-[#262626] scroll-mt-20 transition-colors duration-300">
       {/* Header */}
       <header className="p-6">
         <div className="flex items-center gap-3 mb-4 text-sm">
@@ -48,17 +48,17 @@ function HaberCard({ haber }: { haber: Haber }) {
               {haber.kategori.ad}
             </Link>
           )}
-          <time className="text-gray-600 dark:text-gray-400">{formatDate(haber.yayinTarihi)}</time>
+          <time className="text-gray-600 dark:text-gray-400 transition-colors duration-300">{formatDate(haber.yayinTarihi)}</time>
         </div>
 
-        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4 leading-tight">
+        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4 leading-tight transition-colors duration-300">
           <Link href={`/haber/${haber.slug}`} className="hover:text-red-500 transition-colors">
             {haber.baslik}
           </Link>
         </h2>
 
         {haber.spot && (
-          <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+          <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-4 transition-colors duration-300">
             {haber.spot}
           </p>
         )}
@@ -68,7 +68,7 @@ function HaberCard({ haber }: { haber: Haber }) {
             <div className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center text-white font-bold text-sm">
               {haber.yazar.ad.charAt(0)}
             </div>
-            <span className="text-gray-600 dark:text-gray-400 text-sm">{haber.yazar.ad}</span>
+            <span className="text-gray-600 dark:text-gray-400 text-sm transition-colors duration-300">{haber.yazar.ad}</span>
           </div>
         )}
       </header>
@@ -99,7 +99,7 @@ function HaberCard({ haber }: { haber: Haber }) {
 
         {/* Etiketler */}
         {haber.etiketler && haber.etiketler.length > 0 && (
-          <div className="mt-6 pt-4 border-t border-gray-300 dark:border-[#262626]">
+          <div className="mt-6 pt-4 border-t border-gray-200 dark:border-[#262626] transition-colors duration-300">
             <div className="flex flex-wrap gap-2">
               {haber.etiketler.map(({ etiket }) => (
                 <Link
@@ -302,7 +302,7 @@ export default function NextNewsLoader({ currentHaberId, currentSlug }: NextNews
 
       {/* Son */}
       {!hasMore && haberler.length > 0 && (
-        <div className="text-center py-8 border-t border-gray-300 dark:border-[#262626]">
+        <div className="text-center py-8 border-t border-gray-200 dark:border-[#262626] transition-colors duration-300">
           <p className="text-gray-500 mb-4">Daha fazla haber yok</p>
           <Link
             href="/"
