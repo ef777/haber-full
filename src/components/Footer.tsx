@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import ReklamWidget from './ReklamWidget';
 
 type Kategori = {
   id: number;
@@ -64,6 +65,9 @@ export default function Footer({ kategoriler, siteAyarlari }: { kategoriler?: Ka
     <footer className="bg-[var(--bg-secondary)] border-t border-[var(--border-primary)] mt-16 pt-16 pb-8 transition-colors duration-300">
       {/* Ana Footer */}
       <div className="container">
+        {/* Footer Reklam */}
+        <ReklamWidget konum="footer" className="mb-8" />
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-12">
           {/* Kolon 1: Marka */}
           <div>

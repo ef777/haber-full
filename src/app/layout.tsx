@@ -123,11 +123,14 @@ export async function generateMetadata(): Promise<Metadata> {
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const siteSettings = await getSiteSettings();
+  const analyticsId = siteSettings?.analyticsId || GA_ID;
+  
   // Tema flash'ını önlemek için blocking script
   const themeScript = `
     (function() {
@@ -153,11 +156,16 @@ export default function RootLayout({
         <meta name="google-site-verification" content="KMRkj_Hcy4U7h8zCXi9QtNI6j9dTiGgCBbXuYe8dFi0" />
       </head>
       <body className={`${inter.className} min-h-screen`}>
+        {/* Custom Header Code (Analytics, Ads, Verification, etc.) */}
+        {siteSettings?.headerKod && (
+          <div dangerouslySetInnerHTML={{ __html: siteSettings.headerKod }} />
+        )}
+        
         {/* Google Analytics */}
-        {GA_ID && (
+        {analyticsId && (
           <>
             <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+              src={`https://www.googletagmanager.com/gtag/js?id=${analyticsId}`}
               strategy="afterInteractive"
             />
             <Script id="google-analytics" strategy="afterInteractive">
@@ -165,12 +173,17 @@ export default function RootLayout({
                 window.dataLayer = window.dataLayer || [];
                 function gtag(){dataLayer.push(arguments);}
                 gtag('js', new Date());
-                gtag('config', '${GA_ID}');
+                gtag('config', '${analyticsId}');
               `}
             </Script>
           </>
         )}
         {children}
+        
+        {/* Custom Footer Code (Scripts, Chat Widgets, etc.) */}
+        {siteSettings?.footerKod && (
+          <div dangerouslySetInnerHTML={{ __html: siteSettings.footerKod }} />
+        )}
       </body>
     </html>
   );

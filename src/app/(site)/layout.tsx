@@ -43,21 +43,11 @@ export default async function SiteLayout({
   return (
     <ThemeProvider>
       <div className="flex flex-col min-h-screen">
-        {/* Custom Header Code */}
-        {siteAyarlari?.headerKod && (
-          <div dangerouslySetInnerHTML={{ __html: siteAyarlari.headerKod }} />
-        )}
-
         <Header kategoriler={kategoriler} siteAyarlari={siteAyarlari} />
         <main className="flex-1">
           {children}
         </main>
         <Footer kategoriler={kategoriler} siteAyarlari={siteAyarlari} />
-
-        {/* Custom Footer Code */}
-        {siteAyarlari?.footerKod && (
-          <div dangerouslySetInnerHTML={{ __html: siteAyarlari.footerKod }} />
-        )}
       </div>
     </ThemeProvider>
   );

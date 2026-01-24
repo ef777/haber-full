@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { Metadata } from 'next';
 import { prisma } from '@/lib/prisma';
 import Slider from '@/components/Slider';
+import ReklamWidget from '@/components/ReklamWidget';
 
 // Type definitions
 type Yazar = {
@@ -523,6 +524,9 @@ export default async function HomePage() {
           {/* Sidebar */}
           <aside className="lg:col-span-4">
             <div className="lg:sticky lg:top-24 space-y-6">
+              {/* Sidebar Reklam */}
+              <ReklamWidget konum="sidebar" className="mb-6" />
+
               {/* Son Haberler */}
               <div className="sidebar-widget">
                 <h3 className="sidebar-title">Son Haberler</h3>

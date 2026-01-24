@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTheme } from '@/contexts/ThemeContext';
+import { usePathname } from 'next/navigation';
+import ReklamWidget from './ReklamWidget';
 
 type Kategori = {
   id: number;
@@ -195,6 +197,11 @@ export default function Header({ kategoriler, siteAyarlari }: { kategoriler?: Ka
               )}
             </Link>
 
+            {/* Header Reklam */}
+            <div className="hidden xl:block mx-auto">
+              <ReklamWidget konum="header" />
+            </div>
+
             {/* Desktop Search & Categories Placeholder */}
             <div className="hidden lg:flex items-center gap-6">
                <div className="relative">
@@ -244,7 +251,14 @@ export default function Header({ kategoriler, siteAyarlari }: { kategoriler?: Ka
           <div className="container">
              <ul className="flex items-center gap-1 overflow-x-auto scrollbar-hide">
                <li>
-                 <Link href="/" className="block py-3 px-4 text-sm font-bold text-red-600 hover:bg-[var(--bg-card-hover)] border-b-2 border-red-600 transition-colors duration-300">
+                 <Link
+                   href="/"
+                   className={`block py-3 px-4 text-sm font-bold border-b-2 transition-colors duration-300 ${
+                     pathname === '/'
+                       ? 'text-red-600 border-red-600'
+                       : 'text-red-600 hover:bg-[var(--bg-card-hover)] border-transparent hover:border-red-600'
+                   }`}
+                 >
                    MANŞET
                  </Link>
                </li>
@@ -252,7 +266,11 @@ export default function Header({ kategoriler, siteAyarlari }: { kategoriler?: Ka
                  <li key={k.id}>
                    <Link
                     href={`/kategori/${k.slug}`}
-                    className="block py-3 px-4 text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)] border-b-2 border-transparent hover:border-red-600 transition-all duration-300 whitespace-nowrap"
+                    className={`block py-3 px-4 text-sm font-medium border-b-2 transition-all duration-300 whitespace-nowrap ${
+                      pathname === `/kategori/${k.slug}`
+                        ? 'text-[var(--text-primary)] border-red-600'
+                        : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)] border-transparent hover:border-red-600'
+                    }`}
                    >
                      {k.ad.toUpperCase()}
                    </Link>
