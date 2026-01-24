@@ -57,8 +57,6 @@ export default function Slider({ items, autoPlayInterval = 5000 }: SliderProps) 
         priority={currentIndex === 0}
         unoptimized={currentItem.resim.includes('/uploads/')}
       />
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
       {/* Content */}
       <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10">
@@ -76,7 +74,7 @@ export default function Slider({ items, autoPlayInterval = 5000 }: SliderProps) 
 
   return (
     <div
-      className="relative w-full aspect-[16/9] md:aspect-[21/9] bg-gray-200 dark:bg-[#0a0a0a] rounded-lg overflow-hidden transition-colors duration-300"
+      className="relative w-full aspect-[16/9] md:aspect-[21/9] bg-[var(--bg-secondary)] rounded-lg overflow-hidden transition-colors duration-300"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
