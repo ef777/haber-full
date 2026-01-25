@@ -34,7 +34,12 @@ export async function GET() {
     },
     orderBy: { yayinTarihi: 'desc' },
     take: 1000,
-    include: {
+    select: {
+      baslik: true,
+      slug: true,
+      resim: true,
+      resimAlt: true,
+      yayinTarihi: true,
       kategori: { select: { ad: true } },
       etiketler: { include: { etiket: { select: { ad: true } } } },
     },
