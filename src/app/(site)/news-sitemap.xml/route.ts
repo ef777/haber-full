@@ -18,7 +18,11 @@ const escapeXml = (unsafe: string) => {
 
 export async function GET() {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
-  
+
+  // Site ayarlarını veritabanından çek
+  const siteAyarlari = await prisma.siteAyarlari.findFirst();
+  const siteName = siteAyarlari?.siteAdi || 'Haber Sitesi';
+
   // Son 48 saatteki haberler (Google News gereksinimi)
   const twoDaysAgo = new Date();
   twoDaysAgo.setHours(twoDaysAgo.getHours() - 48);
@@ -44,7 +48,7 @@ ${haberler.map(haber => `  <url>
     <loc>${siteUrl}/haber/${escapeXml(haber.slug)}</loc>
     <news:news>
       <news:publication>
-        <news:name>Haber Sitesi</news:name>
+        <news:name>${siteName}</news:name>
         <news:language>tr</news:language>
       </news:publication>
       <news:publication_date>${haber.yayinTarihi.toISOString()}</news:publication_date>

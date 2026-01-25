@@ -18,8 +18,12 @@ const escapeXml = (unsafe: string) => {
 
 export async function GET() {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
-  const siteName = 'Haber Sitesi';
-  
+
+  // Site ayarlarını veritabanından çek
+  const siteAyarlari = await prisma.siteAyarlari.findFirst();
+  const siteName = siteAyarlari?.siteAdi || 'Haber Sitesi';
+  const siteDescription = siteAyarlari?.siteAciklama || 'En son haberler, son dakika gelişmeleri';
+
   const haberler = await prisma.haber.findMany({
     where: { durum: 'yayinda' },
     orderBy: { yayinTarihi: 'desc' },
@@ -40,7 +44,7 @@ export async function GET() {
   <channel>
     <title>${siteName}</title>
     <link>${siteUrl}</link>
-    <description>En son haberler, son dakika gelişmeleri</description>
+    <description>${siteDescription}</description>
     <language>tr</language>
     <lastBuildDate>${buildDate}</lastBuildDate>
     <atom:link href="${siteUrl}/rss/feed.xml" rel="self" type="application/rss+xml"/>
